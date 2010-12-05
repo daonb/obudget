@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = 'Parses pickle''d budget data into the DB'
 
     def handle(self, *args, **options):
-        multi_ws = re.compile('[\r\n\t ]+')
+        multi_ws = re.compile(u'\s+')
         
         BudgetLine.objects.all().delete()
         
@@ -27,8 +27,10 @@ class Command(BaseCommand):
                 if used < 0 or allocated < 0:
                     continue
                 title = line['description']
-                title = multi_ws.sub(title,' ')   
+                title = multi_ws.sub(' ',title,re.U)   
                 budget_id = line['num']
+                
+                print title
                 
                 BudgetLine( title = title,
                             budget_id = budget_id,
