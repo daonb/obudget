@@ -1,0 +1,12 @@
+parts/
+eggs/
+bin/
+build/
+dist/
+downloads/
+src/*.egg-info/
+develop-eggs/
+*.pyc
+*.db
+*~
+.*
