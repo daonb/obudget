@@ -5,7 +5,7 @@ from obudget.budget_lines.handlers import budget_line_handler
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -24,9 +24,8 @@ urlpatterns = patterns('',
 
 
 default_user, created = User.objects.get_or_create( username='budget' )
-if created:
-    default_user.set_password('budget')
-    default_user.is_staff=True
-    default_user.save()
-    
-    
+default_user.set_password('supersecretbudgetpassword')
+default_user.is_staff=True
+perm = Permission.objects.get(codename='change_budgetline')
+default_user.user_permissions.add(perm)
+default_user.save()
