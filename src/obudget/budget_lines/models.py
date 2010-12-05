@@ -15,8 +15,8 @@ class BudgetLine(models.Model):
     
     amount_allocated    = models.PositiveIntegerField( verbose_name=u'הקצאה (באלפי \u20aa)' )
     amount_revised    	= models.PositiveIntegerField( null=True,
-                                                       verbose_name=u'הקצאה (באלפי \u20aa)' )
-    amount_used         = models.PositiveIntegerField( verbose_name=u'הקצאה (באלפי \u20aa)' ) 
+                                                       verbose_name=u'הקצאה מעודכנת (באלפי \u20aa)' )
+    amount_used         = models.PositiveIntegerField( verbose_name=u'ניצול (באלפי \u20aa)' ) 
     
     year                = models.PositiveIntegerField( db_index=True,
                                                        verbose_name=u'שנה' )
