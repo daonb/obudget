@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    # (r'^$', views.main),
+    (r'^$', views.main),
 
     # sould be the last line
     url(r'^(?P<id>[0-9]+)$', budget_line_handler, name='budget-line-handler'),
