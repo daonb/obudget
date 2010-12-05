@@ -21,11 +21,3 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
 )
-
-
-default_user, created = User.objects.get_or_create( username='budget' )
-default_user.set_password('supersecretbudgetpassword')
-default_user.is_staff=True
-perm = Permission.objects.get(codename='change_budgetline')
-default_user.user_permissions.add(perm)
-default_user.save()
