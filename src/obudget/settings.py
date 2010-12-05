@@ -91,7 +91,7 @@ INSTALLED_APPS = (
     # 'django.contrib.messages',
     'django.contrib.admin',
     'south',
-    'budget_lines',
+    'obudget.budget_lines',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
