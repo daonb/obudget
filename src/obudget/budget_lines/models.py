@@ -42,23 +42,35 @@ class BudgetLine(models.Model):
     containing_line     = models.ForeignKey( 'self', related_name='sublines', null=True, db_index=True,
                                               verbose_name=u'סעיף אב' )
 
+    @property
     def inf_amount_allocated(self):
         infl = INFLATION[self.year]
-        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_allocated, int(self.amount_allocated*infl) ) 
-    inf_amount_allocated.short_description = u'הקצאה (באלפי \u20aa)'
-    inf_amount_allocated.allow_tags = True
+        return int(infl*self.amount_allocated)
+    
+    def _amount_allocated(self):
+        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_allocated, self.inf_amount_allocated ) 
+    _amount_allocated.short_description = u'הקצאה (באלפי \u20aa)'
+    _amount_allocated.allow_tags = True
 
+    @property
     def inf_amount_revised(self):
         infl = INFLATION[self.year]
-        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_revised, int(self.amount_revised*infl) ) 
-    inf_amount_revised.short_description = u'הקצאה (באלפי \u20aa)'
-    inf_amount_revised.allow_tags = True
+        return int(infl*self.amount_revised)
 
+    def _amount_revised(self):
+        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_revised, self.inf_amount_revised ) 
+    _amount_revised.short_description = u'הקצאה (באלפי \u20aa)'
+    _amount_revised.allow_tags = True
+
+    @property
     def inf_amount_used(self):
         infl = INFLATION[self.year]
-        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_used, int(self.amount_used*infl) ) 
-    inf_amount_used.short_description = u'הקצאה (באלפי \u20aa)'
-    inf_amount_used.allow_tags = True
+        return int(infl*self.amount_used)
+
+    def _amount_used(self):
+        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_used, self.inf_amount_used) 
+    _amount_used.short_description = u'הקצאה (באלפי \u20aa)'
+    _amount_used.allow_tags = True
     
     def _title(self):
         return "<a href='/admin/budget_lines/budgetline/?q=%s&year=%s&ot=asc&o=1'>%s</a>" % (self.budget_id, self.year, self.title)
