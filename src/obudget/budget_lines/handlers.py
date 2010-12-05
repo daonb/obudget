@@ -22,8 +22,10 @@ class BudgetLineHandler(BaseHandler):
     allowed_methods = ('GET')
     model = BudgetLine
     qs = BudgetLine.objects.all()
-    fields = ('title', 'budget_id', 'amount_allocated',
-	      'amount_revised', 'amount_used', 'year')
+    fields = ('title', 'budget_id', 
+              'amount_allocated','amount_revised', 'amount_used', 
+              'inf_amount_allocated','inf_amount_revised', 'inf_amount_used', 
+              'year',)
     def read(self, request, **kwargs):
 	r = self.qs.filter(budget_id__startswith=kwargs["id"])
 	return self.qs.filter(budget_id__startswith=kwargs["id"])
