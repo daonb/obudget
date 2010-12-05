@@ -6,6 +6,7 @@ class BudgetLine(models.Model):
     budget_id           = models.CharField(max_length=64,db_index=True)
     
     amount_allocated    = models.PositiveIntegerField()
+    amount_adjusted     = models.PositiveIntegerField()
     amount_used         = models.PositiveIntegerField() 
     
     year                = models.PositiveIntegerField(db_index=True)
