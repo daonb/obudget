@@ -43,9 +43,10 @@ class BudgetLine(models.Model):
                                               verbose_name=u'סעיף אב' )
 
     @property
-    def inf_amount_allocated(self):
-        infl = INFLATION[self.year]
-        return int(infl*self.amount_allocated)
+    def infl(self): return INFLATION.get(self.year, 1)
+
+    @property
+    def inf_amount_allocated(self): return int(self.infl*self.amount_allocated)
     
     def _amount_allocated(self):
         return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_allocated, self.inf_amount_allocated ) 
@@ -53,9 +54,7 @@ class BudgetLine(models.Model):
     _amount_allocated.allow_tags = True
 
     @property
-    def inf_amount_revised(self):
-        infl = INFLATION[self.year]
-        return int(infl*self.amount_revised)
+    def inf_amount_revised(self): return int(self.infl*self.amount_revised)
 
     def _amount_revised(self):
         return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_revised, self.inf_amount_revised ) 
@@ -63,9 +62,7 @@ class BudgetLine(models.Model):
     _amount_revised.allow_tags = True
 
     @property
-    def inf_amount_used(self):
-        infl = INFLATION[self.year]
-        return int(infl*self.amount_used)
+    def inf_amount_used(self): return int(self.infl*self.amount_used)
 
     def _amount_used(self):
         return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_used, self.inf_amount_used) 
