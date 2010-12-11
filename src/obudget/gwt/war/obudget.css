@@ -1,0 +1,24 @@
+/** Add css rules here for your application. */
+
+body > table {
+	direction:rtl;
+}
+
+.resultgrid-header-row td {
+	border-bottom:3px double black;
+	border-collapse:collapse;
+	text-align:center;
+}
+
+.resultgrid-totals-row td {
+	border-bottom:1px solid black;
+	border-collapse:collapse;
+}
+
+.resultgrid-data {
+	text-align:center;
+}
+
+.resultgrid-header {
+	font-weight:bold;
+}
