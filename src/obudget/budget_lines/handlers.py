@@ -10,12 +10,51 @@ from piston.handler import BaseHandler
 from piston.utils import rc
 from obudget.budget_lines.models import BudgetLine
 
+###########
+# API Documentation:
+# -----------------
+#
+# <url>/<budget-code>/?<params>
+#
+# params:
+# ------
+# year  - year selection
+# num   - page size
+# page  - page index
+# full  - 1/0, bring full subtree(s)
+# depth - >0, bring x layers of subtree(s)
+# text  - search term, bring entries which contain the text
+
 DEFAULT_PAGE_LEN = 20
 def limit_by_request(qs, request):
-    if 'num' in request.GET:
-        num = int(request.GET['num'])
-        page = 'page' in request.GET and int(request.GET['page']) or 0
+    if 'num' in request.GET or 'page' in request.GET:
+        num = int(request.GET.get('num',DEFAULT_PAGE_LEN))
+        page = int(request.GET.get('page',0))
         return qs[page*num:(page+1)*num]
+    return qs
+
+def year_by_request(qs, request):
+    if 'year' in request.GET:
+        year = int(request.GET['year'])
+        return qs.filter(year=year)
+    return qs
+
+def text_by_request(qs, request):
+    if 'text' in request.GET:
+        text = request.GET['text']
+        print repr(text)
+        return qs.filter(title__icontains = text)
+    return qs
+
+def depth_by_request(qs, request, budget_code):
+    start_depth = len(budget_code)
+    depth = request.GET.get('depth',0)
+    full = request.GET.get('full',None) == '1'
+    if full:
+        depth = 20 # to be on the safe side
+    if depth != None:
+        max_depth = start_depth + int(depth)*2
+        qs = qs.filter( budget_id_len__lte = max_depth ) 
     return qs
 
 class BudgetLineHandler(BaseHandler):
@@ -24,12 +63,17 @@ class BudgetLineHandler(BaseHandler):
     qs = BudgetLine.objects.all()
     fields = ('title', 'budget_id', 
               'amount_allocated','amount_revised', 'amount_used', 
-              'inf_amount_allocated','inf_amount_revised', 'inf_amount_used', 
+              'inflation_factor', 
               'year',)
+    
     def read(self, request, **kwargs):
-	r = self.qs.filter(budget_id__startswith=kwargs["id"])
-	return self.qs.filter(budget_id__startswith=kwargs["id"])
-        return super(BudgetLineHandler, self).read(request, **kwargs)
+        budget_code = kwargs["id"]
+        qs = self.qs.filter(budget_id__startswith=budget_code).order_by('-year','budget_id_len','budget_id')
+        qs = depth_by_request(qs, request, budget_code)
+        qs = year_by_request(qs, request)
+        qs = text_by_request(qs, request)
+        qs = limit_by_request(qs, request)
+        return qs
 
 budget_line_handler= Resource(BudgetLineHandler)
 

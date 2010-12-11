@@ -30,6 +30,7 @@ class BudgetLine(models.Model):
                                             verbose_name=u'שם' )
     budget_id           = models.CharField( max_length=64,db_index=True,
                                             verbose_name=u'סעיף' )
+    budget_id_len       = models.PositiveIntegerField( default=0, db_index=True )
     
     amount_allocated    = models.PositiveIntegerField( verbose_name=u'הקצאה (באלפי \u20aa)' )
     amount_revised    	= models.PositiveIntegerField( null=True,
@@ -43,34 +44,25 @@ class BudgetLine(models.Model):
                                               verbose_name=u'סעיף אב' )
 
     @property
-    def infl(self): return INFLATION.get(self.year, 1)
+    def inflation_factor(self): return INFLATION.get(self.year, 1)
 
-    @property
-    def inf_amount_allocated(self): return int(self.infl*self.amount_allocated)
-    
     def _amount_allocated(self):
-        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_allocated, self.inf_amount_allocated ) 
+        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_allocated, int(self.inflation_factor*self.amount_allocated) ) 
     _amount_allocated.short_description = u'הקצאה (באלפי \u20aa)'
     _amount_allocated.allow_tags = True
 
-    @property
-    def inf_amount_revised(self): return int(self.infl*self.amount_revised)
-
     def _amount_revised(self):
-        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_revised, self.inf_amount_revised ) 
+        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_revised, int(self.inflation_factor*self.amount_revised) ) 
     _amount_revised.short_description = u'הקצאה מעודכנת (באלפי \u20aa)'
     _amount_revised.allow_tags = True
 
-    @property
-    def inf_amount_used(self): return int(self.infl*self.amount_used)
-
     def _amount_used(self):
-        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_used, self.inf_amount_used) 
+        return "<label title='סכום לפני התחשבות במדד: %s'>%s</label>" % ( self.amount_used, int(self.inflation_factor*self.amount_used) ) 
     _amount_used.short_description = u'ניצול (באלפי \u20aa)'
     _amount_used.allow_tags = True
     
     def _title(self):
-        return "<a href='/admin/budget_lines/budgetline/my/?q=%s&year=%s&ot=asc&o=1'>%s</a>" % (self.budget_id, self.year, self.title)
+        return "<a href='/admin/budget_lines/budgetline/my/?q=%s&year=%s&ot=asc&o=1'>%s</a>" % (self.budget_id, self.year, self.title )
     _title.short_description = u'שם'
     _title.allow_tags = True
     
