@@ -1,3 +1,5 @@
+import os
+
 from django.conf.urls.defaults import *
 
 from obudget import views
@@ -20,4 +22,6 @@ urlpatterns = patterns('',
     url(r'^(?P<id>[0-9]+)$', budget_line_handler, name='budget-line-handler'),
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+    (r'^gwt/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.realpath('src/obudget/gwt/war/')}),
+
 )
