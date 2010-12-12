@@ -33,41 +33,14 @@ public class OBudgetMain implements EntryPoint {
 
 	private void init() {
 
-		 mApp = new Application();
-		 mApp.init();
-		 
-		 final ListBox yearSelection = new ListBox();
-		 yearSelection.addChangeHandler( new ChangeHandler() {
-			
-			@Override
-			public void onChange(ChangeEvent event) {
-				Integer index = yearSelection.getSelectedIndex();
-				if ( index > 0 ) {
-					mApp.selectYear( 1991+index );
-				}				
-			}
-		});
-		
-		final SuggestBox suggest = new SuggestBox(new BudgetSuggestionOracle(yearSelection));
-		suggest.setWidth("200px");
-		suggest.addSelectionHandler( new SelectionHandler<Suggestion>() {
-			@Override
-			public void onSelection(SelectionEvent<Suggestion> event) {
-				BudgetSuggestion bs = (BudgetSuggestion) event.getSelectedItem();
-				History.newItem(bs.getCode() +","+ bs.getYear() );
-			}
-		});
-
-		yearSelection.addItem("כולן");
-		for ( Integer i = 1992 ; i<=2009 ; i ++ ) {
-			yearSelection.addItem(i.toString());
-		}
+		mApp = new Application();
+		mApp.init(); 
 
 		HorizontalPanel hPanel = new HorizontalPanel();
 		
 		VerticalPanel filterPanel = new VerticalPanel();
-		filterPanel.add(yearSelection);
-		filterPanel.add(suggest);
+		filterPanel.add(mApp.getYearSelection() );
+		filterPanel.add(mApp.getSearchBox() );
 		filterPanel.add(mApp.getResultsGrid());
 		filterPanel.setWidth("400px");
 		
