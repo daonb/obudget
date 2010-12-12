@@ -22,7 +22,7 @@
   <inherits name='com.google.gwt.visualization.Visualization'/>
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='org.obudget.client.obudget'/>
+  <entry-point class='org.obudget.client.OBudgetMain'/>
   
 <set-property name="user.agent" value="safari"/>
 
