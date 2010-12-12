@@ -4,12 +4,13 @@
   <property name="gwt.args" value="" />
 
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="/home/adam/Projects/gwt/gwt-2.0.3" />
+  <property name="gwt.sdk" location="/Users/daonb/src/gwt-2.1.0" />
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
     <pathelement location="${gwt.sdk}/gwt-user.jar"/>
     <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+    <fileset dir="${gwt.sdk}" includes="gwt-visualization.jar"/>
     <!-- Add any additional non-server libs (such as JUnit) -->
     <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
   </path>
