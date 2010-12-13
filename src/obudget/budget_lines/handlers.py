@@ -10,20 +10,6 @@ from piston.handler import BaseHandler
 from piston.utils import rc
 from obudget.budget_lines.models import BudgetLine
 
-###########
-# API Documentation:
-# -----------------
-#
-# <url>/<budget-code>/?<params>
-#
-# params:
-# ------
-# year  - year selection
-# num   - page size
-# page  - page index
-# full  - 1/0, bring full subtree(s)
-# depth - >0, bring x layers of subtree(s)
-# text  - search term, bring entries which contain the text
 
 DEFAULT_PAGE_LEN = 20
 def limit_by_request(qs, request):
@@ -42,7 +28,6 @@ def year_by_request(qs, request):
 def text_by_request(qs, request):
     if 'text' in request.GET:
         text = request.GET['text']
-        print repr(text)
         return qs.filter(title__icontains = text)
     return qs
 
@@ -58,6 +43,22 @@ def depth_by_request(qs, request, budget_code):
     return qs
 
 class BudgetLineHandler(BaseHandler):
+    '''
+    API Documentation:
+    ------------------
+    
+    <url>/<budget-code>/?<params>
+    
+    params:
+    ------
+    year  - year selection
+    num   - page size
+    page  - page index
+    full  - 1/0, bring full subtree(s)
+    depth - >0, bring x layers of subtree(s)
+    text  - search term, bring entries which contain the text
+    '''
+
     allowed_methods = ('GET')
     model = BudgetLine
     qs = BudgetLine.objects.all()
