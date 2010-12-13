@@ -12,8 +12,8 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 
 	public BudgetAPICaller() {
 		url = new UrlBuilder();
-		url.setHost("127.0.0.1");
-		url.setPort(8000);
+		url.setHost("budget.yeda.us");
+		url.setPort(80);
 		url.setPath("00");
 	}
 	
