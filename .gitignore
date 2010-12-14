@@ -9,4 +9,4 @@ develop-eggs/
 *.pyc
 *.db
 *~
-
+WEB-INF
