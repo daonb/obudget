@@ -4,8 +4,10 @@ import java.util.LinkedList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 
 class HeaderLabel extends Label {
@@ -19,10 +21,11 @@ class HeaderLabel extends Label {
 class ResultGrid extends Composite {
 	private Grid mGrid;
 
-	public ResultGrid( ) {
+	public ResultGrid() {
 		mGrid = new Grid(1,4);
 		mGrid.setStylePrimaryName("resultgrid");
 		mGrid.setCellSpacing(0);
+		mGrid.setCellPadding(2);
 		initWidget(mGrid);
 	}
 	
@@ -41,10 +44,19 @@ class ResultGrid extends Composite {
 
 		for ( int r = 0 ; r < list.size() ; r ++ ) {
 			BudgetLine bl = list.get(r);
-			mGrid.setHTML(r+1, 0, "<a href='#"+bl.getCode()+","+bl.getYear()+"'>"+bl.getTitle()+"</a>" );
-			mGrid.setText(r+1, 1, "" + bl.getAllocated() );
-			mGrid.setText(r+1, 2, "" + bl.getRevised() );
-			mGrid.setText(r+1, 3, "" + bl.getUsed() );			
+			String title;
+			if ( r != 0 ) {
+				title = "&nbsp;&nbsp;" + "<a href='#"+bl.getCode()+","+bl.getYear()+"'>"+bl.getTitle()+"</a>";
+			} else {
+				title = "סה\"כ:";				
+			}
+			HTML titleHtml = new HTML(title);
+			titleHtml.setWordWrap(false);
+			mGrid.setWidget(r+1, 0, titleHtml);
+			NumberFormat decimalFormat = NumberFormat.getDecimalFormat();
+			mGrid.setText(r+1, 1, decimalFormat.format( bl.getAllocated() ) );
+			mGrid.setText(r+1, 2, decimalFormat.format( bl.getRevised() ) );
+			mGrid.setText(r+1, 3, decimalFormat.format( bl.getUsed() ) );			
 			mGrid.getCellFormatter().addStyleName(r+1, 1, "resultgrid-data");
 			mGrid.getCellFormatter().addStyleName(r+1, 2, "resultgrid-data");
 			mGrid.getCellFormatter().addStyleName(r+1, 3, "resultgrid-data");

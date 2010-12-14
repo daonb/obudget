@@ -37,8 +37,16 @@ class BudgetLine {
 		return mRevised;
 	}
 
+	public Integer getInfRevised() {
+		return (int) (mInflation * mRevised);
+	}
+
 	public Integer getUsed() {
 		return mUsed;
+	}
+
+	public Integer getInfUsed() {
+		return (int) (mInflation * mUsed);
 	}
 
 	public String getTitle() {

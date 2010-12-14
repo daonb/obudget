@@ -7,6 +7,7 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -39,8 +40,17 @@ public class OBudgetMain implements EntryPoint {
 		HorizontalPanel hPanel = new HorizontalPanel();
 		
 		VerticalPanel filterPanel = new VerticalPanel();
-		filterPanel.add(mApp.getYearSelection() );
+		
+		HorizontalPanel yearSelection = new HorizontalPanel();
+
 		filterPanel.add(mApp.getSearchBox() );
+		
+		Label yearSelectionLabel = new Label("בחירת שנה לסעיף:");
+		yearSelection.add(yearSelectionLabel);
+		yearSelection.add(mApp.getYearSelection());
+		filterPanel.add(yearSelection);
+		
+		filterPanel.add(mApp.getBreadcrumbs() );
 		filterPanel.add(mApp.getResultsGrid());
 		filterPanel.setWidth("400px");
 		

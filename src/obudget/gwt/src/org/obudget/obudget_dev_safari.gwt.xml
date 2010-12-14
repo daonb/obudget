@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='obudget'>
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User'/>
+ 
+  <!-- Internationalization: -->
+  <inherits name='com.google.gwt.i18n.I18N' />
+
+  <!-- Heberw -->
+  <extend-property name="locale" values="he"/>
+  <!-- Default -->
+  <set-property-fallback name="locale" value="he"/>
+
+  <!-- Inherit the default GWT style sheet.  You can change       -->
+  <!-- the theme of your GWT application by uncommenting          -->
+  <!-- any one of the following lines.                            -->
+  <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>
+
+  <!-- Other module inherits                                      -->
+  <inherits name='com.google.gwt.jsonp.Jsonp'/>
+  <inherits name='com.google.gwt.json.JSON'/>
+  <inherits name='com.google.gwt.visualization.Visualization'/>
+
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='org.obudget.client.OBudgetMain'/>
+  
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client'/>
+  <source path='shared'/>
+
+  <set-property name="user.agent" value="safari"/>
+
+</module>

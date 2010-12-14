@@ -9,6 +9,8 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -20,6 +22,7 @@ class Application implements ValueChangeHandler<String> {
 	private BudgetLines  mHistoricBudgetLines = new BudgetLines();
 	private ResultGrid mResultsGrid;
 	private PieCharter mPieCharter;
+	private HTML mBreadcrumbs;
 	private TimeLineCharter mTimeLineCharter;
 	private String mCode = null;
 	private Integer mYear = null;
@@ -37,6 +40,10 @@ class Application implements ValueChangeHandler<String> {
 		mTimeLineCharter = new TimeLineCharter(this);
 		mTimeLineCharter.setWidth("600px");
 		mTimeLineCharter.setHeight("300px");
+		
+		mBreadcrumbs = new HTML("");
+		mBreadcrumbs.setHeight("30px");
+		mBreadcrumbs.setWidth("400px");
 		
 		mYearSelection = new ListBox();
 		mYearSelection.addChangeHandler( new ChangeHandler() {
@@ -86,6 +93,8 @@ class Application implements ValueChangeHandler<String> {
 		mYear = year;
 		
 		BudgetAPICaller generalInfo = new BudgetAPICaller();
+		
+		// Load single record
 		generalInfo.setCode(code);
 		generalInfo.setParameter("year", year.toString() );
 		generalInfo.setParameter("depth", "0");
@@ -101,10 +110,22 @@ class Application implements ValueChangeHandler<String> {
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
 				mYearSelection.setSelectedIndex( mYear - 1991 );
-				mSearchBox.setValue(code + " - " + title + " ("+mYear+")" );				
+				mSearchBox.setValue(code + " - " + title + " ("+mYear+")" );
+				
+				JSONArray parents = data.get(0).isObject().get("parent").isArray();
+				String breadcrumbs = "";
+				for ( int i = 0 ; i < parents.size() ; i++ ) {
+					String ptitle = parents.get(i).isObject().get("title").isString().stringValue();
+					String pcode = parents.get(i).isObject().get("budget_id").isString().stringValue();
+					breadcrumbs = "<a href='#"+pcode+","+mYear+"'>"+ptitle+"</a>"+"&nbsp;&gt;&nbsp;" + breadcrumbs;
+				}
+				breadcrumbs += "<a href='#"+code+","+mYear+"'>"+title+"</a>";
+				mBreadcrumbs.setHTML(breadcrumbs);
+				
 			}
 		});
 
+		// Load all children
 		BudgetAPICaller childrenLines = new BudgetAPICaller();
 		childrenLines.setCode(code);
 		childrenLines.setParameter("year", year.toString());
@@ -119,6 +140,7 @@ class Application implements ValueChangeHandler<String> {
 			}
 		});
 		
+		// Load same record, over the years
 		BudgetAPICaller historicLines = new BudgetAPICaller();
 		historicLines.setCode(code);
 		historicLines.setParameter("depth", "0");
@@ -154,6 +176,10 @@ class Application implements ValueChangeHandler<String> {
 
 	public Widget getSearchBox() {
 		return mSearchBox;
+	}
+
+	public Widget getBreadcrumbs() {
+		return mBreadcrumbs;
 	}
 
 }
