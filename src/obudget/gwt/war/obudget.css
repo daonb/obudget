@@ -1,5 +1,6 @@
 /** Add css rules here for your application. */
 
+table { padding: 10px; }
 body > table, .suggestPopupContent {
 	direction:rtl;
 }
