@@ -65,7 +65,9 @@ class BudgetLineHandler(BaseHandler):
     fields = ('title', 'budget_id', 
               'amount_allocated','amount_revised', 'amount_used', 
               'inflation_factor', 
-              'year',)
+              'year',
+              'parent',
+              )
     
     def read(self, request, **kwargs):
         budget_code = kwargs["id"]
@@ -75,6 +77,18 @@ class BudgetLineHandler(BaseHandler):
         qs = text_by_request(qs, request)
         qs = limit_by_request(qs, request)
         return qs
+    
+    @classmethod
+    def parent(self, line):
+        l = line.containing_line
+        parent = []
+        while l != None:
+            parent.append({ 'budget_id' : l.budget_id, 
+                            'title'     : l.title })
+            l = l.containing_line
+        return parent
+
+        
 
 budget_line_handler= Resource(BudgetLineHandler)
 
