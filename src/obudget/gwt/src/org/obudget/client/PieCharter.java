@@ -36,7 +36,7 @@ class PieCharter extends Composite {
 		mApp = app;
 		mTabPanel = new TabLayoutPanel(0,Unit.PX);
 		mTabPanel.setHeight("280px");
-		mTabPanel.setWidth("330px");
+		mTabPanel.setWidth("325px");
 		mTabPanel.setStylePrimaryName("obudget-piechart");	
 		
 		mPanel = new VerticalPanel();
@@ -97,7 +97,9 @@ class PieCharter extends Composite {
 	}
 	
 	public void handleData( LinkedList<BudgetLine> list ) {
-		if ( list.size() < 2 ) { return; }
+	    mTabPanel.clear();
+
+	    if ( list.size() < 2 ) { return; }
 
 		Options	options = Options.create();
 		options.setWidth(340);
@@ -136,8 +138,7 @@ class PieCharter extends Composite {
 	    PieChart piechartRevised = new PieChart( data[1], options );
 	    PieChart piechartUsed = new PieChart( data[2], options );
 
-	    mTabPanel.clear();
-		mTabPanel.setWidth("330px");   
+		mTabPanel.setWidth("325px");   
 	    mTabPanel.add(piechartAllocated,"הקצאה");
 		mTabPanel.add(piechartRevised,"הקצאה מעודכנת");
 		mTabPanel.add(piechartUsed,"שימוש");

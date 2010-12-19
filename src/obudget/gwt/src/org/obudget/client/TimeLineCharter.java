@@ -115,6 +115,7 @@ class TimeLineCharter extends Composite {
 				redrawChart();				
 			}
 		});
+		mUsedButton.setDown(true);
 
 		HorizontalPanel mDataFieldPanel = new HorizontalPanel();
 		mDataFieldPanel.add( mAllocatedButton );
@@ -123,13 +124,16 @@ class TimeLineCharter extends Composite {
 
 		mPanel.add(mDataFieldPanel);
 		
-		mPanel.setWidth("390px");
-		
+		mPanel.setWidth("385px");
+
 		initWidget(mPanel);
 	}
 	
 	public void handleData( LinkedList<BudgetLine> list ) {
-		if ( list.size() == 0 ) { return; }
+		if ( list.size() == 0 ) {
+			mChartPanel.clear();
+			return; 
+		}
 		mList = list;
 		redrawChart();
 	}
@@ -137,7 +141,7 @@ class TimeLineCharter extends Composite {
 	private void redrawChart() {
 
 		AreaChart.Options options = AreaChart.Options.create();
-		options.setWidth(390);
+		options.setWidth(385);
 		options.setHeight(260);
 		//options.setTitle( list.get(0).getTitle() + " - " + "הקצאה באלפי \u20AA, מותאם לאינפלציה" );
 		//options.setTitleX("שנה");
