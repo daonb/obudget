@@ -17,7 +17,6 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 		try {
 			url.setPort(Integer.parseInt( port ));
 		} catch (Exception e) {}
-		url.setPort(8000);
 		url.setPath("00");
 	}
 	

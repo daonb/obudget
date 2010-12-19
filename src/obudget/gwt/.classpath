@@ -14,5 +14,6 @@
 			<attribute name="javadoc_location" value="file:/home/adam/Projects/eclipse/eclipse/plugins/com.google.gwt.eclipse.sdkbundle.2.1.0_2.1.0.v201010280047/gwt-2.1.0/doc/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="gwt-search.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
