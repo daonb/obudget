@@ -33,6 +33,10 @@ class BudgetLine {
 		return (int) (mInflation * mAllocated);
 	}
 
+	public Double getPercentAllocated() {
+		return 100.0 * mAllocated / TotalBudget.getInstance().getAllocated(mYear);
+	}
+
 	public Integer getRevised() {
 		return mRevised;
 	}
@@ -41,12 +45,20 @@ class BudgetLine {
 		return (int) (mInflation * mRevised);
 	}
 
+	public Double getPercentRevised() {
+		return 100.0 * mRevised / TotalBudget.getInstance().getRevised(mYear);
+	}
+
 	public Integer getUsed() {
 		return mUsed;
 	}
 
 	public Integer getInfUsed() {
 		return (int) (mInflation * mUsed);
+	}
+
+	public Double getPercentUsed() {
+		return 100.0 * mUsed / TotalBudget.getInstance().getUsed(mYear);
 	}
 
 	public String getTitle() {

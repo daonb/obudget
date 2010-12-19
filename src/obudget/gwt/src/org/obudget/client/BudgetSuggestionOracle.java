@@ -13,19 +13,21 @@ class BudgetSuggestionOracle extends SuggestOracle {
 	public BudgetSuggestionOracle(ListBox yearSelection) {
 		mYearSelection = yearSelection;
 	}
+	
+	@Override
+	public boolean isDisplayStringHTML() {
+		return true;
+	}
 
 	@Override
 	public void requestSuggestions(final Request request, final Callback callback) {
-		String query = request.getQuery();
+		final String query = request.getQuery();
 		
 		BudgetAPICaller api = new BudgetAPICaller();
 		api.setParameter("text", query);
 		api.setParameter("full", "1");
 		api.setParameter("num", "20");
 		api.setParameter("distinct", "1");
-		if ( mYearSelection.getSelectedIndex() > 0 ) {
-			api.setParameter("year", mYearSelection.getItemText(mYearSelection.getSelectedIndex()));		
-		}
 		api.go(new BudgetAPICallback() {
 			
 			@Override
@@ -35,8 +37,7 @@ class BudgetSuggestionOracle extends SuggestOracle {
 				for ( int i = 0 ; i < array.size() ; i ++ ) {
 					String title = array.get(i).isObject().get("title").isString().stringValue();
 					String code =  array.get(i).isObject().get("budget_id").isString().stringValue();
-					Integer year =  (int) array.get(i).isObject().get("year").isNumber().doubleValue();
-					Suggestion suggestion = new BudgetSuggestion(title, code, year);
+					Suggestion suggestion = new BudgetSuggestion(query, title, code);
 					suggestions.add(suggestion);
 				}
 				response.setSuggestions( suggestions );

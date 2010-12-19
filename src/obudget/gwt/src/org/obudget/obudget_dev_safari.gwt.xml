@@ -20,7 +20,8 @@
   <inherits name='com.google.gwt.jsonp.Jsonp'/>
   <inherits name='com.google.gwt.json.JSON'/>
   <inherits name='com.google.gwt.visualization.Visualization'/>
-
+  <inherits name='com.google.gwt.search.Search' />
+  
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.obudget.client.OBudgetMain'/>
   

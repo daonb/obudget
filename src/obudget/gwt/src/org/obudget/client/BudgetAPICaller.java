@@ -13,7 +13,11 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 	public BudgetAPICaller() {
 		url = new UrlBuilder();
 		url.setHost(Window.Location.getHost());
-		url.setPort(Integer.parseInt( Window.Location.getPort() ));
+		String port = Window.Location.getPort();
+		try {
+			url.setPort(Integer.parseInt( port ));
+		} catch (Exception e) {}
+		url.setPort(8000);
 		url.setPath("00");
 	}
 	

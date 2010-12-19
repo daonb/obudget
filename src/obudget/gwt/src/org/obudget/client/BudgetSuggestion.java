@@ -1,35 +1,38 @@
 package org.obudget.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 class BudgetSuggestion implements Suggestion {
 
 	private String mSuggestion;
 	private String mCode;
-	private Integer mYear;
+	private String mQuery;
+	private String mTitle;
 
-	public BudgetSuggestion(String title, String code, Integer year) {
-		mSuggestion = code + " - "  + title + " (" + year + ")";
+	public BudgetSuggestion(String query, String title, String code) {
+		mSuggestion = code + " - "  + title;
+		mTitle = title;
 		mCode = code;
-		mYear = year;
+		mQuery = query;
 	}
 	
 	@Override
 	public String getDisplayString() {
-		return mSuggestion;
+		return mSuggestion.replace(mQuery, "<b>"+mQuery+"</b>");
 	}
 
 	@Override
 	public String getReplacementString() {
 		return mSuggestion;
 	}
-	
-	public Integer getYear() {
-		return mYear;
-	}
-	
+		
 	public String getCode() {
 		return mCode;
+	}
+
+	public String getTitle() {
+		return mTitle;
 	}
 	
 }

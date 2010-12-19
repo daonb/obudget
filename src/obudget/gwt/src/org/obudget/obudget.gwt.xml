@@ -20,6 +20,12 @@
   <inherits name='com.google.gwt.jsonp.Jsonp'/>
   <inherits name='com.google.gwt.json.JSON'/>
   <inherits name='com.google.gwt.visualization.Visualization'/>
+  <inherits name='com.google.gwt.search.Search' />
+
+  <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;gwt=1&amp;key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"/>
+
+  <!-- Specify the application specific style sheet. 
+  <stylesheet src='SimpleSearch.css' />   -->
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.obudget.client.OBudgetMain'/>
@@ -27,5 +33,6 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
+  <inherits name="org.obudget.obudget"/>
 
 </module>

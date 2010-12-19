@@ -1,12 +1,15 @@
 package org.obudget.client;
 
+import com.google.gwt.dev.jjs.ast.js.JsonObject;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
@@ -28,10 +31,16 @@ class Application implements ValueChangeHandler<String> {
 	private Integer mYear = null;
 	private ListBox mYearSelection;
 	private SuggestBox mSearchBox;
+	private Label mSummary1;
+	private Label mSummary2;
+	private HTML mSummary3;
+	private BudgetNews mBudgetNews;
 	
 	public void init() {
+		TotalBudget.getInstance();
+		
 		mResultsGrid = new ResultGrid();
-		mResultsGrid.setWidth("300px");
+		mResultsGrid.setWidth("60%");
 
 		mPieCharter = new PieCharter(this);
 		mPieCharter.setWidth("600px");
@@ -50,9 +59,7 @@ class Application implements ValueChangeHandler<String> {
 			@Override
 			public void onChange(ChangeEvent event) {
 				Integer index = mYearSelection.getSelectedIndex();
-				if ( index > 0 ) {
-					selectYear( 1991+index );
-				}				
+				selectYear( 1992+index );
 			}
 		});
 		
@@ -61,16 +68,37 @@ class Application implements ValueChangeHandler<String> {
 		mSearchBox.addSelectionHandler( new SelectionHandler<Suggestion>() {
 			@Override
 			public void onSelection(SelectionEvent<Suggestion> event) {
-				BudgetSuggestion bs = (BudgetSuggestion) event.getSelectedItem();
-				History.newItem(bs.getCode() +","+ bs.getYear() );
+				final BudgetSuggestion bs = (BudgetSuggestion) event.getSelectedItem();
+				
+				BudgetAPICaller api = new BudgetAPICaller();
+				api.setCode(bs.getCode());
+				api.setParameter("depth", "0");
+				api.setParameter("text", bs.getTitle());
+				
+				api.go( new BudgetAPICallback() {
+					
+					@Override
+					public void onSuccess(JSONArray data) {
+						if ( data.size() > 0 ) {
+							Integer year = (int) data.get(0).isObject().get("year").isNumber().doubleValue();
+							History.newItem(bs.getCode() +","+year );
+						}
+					}
+				});
+				
 			}
 		});
 
-		mYearSelection.addItem("כולן");
 		for ( Integer i = 1992 ; i<=2009 ; i ++ ) {
 			mYearSelection.addItem(i.toString());
 		}
 
+		mSummary1 = new Label();
+		mSummary2 = new Label();
+		mSummary3 = new HTML();
+		
+		mBudgetNews = new BudgetNews();
+				
 		History.addValueChangeHandler( this );
 	}
 
@@ -105,23 +133,51 @@ class Application implements ValueChangeHandler<String> {
 				if ( data.size() < 1 ) {
 					return;
 				}
-				String title = data.get(0).isObject().get("title").isString().stringValue();
-				String code = data.get(0).isObject().get("budget_id").isString().stringValue();
+				
+				JSONObject firstResult = data.get(0).isObject(); 
+				
+				String title = firstResult.get("title").isString().stringValue();
+				String code = firstResult.get("budget_id").isString().stringValue();
+				mSearchBox.setValue(code + " - " + title);
+
+				mYearSelection.setSelectedIndex( mYear - 1992 );
+
+				mBudgetNews.update("\""+title+"\"");
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
-				mYearSelection.setSelectedIndex( mYear - 1991 );
-				mSearchBox.setValue(code + " - " + title + " ("+mYear+")" );
+				mSummary1.setText( "לתקציב "+title+" הוקצו בשנת");
+				final Integer revisedSum = (int) firstResult.get("amount_revised").isNumber().doubleValue();
+				mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa");
 				
-				JSONArray parents = data.get(0).isObject().get("parent").isArray();
-				String breadcrumbs = "";
-				for ( int i = 0 ; i < parents.size() ; i++ ) {
-					String ptitle = parents.get(i).isObject().get("title").isString().stringValue();
-					String pcode = parents.get(i).isObject().get("budget_id").isString().stringValue();
-					breadcrumbs = "<a href='#"+pcode+","+mYear+"'>"+ptitle+"</a>"+"&nbsp;&gt;&nbsp;" + breadcrumbs;
+				mSummary3.setHTML("");							
+				if ( firstResult.get("parent") != null ) {
+					JSONArray parents = firstResult.get("parent").isArray();	
+					if ( parents.size() > 0 ) {
+						final String parentCode = parents.get(0).isObject().get("budget_id").isString().stringValue();
+						final String parentTitle = parents.get(0).isObject().get("title").isString().stringValue();
+						
+						BudgetAPICaller percent = new BudgetAPICaller();
+						percent.setCode(parentCode);
+						percent.setParameter("year", mYear.toString());
+						percent.setParameter("depth", "0");
+						percent.go( new BudgetAPICallback() {						
+							@Override
+							public void onSuccess(JSONArray data) {
+								double percent = revisedSum / data.get(0).isObject().get("amount_revised").isNumber().doubleValue();
+								mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+parentCode+","+mYear+"'>"+parentTitle+"</a>");							
+							}
+						});
+					}			
+				
+					String breadcrumbs = "";
+					for ( int i = 0 ; i < parents.size() ; i++ ) {
+						String ptitle = parents.get(i).isObject().get("title").isString().stringValue();
+						String pcode = parents.get(i).isObject().get("budget_id").isString().stringValue();
+						breadcrumbs = "<a href='#"+pcode+","+mYear+"'>"+ptitle+"</a>"+"&nbsp;&gt;&nbsp;" + breadcrumbs;
+					}
+					breadcrumbs += "<a href='#"+code+","+mYear+"'>"+title+"</a>";
+					mBreadcrumbs.setHTML(breadcrumbs);			
 				}
-				breadcrumbs += "<a href='#"+code+","+mYear+"'>"+title+"</a>";
-				mBreadcrumbs.setHTML(breadcrumbs);
-				
 			}
 		});
 
@@ -167,6 +223,8 @@ class Application implements ValueChangeHandler<String> {
 			String code = parts[0];
 			Integer year = Integer.decode(parts[1]);
 			selectBudgetCode(code, year);
+		} else {
+			History.newItem("00,2009");
 		}
 	}
 
@@ -180,6 +238,22 @@ class Application implements ValueChangeHandler<String> {
 
 	public Widget getBreadcrumbs() {
 		return mBreadcrumbs;
+	}
+
+	public Widget getSummary1() {
+		return mSummary1;
+	}
+
+	public Widget getSummary2() {
+		return mSummary2;
+	}
+
+	public Widget getSummary3() {
+		return mSummary3;
+	}
+
+	public Widget getBudgetNews() {
+		return mBudgetNews;
 	}
 
 }

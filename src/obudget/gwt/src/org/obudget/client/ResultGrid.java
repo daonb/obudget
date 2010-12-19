@@ -2,24 +2,22 @@ package org.obudget.client;
 
 import java.util.LinkedList;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 
-class HeaderLabel extends Label {
-	public HeaderLabel(String contents) {
-		super(contents);
-		setWordWrap(false);
-		setStylePrimaryName("resultgrid-header");
-	}
-}
-
 class ResultGrid extends Composite {
 	private Grid mGrid;
+
+	class HeaderLabel extends Label {
+		public HeaderLabel(String contents) {
+			super(contents);
+			setWordWrap(false);
+			setStylePrimaryName("resultgrid-header");
+		}
+	}
 
 	public ResultGrid() {
 		mGrid = new Grid(1,4);
@@ -54,16 +52,18 @@ class ResultGrid extends Composite {
 			titleHtml.setWordWrap(false);
 			mGrid.setWidget(r+1, 0, titleHtml);
 			NumberFormat decimalFormat = NumberFormat.getDecimalFormat();
-			mGrid.setText(r+1, 1, decimalFormat.format( bl.getAllocated() ) );
-			mGrid.setText(r+1, 2, decimalFormat.format( bl.getRevised() ) );
-			mGrid.setText(r+1, 3, decimalFormat.format( bl.getUsed() ) );			
+			mGrid.setText(r+1, 1, decimalFormat.format( bl.getAllocated() )+ (bl.getAllocated() == 0 ? "" : ",000") );
+			mGrid.setText(r+1, 2, decimalFormat.format( bl.getRevised() )+ (bl.getRevised() == 0 ? "" : ",000") );
+			mGrid.setText(r+1, 3, decimalFormat.format( bl.getUsed() )+ (bl.getUsed() == 0 ? "" : ",000") );			
 			mGrid.getCellFormatter().addStyleName(r+1, 1, "resultgrid-data");
 			mGrid.getCellFormatter().addStyleName(r+1, 2, "resultgrid-data");
 			mGrid.getCellFormatter().addStyleName(r+1, 3, "resultgrid-data");
 		}
 
 		mGrid.getRowFormatter().addStyleName(0, "resultgrid-header-row");
-		mGrid.getRowFormatter().addStyleName(1, "resultgrid-totals-row");
+		if ( mGrid.getRowCount() > 1 ) { 
+			mGrid.getRowFormatter().addStyleName(1, "resultgrid-totals-row");
+		}
 
 	}
 }

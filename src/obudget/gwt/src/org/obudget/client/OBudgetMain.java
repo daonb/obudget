@@ -1,18 +1,14 @@
 package org.obudget.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.visualizations.AreaChart;
 import com.google.gwt.visualization.client.visualizations.PieChart;
@@ -37,33 +33,18 @@ public class OBudgetMain implements EntryPoint {
 		mApp = new Application();
 		mApp.init(); 
 
-		HorizontalPanel hPanel = new HorizontalPanel();
-		
-		VerticalPanel filterPanel = new VerticalPanel();
-		
-		HorizontalPanel yearSelection = new HorizontalPanel();
+		//filterPanel.add(mApp.getBreadcrumbs() );
 
-		filterPanel.add(mApp.getSearchBox() );
-		
-		Label yearSelectionLabel = new Label("בחירת שנה לסעיף:");
-		yearSelection.add(yearSelectionLabel);
-		yearSelection.add(mApp.getYearSelection());
-		filterPanel.add(yearSelection);
-		
-		filterPanel.add(mApp.getBreadcrumbs() );
-		filterPanel.add(mApp.getResultsGrid());
-		filterPanel.setWidth("400px");
-		
-		hPanel.add(filterPanel);
-		
-		VerticalPanel charts = new VerticalPanel();
-		charts.add(mApp.getPieCharter());
-		charts.add(mApp.getTimeLineCharter());
-		hPanel.add(charts);
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
-		hPanel.setWidth("100%");
-		RootPanel.get().add(hPanel);
-		
+		RootPanel.get("obudget-searchbox").add(mApp.getSearchBox());
+		RootPanel.get("obudget-piechart").add(mApp.getPieCharter());
+		RootPanel.get("obudget-timeline").add(mApp.getTimeLineCharter());
+		RootPanel.get("obudget-summary-1").add(mApp.getSummary1() );
+		RootPanel.get("obudget-year-selection").add(mApp.getYearSelection() );
+		RootPanel.get("obudget-summary-2").add(mApp.getSummary2() );
+		RootPanel.get("obudget-summary-3").add(mApp.getSummary3() );
+		RootPanel.get("obudget-detailed-results").add(mApp.getResultsGrid() );
+		RootPanel.get("obudget-news").add(mApp.getBudgetNews() );
+
 		History.fireCurrentHistoryState();
 	}
 }
