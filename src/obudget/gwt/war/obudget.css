@@ -1,7 +1,70 @@
 /** Add css rules here for your application. */
 
-body > table, .suggestPopupContent {
+body > div, .suggestPopupContent {
 	direction:rtl;
+}
+
+#page { margin: 0 auto; width: 747px; font-size:13px; line-height:16px;}
+#logo { background: transparent url(http://www.shituf.gov.il/sites/e.shituf.gov.il/themes/shituf/images/bg_gov_header.png) no-repeat 100% 0%; color: white; }
+#logo h1 { padding: 0.5em; margin:0;}
+#search 
+{
+	text-align: center;
+	font:bold 16px helvetica;
+}
+#summary {text-align: center; }
+#summary > div
+{ padding-bottom:5px; }
+#summary-lines 
+{ 
+	margin-left:auto;
+	margin-right:auto;
+}	
+#search, #summary, #charts, #details {
+	margin-top:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:2px;
+	padding-right:2px;
+	background:#ddeeff;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+
+#obudget-piechart,
+#obudget-timeline,
+#obudget-detailed-results,
+#news,
+#summary-lines
+{
+	padding:5px;
+	background:#eef8ff;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+
+
+#details > div { vertical-align: top;  }
+#obudget-piechart {display:inline-block; width:330px; overflow:hidden; }
+#obudget-timeline {display:inline-block; width:390px; overflow:hidden; }
+
+#obudget-summary-1,
+#obudget-year-selection,
+#obudget-summary-2,
+#obudget-summary-3
+{display:inline-block; font-size:14px; font-family:helvetica; }
+
+#obudget-summary-2
+{font-size:17px; font-weight:bold;}
+
+#obudget-detailed-results { display:inline-block; width:500px;  }
+#news { display:inline-block; width:220px; }
+
+.gwt-TabLayoutPanel,
+.gwt-TabLayoutPanelContent {
+		border-style:none;
 }
 
 .resultgrid-header-row td {
@@ -21,4 +84,8 @@ body > table, .suggestPopupContent {
 
 .resultgrid-header {
 	font-weight:bold;
+}
+
+.gwt-TabLayoutPanelTab {
+	float:right;
 }
