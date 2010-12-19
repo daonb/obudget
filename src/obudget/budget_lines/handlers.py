@@ -31,6 +31,13 @@ def text_by_request(qs, request):
         return qs.filter(title__icontains = text)
     return qs
 
+def distinct_by_request(qs, request):
+    if 'distinct' in request.GET and request.GET['distinct']=="1":
+        return qs.order_by('budget_id_len','budget_id').values('title','budget_id').distinct()
+    else:
+        return qs.order_by('-year','budget_id_len','budget_id')
+    return qs
+
 def depth_by_request(qs, request, budget_code):
     start_depth = len(budget_code)
     depth = request.GET.get('depth',0)
@@ -57,6 +64,7 @@ class BudgetLineHandler(BaseHandler):
     full  - 1/0, bring full subtree(s)
     depth - >0, bring x layers of subtree(s)
     text  - search term, bring entries which contain the text
+    distinct - return distinct records (same title, code, parents), and no year information 
     '''
 
     allowed_methods = ('GET')
@@ -71,10 +79,11 @@ class BudgetLineHandler(BaseHandler):
     
     def read(self, request, **kwargs):
         budget_code = kwargs["id"]
-        qs = self.qs.filter(budget_id__startswith=budget_code).order_by('-year','budget_id_len','budget_id')
+        qs = self.qs.filter(budget_id__startswith=budget_code)
         qs = depth_by_request(qs, request, budget_code)
         qs = year_by_request(qs, request)
         qs = text_by_request(qs, request)
+        qs = distinct_by_request(qs, request)
         qs = limit_by_request(qs, request)
         return qs
     
