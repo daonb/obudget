@@ -15,7 +15,7 @@ for fn in ['history0.html','history1.html']:
         x1 = x.split('.')[0]+'.csv'
         #print os.popen('xls2csv %s | tail -n+14 > %s' % (x, x1)).read()
 
-out = file('history.csv','w')
+out = file('history.json','w')
 
 for y in range(1992,2010):
     fn = 'history%d.csv' % y
@@ -26,9 +26,32 @@ for y in range(1992,2010):
         code,title = name.split('-',1)
         code=code.strip()
         title=title.strip()
-        allocated = l[1]
-        revised = l[2]
-        used = l[3]
+        try:
+            allocated = int(l[1])
+        except:
+            allocated = None
+        try:
+            revised = int(l[2])
+        except:
+            revised = None
+        try:
+            used = int(l[3])
+        except:
+            used = None
+        if code == '0000':
+            income_allocated = allocated 
+            income_revised = revised 
+            income_used = used
+            title = 'הכנסות המדינה'            
+        if code == '00':
+            allocated -= income_allocated 
+            revised -= income_revised 
+            used -= income_used
+            title = 'המדינה'            
+        if code.startswith('0000'):
+            allocated = -allocated
+            revised = -revised
+            used = -used
         j = { 'year':y, 'code' : code, 'title' : title, 'net_allocated' : allocated, 'net_revised' : revised, 'net_used' : used }
         out.write(json.dumps(j)+'\n')
         
