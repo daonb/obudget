@@ -1,3 +1,5 @@
+### encoding: utf8
+
 import os
 import re
 import csv
@@ -39,19 +41,25 @@ for y in range(1992,2010):
         except:
             used = None
         if code == '0000':
-            income_allocated = allocated 
+            income_allocated = allocated
             income_revised = revised 
             income_used = used
             title = 'הכנסות המדינה'            
         if code == '00':
-            allocated -= income_allocated 
-            revised -= income_revised 
-            used -= income_used
+            if income_allocated != None and allocated != None:
+                allocated -= income_allocated 
+            if income_revised != None and revised != None:
+                revised -= income_revised 
+            if income_used != None and used != None:
+                used -= income_used
             title = 'המדינה'            
         if code.startswith('0000'):
-            allocated = -allocated
-            revised = -revised
-            used = -used
+            if allocated != None:
+                allocated = -allocated
+            if revised != None:
+                revised = -revised
+            if used != None:
+                used = -used
         j = { 'year':y, 'code' : code, 'title' : title, 'net_allocated' : allocated, 'net_revised' : revised, 'net_used' : used }
         out.write(json.dumps(j)+'\n')
         
