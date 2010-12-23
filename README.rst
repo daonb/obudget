@@ -14,12 +14,14 @@ INSTALL
 	$ python bootstrap.py
 	$ bin/buildout
 	$ bin/test
-	$ unzip budget-db.zip
+	$ bin/django syncdb --migrate
+	$ bin/django budget_lines_jsons_to_db data/history_neto/history.json
 
 If you'd like to work on the GWT based user interfce you'll have to install the GWT_ and `gwt-visualization`_ and update the path reference in src/obudget/gwt/src/build.xml.
 
 .. _GWT: http://code.google.com/webtoolkit/download.html
 .. _`gwt-visualization`: http://code.google.com/p/gwt-google-apis/downloads/list
+.. _`gwt-search`: http://code.google.com/p/gwt-google-apis/downloads/list
 
 
 UI
@@ -38,6 +40,7 @@ Currently the system includes only a simple API to get data on a known budget ro
     full  - 1/0, bring full subtree(s)
     depth - >0, bring x layers of subtree(s)
     text  - search term, bring entries which contain the text
+    distinct - if 1, returns distinct records of code/title (without considering the year field)
 
 
 Example:
