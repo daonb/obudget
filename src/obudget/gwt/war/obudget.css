@@ -20,7 +20,7 @@ body > div, .suggestPopupContent {
 	margin-left:auto;
 	margin-right:auto;
 }	
-#search, #summary, #charts, #details {
+#search, #summary, #charts, #details, #breadcrumbs {
 	margin-top:10px;
 	padding-top:10px;
 	padding-bottom:10px;
@@ -36,7 +36,8 @@ body > div, .suggestPopupContent {
 #obudget-timeline,
 #obudget-detailed-results,
 #news,
-#summary-lines
+#summary-lines,
+#obudget-breadcrumbs
 {
 	padding:5px;
 	background:#eef8ff;
@@ -80,6 +81,8 @@ body > div, .suggestPopupContent {
 
 .resultgrid-data {
 	text-align:center;
+	white-space:nowrap;
+	direction:ltr;
 }
 
 .resultgrid-header {

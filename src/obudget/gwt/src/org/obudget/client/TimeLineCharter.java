@@ -25,15 +25,18 @@ class TimeLineCharter extends Composite {
 	private HorizontalPanel mDataTypePanel;
 	private LayoutPanel mChartPanel;
 	private LinkedList<BudgetLine> mList;
-	private ToggleButton mAllocatedButton;
-	private ToggleButton mRevisedButton;
-	private ToggleButton mUsedButton;
+	private ToggleButton mNetAllocatedButton;
+	private ToggleButton mNetRevisedButton;
+	private ToggleButton mNetUsedButton;
+	private ToggleButton mGrossAllocatedButton;
+	private ToggleButton mGrossRevisedButton;
+	private ToggleButton mGrossUsedButton;
 
 	public TimeLineCharter( Application app ) {
 		mApp = app;
 		mPanel = new VerticalPanel();
 		
-		mInfButton = new ToggleButton("מדדי");
+		mInfButton = new ToggleButton("ריאלי");
 		mInfButton.setWidth("30px");
 		mInfButton.setDown(true);
 		mInfButton.addClickHandler( new ClickHandler() {
@@ -49,7 +52,7 @@ class TimeLineCharter extends Composite {
 			}
 		});
 
-		mOrigButton = new ToggleButton("שקלי");
+		mOrigButton = new ToggleButton("נומינלי");
 		mOrigButton.setWidth("30px");
 		mOrigButton.addClickHandler( new ClickHandler() {
 			@Override
@@ -93,36 +96,68 @@ class TimeLineCharter extends Composite {
 		mChartPanel.setWidth("390px");
 		mPanel.add(mChartPanel);
 
-		mAllocatedButton = new ToggleButton("הקצאה");
-		mAllocatedButton.addClickHandler( new ClickHandler() {			
+		mNetAllocatedButton = new ToggleButton("הקצאה נטו");
+		mNetAllocatedButton.setWidth("115px");
+		mNetAllocatedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				redrawChart();				
 			}
 		});
-		mRevisedButton = new ToggleButton("הקצאה מעודכנת");
-		mRevisedButton.addClickHandler( new ClickHandler() {			
+		mNetRevisedButton = new ToggleButton("הקצאה מעודכנת נטו");
+		mNetRevisedButton.setWidth("115px");
+		mNetRevisedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				redrawChart();				
 			}
 		});
-		mRevisedButton.setDown(true);
-		mUsedButton = new ToggleButton("שימוש");
-		mUsedButton.addClickHandler( new ClickHandler() {			
+		mNetUsedButton = new ToggleButton("שימוש נטו");
+		mNetUsedButton.setWidth("115px");
+		mNetUsedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				redrawChart();				
 			}
 		});
-		mUsedButton.setDown(true);
+		mGrossAllocatedButton = new ToggleButton("הקצאה ברוטו");
+		mGrossAllocatedButton.setWidth("115px");
+		mGrossAllocatedButton.addClickHandler( new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				redrawChart();				
+			}
+		});
+		mGrossRevisedButton = new ToggleButton("הקצאה מעודכנת ברוטו");
+		mGrossRevisedButton.setWidth("115px");
+		mGrossRevisedButton.addClickHandler( new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				redrawChart();				
+			}
+		});
+		mGrossRevisedButton.setDown(true);
+		mGrossUsedButton = new ToggleButton("שימוש ברוטו");
+		mGrossUsedButton.setWidth("115px");
+		mGrossUsedButton.addClickHandler( new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				redrawChart();				
+			}
+		});
+		mGrossUsedButton.setDown(true);
 
-		HorizontalPanel mDataFieldPanel = new HorizontalPanel();
-		mDataFieldPanel.add( mAllocatedButton );
-		mDataFieldPanel.add( mRevisedButton );
-		mDataFieldPanel.add( mUsedButton );
+		HorizontalPanel mDataFieldPanelNet = new HorizontalPanel();
+		mDataFieldPanelNet.add( mNetAllocatedButton );
+		mDataFieldPanelNet.add( mNetRevisedButton );
+		mDataFieldPanelNet.add( mNetUsedButton );
+		HorizontalPanel mDataFieldPanelGross = new HorizontalPanel();
+		mDataFieldPanelGross.add( mGrossAllocatedButton );
+		mDataFieldPanelGross.add( mGrossRevisedButton );
+		mDataFieldPanelGross.add( mGrossUsedButton );
 
-		mPanel.add(mDataFieldPanel);
+		mPanel.add(mDataFieldPanelNet);
+		mPanel.add(mDataFieldPanelGross);
 		
 		mPanel.setWidth("385px");
 
@@ -138,6 +173,16 @@ class TimeLineCharter extends Composite {
 		redrawChart();
 	}
 	
+	private void setValueIfNotNull( DataTable data, int row, int column, Integer value ) {
+		if ( value == null ) return;
+		data.setValue(row, column, value);
+	}
+
+	private void setValueIfNotNull( DataTable data, int row, int column, Double value ) {
+		if ( value == null ) return;
+		data.setValue(row, column, value);
+	}
+	
 	private void redrawChart() {
 
 		AreaChart.Options options = AreaChart.Options.create();
@@ -151,33 +196,48 @@ class TimeLineCharter extends Composite {
 		DataTable data = DataTable.create();
 	    data.addColumn(ColumnType.STRING, "Year");
 	    int column;
-	    boolean used = mUsedButton.isDown();
-	    boolean revised = mRevisedButton.isDown();
-	    boolean allocated = mAllocatedButton.isDown();
-	    if ( used    )   { data.addColumn(ColumnType.NUMBER, "שימוש בפועל" ); }
-	    if ( revised )   { data.addColumn(ColumnType.NUMBER, "הקצאה מעודכנת" ); }
-	    if ( allocated ) { data.addColumn(ColumnType.NUMBER, "הקצאת תקציב" ); }
+	    boolean netUsed = mNetUsedButton.isDown();
+	    boolean netRevised = mNetRevisedButton.isDown();
+	    boolean netAllocated = mNetAllocatedButton.isDown();
+	    boolean grossUsed = mGrossUsedButton.isDown();
+	    boolean grossRevised = mGrossRevisedButton.isDown();
+	    boolean grossAllocated = mGrossAllocatedButton.isDown();
+	    if ( netUsed    )   { data.addColumn(ColumnType.NUMBER, "שימוש בפועל - נטו" ); }
+	    if ( netRevised )   { data.addColumn(ColumnType.NUMBER, "הקצאה מעודכנת - נטו" ); }
+	    if ( netAllocated ) { data.addColumn(ColumnType.NUMBER, "הקצאת תקציב - נטו" ); }
+	    if ( grossUsed    )   { data.addColumn(ColumnType.NUMBER, "שימוש בפועל - ברוטו" ); }
+	    if ( grossRevised )   { data.addColumn(ColumnType.NUMBER, "הקצאה מעודכנת - ברוטו" ); }
+	    if ( grossAllocated ) { data.addColumn(ColumnType.NUMBER, "הקצאת תקציב - ברוטו" ); }
 	    
 	    data.addRows(mList.size());
 	    for ( int i = 0 ; i < mList.size() ; i ++ ) {
 		    data.setValue(mList.size()-i-1, 0, mList.get(i).getYear().toString() );
 		    if ( mInfButton.isDown() ) {
 		    	column = 1;
-		    	if ( used      ) { data.setValue(mList.size()-i-1, column, mList.get(i).getInfUsed() );      column++; }
-		    	if ( revised   ) { data.setValue(mList.size()-i-1, column, mList.get(i).getInfRevised());    column++; }
-			    if ( allocated ) { data.setValue(mList.size()-i-1, column, mList.get(i).getInfAllocated() ); column++; }
-				options.setTitleY("אלפי \u20AA");
+		    	if ( netUsed        ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.USED, true ) );      column++; }
+		    	if ( netRevised     ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.REVISED, true ) );      column++; }
+		    	if ( netAllocated   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.ALLOCATED, true ) );      column++; }
+		    	if ( grossUsed      ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.USED, false) );      column++; }
+		    	if ( grossRevised   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.REVISED, false) );      column++; }
+		    	if ( grossAllocated ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.ALLOCATED, false ) );      column++; }
+				options.setTitleY("אלפי \u20AA ריאליים");
 		    } else if ( mOrigButton.isDown() ) {
 		    	column = 1;
-		    	if ( used      ) { data.setValue(mList.size()-i-1, column, mList.get(i).getUsed() );      column++; }
-		    	if ( revised   ) { data.setValue(mList.size()-i-1, column, mList.get(i).getRevised());    column++; }
-		    	if ( allocated ) { data.setValue(mList.size()-i-1, column, mList.get(i).getAllocated() ); column++; }
-				options.setTitleY("אלפי \u20AA");
+		    	if ( netUsed        ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.USED, true ) );      column++; }
+		    	if ( netRevised     ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.REVISED, true ) );      column++; }
+		    	if ( netAllocated   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.ALLOCATED, true ) );      column++; }
+		    	if ( grossUsed      ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.USED, false) );      column++; }
+		    	if ( grossRevised   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.REVISED, false) );      column++; }
+		    	if ( grossAllocated ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.ALLOCATED, false ) );      column++; }
+				options.setTitleY("אלפי \u20AA נומינליים");
 		    } else if ( mPercentButton.isDown() ) {
 		    	column = 1;
-		    	if ( used      ) { data.setValue(mList.size()-i-1, column, mList.get(i).getPercentUsed() );      column++; }
-		    	if ( revised   ) { data.setValue(mList.size()-i-1, column, mList.get(i).getPercentRevised() );   column++; }
-		    	if ( allocated ) { data.setValue(mList.size()-i-1, column, mList.get(i).getPercentAllocated() ); column++; }
+		    	if ( netUsed        ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.USED, true ) );      column++; }
+		    	if ( netRevised     ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.REVISED, true ) );      column++; }
+		    	if ( netAllocated   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.ALLOCATED, true ) );      column++; }
+		    	if ( grossUsed      ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.USED, false) );      column++; }
+		    	if ( grossRevised   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.REVISED, false) );      column++; }
+		    	if ( grossAllocated ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.ALLOCATED, false ) );      column++; }
 				options.setTitleY("אחוזים");
 		    } 
 	    }

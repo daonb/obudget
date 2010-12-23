@@ -5,13 +5,11 @@ import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 class BudgetSuggestion implements Suggestion {
 
-	private String mSuggestion;
 	private String mCode;
 	private String mQuery;
 	private String mTitle;
 
 	public BudgetSuggestion(String query, String title, String code) {
-		mSuggestion = code + " - "  + title;
 		mTitle = title;
 		mCode = code;
 		mQuery = query;
@@ -19,12 +17,13 @@ class BudgetSuggestion implements Suggestion {
 	
 	@Override
 	public String getDisplayString() {
-		return mSuggestion.replace(mQuery, "<b>"+mQuery+"</b>");
+		String suggestion = mCode + " - "  + mTitle;
+		return suggestion.replace(mQuery, "<b>"+mQuery+"</b>");
 	}
 
 	@Override
 	public String getReplacementString() {
-		return mSuggestion;
+		return mTitle;
 	}
 		
 	public String getCode() {

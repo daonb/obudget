@@ -31,11 +31,13 @@ class PieCharter extends Composite {
 	private ToggleButton mAllocatedButton;
 	private ToggleButton mRevisedButton;
 	private ToggleButton mUsedButton;
+	private ToggleButton mNetButton;
+	private LinkedList<BudgetLine> mList = null;
 
 	public PieCharter( Application app ) {
 		mApp = app;
 		mTabPanel = new TabLayoutPanel(0,Unit.PX);
-		mTabPanel.setHeight("280px");
+		mTabPanel.setHeight("305px");
 		mTabPanel.setWidth("325px");
 		mTabPanel.setStylePrimaryName("obudget-piechart");	
 		
@@ -44,6 +46,13 @@ class PieCharter extends Composite {
 		
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setStylePrimaryName("obudget-piechart-type");
+		mNetButton = new ToggleButton("נטו","ברוטו");
+		mNetButton.addClickHandler( new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				redrawChart();
+			}
+		});
 		mAllocatedButton = new ToggleButton("הקצאה");
 		mRevisedButton = new ToggleButton("הקצאה מעודכנת");
 		mRevisedButton.setDown(true);
@@ -91,19 +100,26 @@ class PieCharter extends Composite {
 		hPanel.add( mAllocatedButton );
 		hPanel.add( mRevisedButton );
 		hPanel.add( mUsedButton );
+		hPanel.add( mNetButton );
 		mPanel.add(hPanel);
 		
 		initWidget(mPanel);
 	}
 	
 	public void handleData( LinkedList<BudgetLine> list ) {
+		mList = list;
+		redrawChart();
+	}
+	
+	private void redrawChart() {
 	    mTabPanel.clear();
 
-	    if ( list.size() < 2 ) { return; }
+	    if ( mList == null ) { return; }
+	    if ( mList.size() < 2 ) { return; }
 
 		Options	options = Options.create();
 		options.setWidth(340);
-		options.setHeight(280);
+		options.setHeight(305);
 		options.set3D(true);	
 		options.setLegend(LegendPosition.BOTTOM);
 
@@ -111,24 +127,28 @@ class PieCharter extends Composite {
 	    for ( int t = 0 ; t < 3 ; t ++ ) { 
 		    data[t].addColumn(ColumnType.STRING, "Title");
 		    data[t].addColumn(ColumnType.NUMBER, "Allocated");    	
-		    data[t].addRows(list.size()-1);
-		    for ( int i = 0 ; i < list.size()-1 ; i ++ ) {
-			    data[t].setValue(i, 0, list.get(i+1).getTitle());
+		    data[t].addRows(mList.size()-1);
+		    for ( int i = 0 ; i < mList.size()-1 ; i ++ ) {
+			    data[t].setValue(i, 0, mList.get(i+1).getTitle());
 		    }
 	    }
-	    for ( int i = 0 ; i < list.size()-1 ; i ++ ) {
-	    	if ( list.get(i+1).getAllocated() > 0 ) {
-	    		data[0].setValue(i, 1, list.get(i+1).getAllocated());
+	    Boolean net = !mNetButton.isDown();
+	    for ( int i = 0 ; i < mList.size()-1 ; i ++ ) {
+	    	if ( ( mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ) != null ) &&
+	    		 ( mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ) > 0 ) ) {
+	    		data[0].setValue(i, 1, mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ));
 	    	} else {
 	    		data[0].setValue(i, 1, 0 );	    		
 	    	}
-	    	if ( list.get(i+1).getRevised() > 0 ) {
-			    data[1].setValue(i, 1, list.get(i+1).getRevised());    		
+	    	if ( (mList.get(i+1).getOriginal( BudgetLine.REVISED, net ) != null) && 
+	    		 (mList.get(i+1).getOriginal( BudgetLine.REVISED, net ) > 0) ) {
+			    data[1].setValue(i, 1, mList.get(i+1).getOriginal( BudgetLine.REVISED, net ) );    		
 	    	} else {
 			    data[1].setValue(i, 1, 0);    			    		
 	    	}
-	    	if ( list.get(i+1).getUsed() > 0 ) {
-	    		data[2].setValue(i, 1, list.get(i+1).getUsed());
+	    	if ( (mList.get(i+1).getOriginal( BudgetLine.USED, net ) != null) &&
+	    		 (mList.get(i+1).getOriginal( BudgetLine.USED, net ) > 0) ) {
+	    		data[2].setValue(i, 1, mList.get(i+1).getOriginal( BudgetLine.USED, net ) );
 	    	} else {
 	    		data[2].setValue(i, 1, 0);	    		
 	    	}

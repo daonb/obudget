@@ -39,6 +39,7 @@ public class OBudgetMain implements EntryPoint {
 		RootPanel.get("obudget-piechart").add(mApp.getPieCharter());
 		RootPanel.get("obudget-timeline").add(mApp.getTimeLineCharter());
 		RootPanel.get("obudget-summary-1").add(mApp.getSummary1() );
+		RootPanel.get("obudget-breadcrumbs").add(mApp.getBreadcrumbs() );
 		RootPanel.get("obudget-year-selection").add(mApp.getYearSelection() );
 		RootPanel.get("obudget-summary-2").add(mApp.getSummary2() );
 		RootPanel.get("obudget-summary-3").add(mApp.getSummary3() );

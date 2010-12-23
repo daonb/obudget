@@ -53,13 +53,13 @@ for y in range(1992,2010):
             if income_used != None and used != None:
                 used -= income_used
             title = 'המדינה'            
-        if code.startswith('0000'):
-            if allocated != None:
-                allocated = -allocated
-            if revised != None:
-                revised = -revised
-            if used != None:
-                used = -used
+#        if code.startswith('0000'):
+#            if allocated != None:
+#                allocated = -allocated
+#            if revised != None:
+#                revised = -revised
+#            if used != None:
+#                used = -used
         j = { 'year':y, 'code' : code, 'title' : title, 'net_allocated' : allocated, 'net_revised' : revised, 'net_used' : used }
         out.write(json.dumps(j)+'\n')
         

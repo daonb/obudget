@@ -7,9 +7,12 @@ import com.google.gwt.json.client.JSONArray;
 public class TotalBudget {
 
 	BudgetLines mBudgetLines = new BudgetLines();
-	HashMap<Integer, Integer> totalAllocated = new HashMap<Integer, Integer>(); 
-	HashMap<Integer, Integer> totalRevised = new HashMap<Integer, Integer>(); 
-	HashMap<Integer, Integer> totalUsed = new HashMap<Integer, Integer>(); 
+	HashMap<Integer, Integer> totalAllocatedNet = new HashMap<Integer, Integer>(); 
+	HashMap<Integer, Integer> totalRevisedNet = new HashMap<Integer, Integer>(); 
+	HashMap<Integer, Integer> totalUsedNet = new HashMap<Integer, Integer>(); 
+	HashMap<Integer, Integer> totalAllocatedGross = new HashMap<Integer, Integer>(); 
+	HashMap<Integer, Integer> totalRevisedGross = new HashMap<Integer, Integer>(); 
+	HashMap<Integer, Integer> totalUsedGross = new HashMap<Integer, Integer>(); 
 	static TotalBudget mInstance = null;
 	
 	private TotalBudget() {
@@ -21,9 +24,12 @@ public class TotalBudget {
 			public void onSuccess(JSONArray data) {
 				mBudgetLines.parseJson(data);
 				for ( BudgetLine bl : mBudgetLines ) {
-					totalAllocated.put(bl.getYear(), bl.getAllocated());
-					totalRevised.put(bl.getYear(), bl.getRevised());
-					totalUsed.put(bl.getYear(), bl.getUsed());
+					totalAllocatedNet.put(bl.getYear(), bl.getOriginal( BudgetLine.ALLOCATED, true ));
+					totalRevisedNet.put(bl.getYear(), bl.getOriginal( BudgetLine.REVISED, true ));
+					totalUsedNet.put(bl.getYear(), bl.getOriginal( BudgetLine.USED, true ));
+					totalAllocatedGross.put(bl.getYear(), bl.getOriginal( BudgetLine.ALLOCATED, false ));
+					totalRevisedGross.put(bl.getYear(), bl.getOriginal( BudgetLine.REVISED, false ));
+					totalUsedGross.put(bl.getYear(), bl.getOriginal( BudgetLine.USED, false ));
 				}
 			}
 		});
@@ -36,15 +42,27 @@ public class TotalBudget {
 		return mInstance;
 	}
 	
-	public Integer getAllocated( Integer year ) {
-		return totalAllocated.get(year);
+	public Integer getAllocated( Integer year, Boolean net ) {
+		if ( net ) {
+			return totalAllocatedNet.get(year);
+		} else {
+			return totalAllocatedGross.get(year);			
+		}
 	}
 
-	public Integer getRevised( Integer year ) {
-		return totalRevised.get(year);
+	public Integer getRevised( Integer year, Boolean net ) {
+		if ( net ) {
+			return totalRevisedNet.get(year);
+		} else {
+			return totalRevisedGross.get(year);			
+		}
 	}
 
-	public Integer getUsed( Integer year ) {
-		return totalUsed.get(year);
+	public Integer getUsed( Integer year, Boolean net ) {
+		if ( net ) {
+			return totalUsedNet.get(year);
+		} else {
+			return totalUsedGross.get(year);			
+		}
 	}
 }

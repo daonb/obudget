@@ -51,7 +51,7 @@ class Application implements ValueChangeHandler<String> {
 		mTimeLineCharter.setHeight("300px");
 		
 		mBreadcrumbs = new HTML("");
-		mBreadcrumbs.setHeight("30px");
+		mBreadcrumbs.setHeight("20px");
 		mBreadcrumbs.setWidth("400px");
 		
 		mYearSelection = new ListBox();
@@ -138,7 +138,7 @@ class Application implements ValueChangeHandler<String> {
 				
 				String title = firstResult.get("title").isString().stringValue();
 				String code = firstResult.get("budget_id").isString().stringValue();
-				mSearchBox.setValue(code + " - " + title);
+				mSearchBox.setValue(title);
 
 				mYearSelection.setSelectedIndex( mYear - 1992 );
 
@@ -146,8 +146,21 @@ class Application implements ValueChangeHandler<String> {
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
 				mSummary1.setText( "לתקציב "+title+" הוקצו בשנת");
-				final Integer revisedSum = (int) firstResult.get("amount_revised").isNumber().doubleValue();
-				mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa");
+				final Integer revisedSum;
+				final String revisedSumType;
+				if ( (firstResult.get("gross_amount_revised") != null) &&
+					 (firstResult.get("gross_amount_revised").isNumber() != null) ) {
+					revisedSumType = "gross";
+				} else {
+					revisedSumType = "net";
+				}
+				if ( ( firstResult.get(revisedSumType+"_amount_revised") != null ) && 
+					   firstResult.get(revisedSumType+"_amount_revised").isNumber() != null ) {
+					revisedSum = (int) firstResult.get(revisedSumType+"_amount_revised").isNumber().doubleValue();				
+					mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa" + (revisedSumType == "net" ? " (נטו)" : ""));
+				} else {
+					revisedSum = null;
+				}
 				
 				mSummary3.setHTML("");							
 				if ( firstResult.get("parent") != null ) {
@@ -163,8 +176,11 @@ class Application implements ValueChangeHandler<String> {
 						percent.go( new BudgetAPICallback() {						
 							@Override
 							public void onSuccess(JSONArray data) {
-								double percent = revisedSum / data.get(0).isObject().get("amount_revised").isNumber().doubleValue();
-								mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+parentCode+","+mYear+"'>"+parentTitle+"</a>");							
+								if ( (data.get(0).isObject().get(revisedSumType+"amount_revised") != null) && 
+									 (data.get(0).isObject().get(revisedSumType+"amount_revised").isNumber() != null) ) {
+									double percent = revisedSum / data.get(0).isObject().get(revisedSumType+"amount_revised").isNumber().doubleValue();
+									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+parentCode+","+mYear+"'>"+parentTitle+"</a>");
+								}
 							}
 						});
 					}			
@@ -173,9 +189,9 @@ class Application implements ValueChangeHandler<String> {
 					for ( int i = 0 ; i < parents.size() ; i++ ) {
 						String ptitle = parents.get(i).isObject().get("title").isString().stringValue();
 						String pcode = parents.get(i).isObject().get("budget_id").isString().stringValue();
-						breadcrumbs = "<a href='#"+pcode+","+mYear+"'>"+ptitle+"</a>"+"&nbsp;&gt;&nbsp;" + breadcrumbs;
+						breadcrumbs = "<a href='#"+pcode+","+mYear+"'>"+ptitle+"</a> ("+pcode+") "+"&nbsp;&gt;&nbsp;" + breadcrumbs;
 					}
-					breadcrumbs += "<a href='#"+code+","+mYear+"'>"+title+"</a>";
+					breadcrumbs += "<a href='#"+code+","+mYear+"'>"+title+"</a> ("+code+")";
 					mBreadcrumbs.setHTML(breadcrumbs);			
 				}
 			}

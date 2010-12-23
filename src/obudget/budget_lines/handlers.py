@@ -71,7 +71,8 @@ class BudgetLineHandler(BaseHandler):
     model = BudgetLine
     qs = BudgetLine.objects.all()
     fields = ('title', 'budget_id', 
-              'amount_allocated','amount_revised', 'amount_used', 
+              'net_amount_allocated','net_amount_revised', 'net_amount_used', 
+              'gross_amount_allocated','gross_amount_revised', 'gross_amount_used', 
               'inflation_factor', 
               'year',
               'parent',

@@ -21,27 +21,21 @@ INFLATION = { 1992: 2.4346008563961177,
               2009: 1 }
 
 class BudgetLine(models.Model):
-
-    class Meta:
-        verbose_name = u'שורת תקציב'
-        verbose_name_plural = u'שורות תקציב'
     
-    title               = models.TextField( db_index=True,
-                                            verbose_name=u'שם' )
-    budget_id           = models.CharField( max_length=64,db_index=True,
-                                            verbose_name=u'סעיף' )
+    title               = models.CharField( max_length=256, db_index=True )
+    budget_id           = models.CharField( max_length=64,db_index=True )
     budget_id_len       = models.PositiveIntegerField( default=0, db_index=True )
     
-    amount_allocated    = models.PositiveIntegerField( verbose_name=u'הקצאה (באלפי \u20aa)' )
-    amount_revised    	= models.PositiveIntegerField( null=True,
-                                                       verbose_name=u'הקצאה מעודכנת (באלפי \u20aa)' )
-    amount_used         = models.PositiveIntegerField( verbose_name=u'ניצול (באלפי \u20aa)' ) 
+    net_amount_allocated    = models.IntegerField( null = True )
+    net_amount_revised        = models.IntegerField( null = True )
+    net_amount_used         = models.IntegerField( null = True ) 
+    gross_amount_allocated    = models.IntegerField( null = True )
+    gross_amount_revised        = models.IntegerField( null = True )
+    gross_amount_used         = models.IntegerField( null = True ) 
     
-    year                = models.PositiveIntegerField( db_index=True,
-                                                       verbose_name=u'שנה' )
+    year                = models.PositiveIntegerField( db_index=True )
     
-    containing_line     = models.ForeignKey( 'self', related_name='sublines', null=True, db_index=True,
-                                              verbose_name=u'סעיף אב' )
+    containing_line     = models.ForeignKey( 'self', related_name='sublines', null=True, db_index=True )
 
     @property
     def inflation_factor(self): return INFLATION.get(self.year, 1)

@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'BudgetLine'
         db.create_table('budget_lines_budgetline', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.TextField')(db_index=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(db_index=True,max_length=256)),
             ('budget_id', self.gf('django.db.models.fields.CharField')(max_length=64, db_index=True)),
             ('amount_allocated', self.gf('django.db.models.fields.PositiveIntegerField')()),
             ('amount_used', self.gf('django.db.models.fields.PositiveIntegerField')()),
@@ -35,7 +35,7 @@ class Migration(SchemaMigration):
             'budget_id': ('django.db.models.fields.CharField', [], {'max_length': '64', 'db_index': 'True'}),
             'containing_line': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sublines'", 'null': 'True', 'to': "orm['budget_lines.BudgetLine']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.TextField', [], {'db_index': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'db_index': 'True','max_length':'256'}),
             'year': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         }
     }
