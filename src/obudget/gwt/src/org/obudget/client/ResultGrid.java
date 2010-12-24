@@ -62,7 +62,7 @@ class ResultGrid extends Composite {
 	private NumberFormat decimalFormat = NumberFormat.getDecimalFormat();
 
 	private String formatNumber( Integer num ) {
-		if ( num == null ) return "";
+		if ( num == null ) return "-";
 		return decimalFormat.format( num )+ (num == 0 ? "" : ",000");
 	}
 	

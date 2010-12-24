@@ -52,7 +52,7 @@ class Application implements ValueChangeHandler<String> {
 		
 		mBreadcrumbs = new HTML("");
 		mBreadcrumbs.setHeight("20px");
-		mBreadcrumbs.setWidth("400px");
+		mBreadcrumbs.setWidth("700px");
 		
 		mYearSelection = new ListBox();
 		mYearSelection.addChangeHandler( new ChangeHandler() {
