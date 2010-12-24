@@ -83,6 +83,9 @@ body > div, .suggestPopupContent {
 	text-align:center;
 	white-space:nowrap;
 	direction:ltr;
+	border-right:solid 1px;
+	padding-right:2px;
+	padding-left:2px;
 }
 
 .resultgrid-header {

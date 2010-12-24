@@ -12,9 +12,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        print 'Deleting current rows'
-        BudgetLine.objects.all().delete()
-                
         print 'Loading raw rows'
         k = 0
         for filename in args:
@@ -38,7 +35,7 @@ class Command(BaseCommand):
         
         # Update internal relationships in the DB
         print 'Internal relationships'
-        for line in BudgetLine.objects.all():
+        for line in BudgetLine.objects.filter( containing_line__isnull = True, budget_id_len__gt=2 ):
             k+=1
             if k % 1000 == 0:
                 print k

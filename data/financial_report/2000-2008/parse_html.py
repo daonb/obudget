@@ -24,8 +24,11 @@ def parse_html(urls_filename):
     for url in urls.readlines():
         if url.startswith('#'):
             year = int(url[1:])
+            total_planned = 0
+            total_used = 0
             print 'Year:',year
             continue
+        
         if url.strip() == '':
             continue
 
@@ -78,12 +81,24 @@ def parse_html(urls_filename):
                         code = top_budget + code
                 else:
                     code = None
+                    
+                if code != None and code.startswith('0000'):
+                    if used != None:
+                        used = -used
+                    if planned != None:
+                        planned = -planned
                                   
                 if (planned != None or used != None) and name != None and code != None:
                     outfile.write(json.dumps({'code':code,'title':name,'gross_revised':planned,'gross_used':used,'year':year})+'\n')
+                    if len(code) == 4 and code != '0000':
+                        total_planned += planned
+                        total_used += used
                     last_code = None
                     last_name = None
                 elif (planned != None or used != None) and name == u'ברוטו' and last_code != None:
+                    if len(last_code) == 4 and last_code != '0000':
+                        total_planned += planned
+                        total_used += used
                     outfile.write(json.dumps({'code':last_code,'title':last_name,'gross_revised':planned,'gross_used':used,'year':year})+'\n')
                 elif planned == None and used == None and name != None and code != None:
                     last_code = code
@@ -95,6 +110,8 @@ def parse_html(urls_filename):
             
             if top_budget == None:
                 continue
+
+        outfile.write(json.dumps({'code':'00','title':'המדינה','gross_revised':total_planned,'gross_used':total_used,'year':year})+'\n')
         
         
 parse_html('urls')

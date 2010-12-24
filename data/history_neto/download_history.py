@@ -40,7 +40,7 @@ for y in range(1992,2010):
             used = int(l[3])
         except:
             used = None
-        if code == '0000':
+        if code=='0000':  
             income_allocated = allocated
             income_revised = revised 
             income_used = used
