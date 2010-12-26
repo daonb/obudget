@@ -12,6 +12,15 @@ body > div, .suggestPopupContent {
 	text-align: center;
 	font:bold 16px helvetica;
 }
+#obudget-cheatsheet
+{
+	font:normal 12px helvetica;
+	color:blue;
+	text-decoration:underline;
+	cursor:pointer;
+}
+#obudget-cheatsheet div { 	display:inline; }	
+
 #summary {text-align: center; }
 #summary > div
 { padding-bottom:5px; }

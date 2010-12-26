@@ -45,6 +45,7 @@ public class OBudgetMain implements EntryPoint {
 		RootPanel.get("obudget-summary-3").add(mApp.getSummary3() );
 		RootPanel.get("obudget-detailed-results").add(mApp.getResultsGrid() );
 		RootPanel.get("obudget-news").add(mApp.getBudgetNews() );
+		RootPanel.get("obudget-cheatsheet").add(mApp.getCheatSheet() );
 
 		History.fireCurrentHistoryState();
 	}

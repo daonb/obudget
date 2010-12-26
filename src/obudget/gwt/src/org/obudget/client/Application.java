@@ -3,6 +3,8 @@ package org.obudget.client;
 import com.google.gwt.dev.jjs.ast.js.JsonObject;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -12,6 +14,7 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -35,6 +38,7 @@ class Application implements ValueChangeHandler<String> {
 	private Label mSummary2;
 	private HTML mSummary3;
 	private BudgetNews mBudgetNews;
+	private HTML mCheatSheet;
 	
 	public void init() {
 		TotalBudget.getInstance();
@@ -98,7 +102,33 @@ class Application implements ValueChangeHandler<String> {
 		mSummary3 = new HTML();
 		
 		mBudgetNews = new BudgetNews();
-				
+		
+		mCheatSheet = new HTML("(הסברים)");
+		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
+		simplePopup.setWidth("400px");
+		HTML simplePopupContents = new HTML( "<h4>מונחון מקוצר</h4>"+
+											 "<lu>"+
+											 "<li><b>נטו</b>: <u>תקציב הוצאה נטו</u> – הסכום המותר להוצאה בשנה כלשהי כפי שמפורט בחוק התקציב. תקציב זה מכונה גם \"תקציב המזומנים\".</li>"+
+											 "<li><b>ברוטו</b>: <u>תקציב ההוצאה נטו</u> בתוספת <u>תקציב ההוצאה המותנית בהכנסה</u> – תקציב נוסף המותר בהוצאה, ובלבד שיתקבלו תקבולים למימון ההוצאה מגורמים חוץ-ממשלתיים. תקבולים אלו אינם כוללים אגרה המשולמת לאוצר המדינה שהוטלה על-פי חיקוק שנחקק אחרי תחילת שנת הכספים 1992, ואינה כוללת הכנסה שמקורה במלווה (חוץ מתקציבי פיתוח וחשבון הון).</li>"+
+											 "<li><b>הקצאה</b>: <u>תקציב מקורי</u> – התקציב שאושר בכנסת במסגרת חוק התקציב. ייתכנו הבדלים בין הצעת התקציב לבין התקציב שיאושר בכנסת בסופו של דבר.</li>"+
+											 "<li><b>הקצאה מעודכנת</b>: <u>תקציב על שינוייו</u> – תקציב המדינה עשוי להשתנות במהלך השנה. שינויים אלו כוללים תוספות, הפחתות והעברות תקציביות בין סעיפי תקציב (באישור ועדת הכספים של הכנסת). נוסף על כך, פעמים רבות מועברים עודפים מחויבים משנה קודמת הנכללים בתקציב זה. רוב השינויים בתקציב דורשים את אישורה של ועדת הכספים של הכנסת. התקציב בסוף השנה הכולל את השינויים שנעשו בו במהלך השנה נקרא התקציב על שינוייו או התקציב המאושר.</li>"+
+											 "<li><b>שימוש</b>:  <u>ביצוע</u> – התקציב שכבר נוצל ושולם בפועל על-ידי החשב.</li>"+
+											 "</lu>"+
+											 "<br/>"+
+											 "<a href='http://www.knesset.gov.il/mmm/data/docs/m02217.doc'>מקור</a>");
+		simplePopupContents.setStyleName("obudget-cheatsheet-popup");
+		simplePopup.setWidget( simplePopupContents );
+		mCheatSheet.addClickHandler( new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+	            Widget source = (Widget) event.getSource();
+	            int left = source.getAbsoluteLeft() + 10;
+	            int top = source.getAbsoluteTop() + 10;
+	            simplePopup.setPopupPosition(left, top);
+	            simplePopup.show();				
+			}
+		});
+		
 		History.addValueChangeHandler( this );
 	}
 
@@ -176,9 +206,9 @@ class Application implements ValueChangeHandler<String> {
 						percent.go( new BudgetAPICallback() {						
 							@Override
 							public void onSuccess(JSONArray data) {
-								if ( (data.get(0).isObject().get(revisedSumType+"amount_revised") != null) && 
-									 (data.get(0).isObject().get(revisedSumType+"amount_revised").isNumber() != null) ) {
-									double percent = revisedSum / data.get(0).isObject().get(revisedSumType+"amount_revised").isNumber().doubleValue();
+								if ( (data.get(0).isObject().get(revisedSumType+"_amount_revised") != null) && 
+									 (data.get(0).isObject().get(revisedSumType+"_amount_revised").isNumber() != null) ) {
+									double percent = revisedSum / data.get(0).isObject().get(revisedSumType+"_amount_revised").isNumber().doubleValue();
 									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+parentCode+","+mYear+"'>"+parentTitle+"</a>");
 								}
 							}
@@ -270,6 +300,10 @@ class Application implements ValueChangeHandler<String> {
 
 	public Widget getBudgetNews() {
 		return mBudgetNews;
+	}
+
+	public Widget getCheatSheet() {
+		return mCheatSheet;
 	}
 
 }
