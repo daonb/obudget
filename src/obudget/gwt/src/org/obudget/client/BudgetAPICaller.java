@@ -39,7 +39,7 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Failed to access API: "+caught.getMessage());
+				//Window.alert("Failed to access API: "+caught.getMessage());
 			}
 			
 		});		

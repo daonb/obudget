@@ -97,7 +97,7 @@ class TimeLineCharter extends Composite {
 		mPanel.add(mChartPanel);
 
 		mNetAllocatedButton = new ToggleButton("הקצאה נטו");
-		mNetAllocatedButton.setWidth("115px");
+		mNetAllocatedButton.setWidth("100px");
 		mNetAllocatedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -105,7 +105,7 @@ class TimeLineCharter extends Composite {
 			}
 		});
 		mNetRevisedButton = new ToggleButton("הקצאה מעודכנת נטו");
-		mNetRevisedButton.setWidth("115px");
+		mNetRevisedButton.setWidth("130px");
 		mNetRevisedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -113,7 +113,7 @@ class TimeLineCharter extends Composite {
 			}
 		});
 		mNetUsedButton = new ToggleButton("שימוש נטו");
-		mNetUsedButton.setWidth("115px");
+		mNetUsedButton.setWidth("100px");
 		mNetUsedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -121,7 +121,7 @@ class TimeLineCharter extends Composite {
 			}
 		});
 		mGrossAllocatedButton = new ToggleButton("הקצאה ברוטו");
-		mGrossAllocatedButton.setWidth("115px");
+		mGrossAllocatedButton.setWidth("100px");
 		mGrossAllocatedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -129,7 +129,7 @@ class TimeLineCharter extends Composite {
 			}
 		});
 		mGrossRevisedButton = new ToggleButton("הקצאה מעודכנת ברוטו");
-		mGrossRevisedButton.setWidth("115px");
+		mGrossRevisedButton.setWidth("130px");
 		mGrossRevisedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -138,7 +138,7 @@ class TimeLineCharter extends Composite {
 		});
 		mGrossRevisedButton.setDown(true);
 		mGrossUsedButton = new ToggleButton("שימוש ברוטו");
-		mGrossUsedButton.setWidth("115px");
+		mGrossUsedButton.setWidth("100px");
 		mGrossUsedButton.addClickHandler( new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
