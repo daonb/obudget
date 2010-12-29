@@ -5,8 +5,6 @@ body > div, .suggestPopupContent {
 }
 
 #page { margin: 0 auto; width: 747px; font-size:13px; line-height:16px;}
-#logo { background: transparent url(http://www.shituf.gov.il/sites/e.shituf.gov.il/themes/shituf/images/bg_gov_header.png) no-repeat 100% 0%; color: white; }
-#logo h1 { padding: 0.5em; margin:0;}
 #search 
 {
 	text-align: center;
@@ -29,7 +27,7 @@ body > div, .suggestPopupContent {
 	margin-left:auto;
 	margin-right:auto;
 }	
-#search, #summary, #charts, #details, #breadcrumbs {
+#search, #summary, #charts, #details, #breadcrumbs, #footer {
 	margin-top:10px;
 	padding-top:10px;
 	padding-bottom:10px;
@@ -55,7 +53,6 @@ body > div, .suggestPopupContent {
 	-webkit-border-radius:10px;
 }
 
-
 #details > div { vertical-align: top;  }
 #obudget-piechart {display:inline-block; width:330px; overflow:hidden; }
 #obudget-timeline {display:inline-block; width:390px; overflow:hidden; }
@@ -71,6 +68,12 @@ body > div, .suggestPopupContent {
 
 #obudget-detailed-results { display:inline-block; width:500px;  }
 #news { display:inline-block; width:220px; }
+#footer { 
+	height:40px; 
+	padding-right:10px; 
+	padding-left:10px;
+	background:#eeeeff; 
+}
 
 .gwt-TabLayoutPanel,
 .gwt-TabLayoutPanelContent {

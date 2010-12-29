@@ -185,6 +185,8 @@ class TimeLineCharter extends Composite {
 	
 	private void redrawChart() {
 
+		Application.getInstance().stateChanged();
+		
 		AreaChart.Options options = AreaChart.Options.create();
 		options.setWidth(385);
 		options.setHeight(260);
@@ -243,5 +245,30 @@ class TimeLineCharter extends Composite {
 	    }
 		AreaChart areachart = new AreaChart( data, options );
 		mChartPanel.add(areachart);
+	}
+
+	public void setState( Integer timeLineDataType,
+						  Integer timeLineChartSelect0, Integer timeLineChartSelect1,
+						  Integer timeLineChartSelect2, Integer timeLineChartSelect3,
+						  Integer timeLineChartSelect4, Integer timeLineChartSelect5) {
+		mInfButton.setDown( timeLineDataType == 0 );
+		mOrigButton.setDown( timeLineDataType == 1 );
+		mPercentButton.setDown( timeLineDataType == 2 );
+		mNetAllocatedButton.setDown( timeLineChartSelect0 == 1);
+		mNetRevisedButton.setDown( timeLineChartSelect1 == 1);
+		mNetUsedButton.setDown( timeLineChartSelect2 == 1);
+		mGrossAllocatedButton.setDown( timeLineChartSelect3 == 1);
+		mGrossRevisedButton.setDown( timeLineChartSelect4 == 1);
+		mGrossUsedButton.setDown( timeLineChartSelect5 == 1);
+	}
+
+	public String getState() {
+		return (mInfButton.isDown() ? "0," : (mOrigButton.isDown() ? "1," : "2," )) +
+			   (mNetAllocatedButton.isDown() ? "1," : "0,") +
+		   	   (mNetRevisedButton.isDown() ? "1," : "0,") +
+			   (mNetUsedButton.isDown() ? "1," : "0,") +
+			   (mGrossAllocatedButton.isDown() ? "1," : "0,") +
+			   (mGrossRevisedButton.isDown() ? "1," : "0,") +
+			   (mGrossUsedButton.isDown() ? "1" : "0");
 	}
 }

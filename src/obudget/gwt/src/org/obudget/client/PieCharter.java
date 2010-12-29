@@ -60,10 +60,11 @@ class PieCharter extends Composite {
 		mAllocatedButton.addClickHandler( new ClickHandler() {	
 			@Override
 			public void onClick(ClickEvent event) {
-				if ( mAllocatedButton.isDown() ) {
+				if ( mAllocatedButton.isDown() ) {					
 					mTabPanel.selectTab(0);
 					mRevisedButton.setDown(false);
 					mUsedButton.setDown(false);
+					Application.getInstance().stateChanged();
 				} else {
 					mAllocatedButton.setDown(true);
 				}
@@ -77,6 +78,7 @@ class PieCharter extends Composite {
 					mTabPanel.selectTab(1);
 					mAllocatedButton.setDown(false);
 					mUsedButton.setDown(false);
+					Application.getInstance().stateChanged();
 				} else {
 					mRevisedButton.setDown(true);
 				}
@@ -90,6 +92,7 @@ class PieCharter extends Composite {
 					mTabPanel.selectTab(2);
 					mAllocatedButton.setDown(false);
 					mRevisedButton.setDown(false);
+					Application.getInstance().stateChanged();
 				} else {
 					mUsedButton.setDown(true);
 				}
@@ -116,6 +119,8 @@ class PieCharter extends Composite {
 
 	    if ( mList == null ) { return; }
 	    if ( mList.size() < 2 ) { return; }
+
+		Application.getInstance().stateChanged();
 
 		Options	options = Options.create();
 		options.setWidth(340);
@@ -166,5 +171,17 @@ class PieCharter extends Composite {
 		mAllocatedButton.setDown(false);
 		mRevisedButton.setDown(true);
 		mUsedButton.setDown(false);
+	}
+
+	public void setState(Integer pieChartDataType, Integer pieChartNet) {
+		mNetButton.setDown( pieChartNet == 1 );
+		mAllocatedButton.setDown( pieChartDataType == 0 );
+		mRevisedButton.setDown( pieChartDataType == 1 );
+		mUsedButton.setDown( pieChartDataType == 2 );	
+	}
+
+	public String getState() {
+		return (mAllocatedButton.isDown() ? "0," : (mRevisedButton.isDown() ? "1," : "2," )) +
+		   	   (mNetButton.isDown() ? "1" : "0");
 	}
 }

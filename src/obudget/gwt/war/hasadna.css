@@ -1,0 +1,17 @@
+#header {
+	margin-top:10px;
+	padding:5px;
+	//background:#dddddd;
+	border: solid 4px #202060;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	height:30px;
+}
+
+#header > h1 {
+	position:relative;
+	top:-10px;
+	display:inline;
+	margin-right:10px;
+}

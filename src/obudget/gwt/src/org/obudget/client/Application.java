@@ -40,6 +40,16 @@ class Application implements ValueChangeHandler<String> {
 	private BudgetNews mBudgetNews;
 	private HTML mCheatSheet;
 	
+	static private Application mInstance = null;
+	
+	static public Application getInstance() {
+		if ( mInstance == null ) {
+			mInstance = new Application();
+			mInstance.init();
+		}
+		return mInstance;
+	}
+	
 	public void init() {
 		TotalBudget.getInstance();
 		
@@ -85,7 +95,7 @@ class Application implements ValueChangeHandler<String> {
 					public void onSuccess(JSONArray data) {
 						if ( data.size() > 0 ) {
 							Integer year = (int) data.get(0).isObject().get("year").isNumber().doubleValue();
-							History.newItem(bs.getCode() +","+year );
+							newCodeAndYear(bs.getCode(),year);
 						}
 					}
 				});
@@ -131,7 +141,7 @@ class Application implements ValueChangeHandler<String> {
 		
 		History.addValueChangeHandler( this );
 	}
-
+	
 	public ResultGrid getResultsGrid() {
 		return mResultsGrid;
 	}
@@ -209,7 +219,7 @@ class Application implements ValueChangeHandler<String> {
 								if ( (data.get(0).isObject().get(revisedSumType+"_amount_revised") != null) && 
 									 (data.get(0).isObject().get(revisedSumType+"_amount_revised").isNumber() != null) ) {
 									double percent = revisedSum / data.get(0).isObject().get(revisedSumType+"_amount_revised").isNumber().doubleValue();
-									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+parentCode+","+mYear+"'>"+parentTitle+"</a>");
+									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
 								}
 							}
 						});
@@ -219,9 +229,9 @@ class Application implements ValueChangeHandler<String> {
 					for ( int i = 0 ; i < parents.size() ; i++ ) {
 						String ptitle = parents.get(i).isObject().get("title").isString().stringValue();
 						String pcode = parents.get(i).isObject().get("budget_id").isString().stringValue();
-						breadcrumbs = "<a href='#"+pcode+","+mYear+"'>"+ptitle+"</a> ("+pcode+") "+"&nbsp;&gt;&nbsp;" + breadcrumbs;
+						breadcrumbs = "<a href='#"+hashForCode(pcode)+"'>"+ptitle+"</a> ("+pcode+") "+"&nbsp;&gt;&nbsp;" + breadcrumbs;
 					}
-					breadcrumbs += "<a href='#"+code+","+mYear+"'>"+title+"</a> ("+code+")";
+					breadcrumbs += "<a href='#"+hashForCode(code)+"'>"+title+"</a> ("+code+")";
 					mBreadcrumbs.setHTML(breadcrumbs);			
 				}
 			}
@@ -261,16 +271,63 @@ class Application implements ValueChangeHandler<String> {
 		return mTimeLineCharter;
 	}
 
+	public String hash( String code, Integer year ) {
+		return code+","+year+","+mTimeLineCharter.getState()+","+mPieCharter.getState()+","+mResultsGrid.getState();
+	}
+
+	public String hashForCode( String code ) {
+		return hash( code, mYear );
+	}
+
+	public void newYear( Integer year ) {
+		newCodeAndYear( mCode, year);
+	}
+
+	public void newCodeAndYear( String code, Integer year ) {
+		mYear = year;
+		mCode = code;
+		History.newItem(hash(mCode, mYear));
+	}
+	
+	public void stateChanged() {
+		History.newItem(hash(mCode, mYear),false);
+	}
+
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		String hash = event.getValue();
 		String[] parts = hash.split(",");
-		if ( parts.length == 2 ) {
+		
+		if ( parts.length == 12 ) {
 			String code = parts[0];
 			Integer year = Integer.decode(parts[1]);
-			selectBudgetCode(code, year);
+			try {
+				Integer timeLineDataType = Integer.decode(parts[2]);
+				Integer timeLineChartSelect0 = Integer.decode(parts[3]);
+				Integer timeLineChartSelect1 = Integer.decode(parts[4]);
+				Integer timeLineChartSelect2 = Integer.decode(parts[5]);
+				Integer timeLineChartSelect3 = Integer.decode(parts[6]);
+				Integer timeLineChartSelect4 = Integer.decode(parts[7]);
+				Integer timeLineChartSelect5 = Integer.decode(parts[8]);
+				Integer pieChartDataType = Integer.decode(parts[9]);
+				Integer pieChartNet= Integer.decode(parts[10]);
+				Integer resultsGridNet= Integer.decode(parts[11]);
+				selectBudgetCode(code, year);
+				mTimeLineCharter.setState( timeLineDataType,
+										   timeLineChartSelect0, 
+										   timeLineChartSelect1, 
+										   timeLineChartSelect2, 
+										   timeLineChartSelect3, 
+										   timeLineChartSelect4, 
+										   timeLineChartSelect5 );
+				mPieCharter.setState( pieChartDataType,
+									  pieChartNet );
+				mResultsGrid.setState( resultsGridNet );
+			} catch (Exception e){
+				newCodeAndYear("00", 2009);
+			}
 		} else {
-			History.newItem("00,2009");
+			newCodeAndYear("00", 2009);
 		}
 	}
 

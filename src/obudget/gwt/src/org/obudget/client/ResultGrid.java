@@ -77,7 +77,9 @@ class ResultGrid extends Composite {
 			mGrid.resizeRows(1);
 			return;
 		}
-		
+
+		Application.getInstance().stateChanged();
+
 		mGrid.resizeRows(mList.size()+1);
 
 		Boolean net = !mNetButton.isDown();
@@ -95,7 +97,7 @@ class ResultGrid extends Composite {
 			BudgetLine bl = mList.get(r);
 			String title;
 			if ( r != 0 ) {
-				title = "&nbsp;&nbsp;" + "<a href='#"+bl.getCode()+","+bl.getYear()+"'>"+bl.getTitle()+"</a>";
+				title = "&nbsp;&nbsp;" + "<a href='#"+Application.getInstance().hashForCode( bl.getCode() )+"'>"+bl.getTitle()+"</a>";
 			} else {
 				title = "סה\"כ:";				
 			}
@@ -115,5 +117,13 @@ class ResultGrid extends Composite {
 			mGrid.getRowFormatter().addStyleName(1, "resultgrid-totals-row");
 		}
 
+	}
+
+	public void setState(Integer resultsGridNet) {
+		mNetButton.setDown( resultsGridNet == 1 );
+	}
+
+	public String getState() {
+		return mNetButton.isDown() ? "1" : "0";
 	}
 }

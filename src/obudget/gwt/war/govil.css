@@ -1,0 +1,9 @@
+/** Add css rules here for your application. */
+
+body > div {
+	direction:rtl;
+}
+
+#page { margin: 0 auto; width: 747px; font-size:13px; line-height:16px;}
+#logo { background: transparent url(http://www.shituf.gov.il/sites/e.shituf.gov.il/themes/shituf/images/bg_gov_header.png) no-repeat 100% 0%; color: white; }
+#logo h1 { padding: 0.5em; margin:0;}

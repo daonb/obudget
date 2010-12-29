@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.visualizations.AreaChart;
 import com.google.gwt.visualization.client.visualizations.PieChart;
@@ -28,24 +29,28 @@ public class OBudgetMain implements EntryPoint {
 	    VisualizationUtils.loadVisualizationApi(onLoadCallback, PieChart.PACKAGE, AreaChart.PACKAGE );
 	}
 
+	private void addWidgetToId( String id, Widget widget ) {
+		RootPanel p = RootPanel.get(id);
+		if ( p != null ) {
+			p.add(widget);
+		}
+	}
+	
 	private void init() {
 
-		mApp = new Application();
-		mApp.init(); 
+		mApp = Application.getInstance();
 
-		//filterPanel.add(mApp.getBreadcrumbs() );
-
-		RootPanel.get("obudget-searchbox").add(mApp.getSearchBox());
-		RootPanel.get("obudget-piechart").add(mApp.getPieCharter());
-		RootPanel.get("obudget-timeline").add(mApp.getTimeLineCharter());
-		RootPanel.get("obudget-summary-1").add(mApp.getSummary1() );
-		RootPanel.get("obudget-breadcrumbs").add(mApp.getBreadcrumbs() );
-		RootPanel.get("obudget-year-selection").add(mApp.getYearSelection() );
-		RootPanel.get("obudget-summary-2").add(mApp.getSummary2() );
-		RootPanel.get("obudget-summary-3").add(mApp.getSummary3() );
-		RootPanel.get("obudget-detailed-results").add(mApp.getResultsGrid() );
-		RootPanel.get("obudget-news").add(mApp.getBudgetNews() );
-		RootPanel.get("obudget-cheatsheet").add(mApp.getCheatSheet() );
+		addWidgetToId("obudget-searchbox",mApp.getSearchBox());
+		addWidgetToId("obudget-piechart",mApp.getPieCharter());
+		addWidgetToId("obudget-timeline",mApp.getTimeLineCharter());
+		addWidgetToId("obudget-summary-1",mApp.getSummary1() );
+		addWidgetToId("obudget-breadcrumbs",mApp.getBreadcrumbs() );
+		addWidgetToId("obudget-year-selection",mApp.getYearSelection() );
+		addWidgetToId("obudget-summary-2",mApp.getSummary2() );
+		addWidgetToId("obudget-summary-3",mApp.getSummary3() );
+		addWidgetToId("obudget-detailed-results",mApp.getResultsGrid() );
+		addWidgetToId("obudget-news",mApp.getBudgetNews() );
+		addWidgetToId("obudget-cheatsheet",mApp.getCheatSheet() );
 
 		History.fireCurrentHistoryState();
 	}
