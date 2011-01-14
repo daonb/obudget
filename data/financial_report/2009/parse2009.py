@@ -16,10 +16,14 @@ for l in f:
     code = '00' + code.strip()
     try:
         planned = int(planned.replace(',',''))/1000
+        if code.startswith('0000'):
+            planned = -planned
     except:
         planned = None
     try:
         used = int(used.replace(',',''))/1000
+        if code.startswith('0000'):
+            used = -used
     except:
         used = None
     out.write( json.dumps( {'year':2009,'code':code, 'title':title, 'gross_revised':planned, 'gross_used':used})+'\n' )

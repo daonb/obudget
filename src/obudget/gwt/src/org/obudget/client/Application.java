@@ -1,6 +1,5 @@
 package org.obudget.client;
 
-import com.google.gwt.dev.jjs.ast.js.JsonObject;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -41,6 +40,7 @@ class Application implements ValueChangeHandler<String> {
 	private HTML mCheatSheet;
 	
 	static private Application mInstance = null;
+	private static boolean mEmbedded = false;
 	
 	static public Application getInstance() {
 		if ( mInstance == null ) {
@@ -56,11 +56,11 @@ class Application implements ValueChangeHandler<String> {
 		mResultsGrid = new ResultGrid();
 		mResultsGrid.setWidth("60%");
 
-		mPieCharter = new PieCharter(this);
+		mPieCharter = new PieCharter(this, mEmbedded);
 		mPieCharter.setWidth("600px");
 		mPieCharter.setHeight("300px");
 		
-		mTimeLineCharter = new TimeLineCharter(this);
+		mTimeLineCharter = new TimeLineCharter(this, mEmbedded);
 		mTimeLineCharter.setWidth("600px");
 		mTimeLineCharter.setHeight("300px");
 		
@@ -73,11 +73,13 @@ class Application implements ValueChangeHandler<String> {
 			@Override
 			public void onChange(ChangeEvent event) {
 				Integer index = mYearSelection.getSelectedIndex();
-				selectYear( 1992+index );
+				String yearStr = mYearSelection.getItemText(index);
+				Integer year = Integer.parseInt(yearStr);
+				selectYear(year);
 			}
 		});
 		
-		mSearchBox = new SuggestBox(new BudgetSuggestionOracle(mYearSelection));
+		mSearchBox = new SuggestBox(new BudgetSuggestionOracle());
 		mSearchBox.setWidth("300px");
 		mSearchBox.addSelectionHandler( new SelectionHandler<Suggestion>() {
 			@Override
@@ -102,10 +104,6 @@ class Application implements ValueChangeHandler<String> {
 				
 			}
 		});
-
-		for ( Integer i = 1992 ; i<=2009 ; i ++ ) {
-			mYearSelection.addItem(i.toString());
-		}
 
 		mSummary1 = new Label();
 		mSummary2 = new Label();
@@ -180,7 +178,7 @@ class Application implements ValueChangeHandler<String> {
 				String code = firstResult.get("budget_id").isString().stringValue();
 				mSearchBox.setValue(title);
 
-				mYearSelection.setSelectedIndex( mYear - 1992 );
+				//mYearSelection.setSelectedIndex( mYear - 1992 );
 
 				mBudgetNews.update("\""+title+"\"");
 				
@@ -261,6 +259,18 @@ class Application implements ValueChangeHandler<String> {
 			@Override
 			public void onSuccess(JSONArray data) {
 				mHistoricBudgetLines.parseJson(data);
+
+				mYearSelection.clear();
+				Integer selectedIndex = 0;
+				for ( BudgetLine bl : mHistoricBudgetLines ) {
+					String year = bl.getYear().toString();
+					mYearSelection.addItem( year );
+					if (year.equals( mYear.toString() )) {
+						selectedIndex = mYearSelection.getItemCount() - 1;
+					}
+				}
+				mYearSelection.setSelectedIndex( selectedIndex );
+
 				mTimeLineCharter.handleData(mHistoricBudgetLines);				
 			}
 		});
@@ -361,6 +371,10 @@ class Application implements ValueChangeHandler<String> {
 
 	public Widget getCheatSheet() {
 		return mCheatSheet;
+	}
+
+	public static void setEmbedded( boolean embedded ) {
+		mEmbedded  = embedded;
 	}
 
 }

@@ -15,6 +15,7 @@ class Command(BaseCommand):
         print 'Loading raw rows'
         k = 0
         for filename in args:
+            print filename
             for l in file(filename).readlines():
                 d = json.loads(l)
                 bl, _ = BudgetLine.objects.get_or_create( budget_id = d['code'], year = d['year'] )

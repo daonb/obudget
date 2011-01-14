@@ -32,7 +32,7 @@ class TimeLineCharter extends Composite {
 	private ToggleButton mGrossRevisedButton;
 	private ToggleButton mGrossUsedButton;
 
-	public TimeLineCharter( Application app ) {
+	public TimeLineCharter( Application app, boolean embedded ) {
 		mApp = app;
 		mPanel = new VerticalPanel();
 		
@@ -136,7 +136,6 @@ class TimeLineCharter extends Composite {
 				redrawChart();				
 			}
 		});
-		mGrossRevisedButton.setDown(true);
 		mGrossUsedButton = new ToggleButton("שימוש ברוטו");
 		mGrossUsedButton.setWidth("100px");
 		mGrossUsedButton.addClickHandler( new ClickHandler() {			
@@ -145,6 +144,9 @@ class TimeLineCharter extends Composite {
 				redrawChart();				
 			}
 		});
+
+		mGrossAllocatedButton.setDown(true);
+		mNetRevisedButton.setDown(true);
 		mGrossUsedButton.setDown(true);
 
 		HorizontalPanel mDataFieldPanelNet = new HorizontalPanel();
@@ -158,6 +160,10 @@ class TimeLineCharter extends Composite {
 
 		mPanel.add(mDataFieldPanelNet);
 		mPanel.add(mDataFieldPanelGross);
+		
+		if ( embedded ) {
+			//TODO
+		}
 		
 		mPanel.setWidth("385px");
 

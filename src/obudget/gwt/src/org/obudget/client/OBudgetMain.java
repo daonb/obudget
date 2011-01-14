@@ -38,6 +38,8 @@ public class OBudgetMain implements EntryPoint {
 	
 	private void init() {
 
+		Boolean hasChartsDiv = RootPanel.get("charts") != null;
+		Application.setEmbedded( !hasChartsDiv );
 		mApp = Application.getInstance();
 
 		addWidgetToId("obudget-searchbox",mApp.getSearchBox());
@@ -49,7 +51,7 @@ public class OBudgetMain implements EntryPoint {
 		addWidgetToId("obudget-summary-2",mApp.getSummary2() );
 		addWidgetToId("obudget-summary-3",mApp.getSummary3() );
 		addWidgetToId("obudget-detailed-results",mApp.getResultsGrid() );
-		addWidgetToId("obudget-news",mApp.getBudgetNews() );
+		//addWidgetToId("obudget-news",mApp.getBudgetNews() );
 		addWidgetToId("obudget-cheatsheet",mApp.getCheatSheet() );
 
 		History.fireCurrentHistoryState();

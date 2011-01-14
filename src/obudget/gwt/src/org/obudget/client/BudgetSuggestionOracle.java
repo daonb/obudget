@@ -3,15 +3,28 @@ package org.obudget.client;
 import java.util.LinkedList;
 
 import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.SuggestOracle;
 
 class BudgetSuggestionOracle extends SuggestOracle {
 
-	private ListBox mYearSelection;
+	private Boolean mAllowed = true;
+	private Boolean mOngoing = false;
+	private String mRequestQuery = null;
+	private Timer mTimer; 
 
-	public BudgetSuggestionOracle(ListBox yearSelection) {
-		mYearSelection = yearSelection;
+	private Callback mCallback;
+	private Request mRequest;
+	private String mRequestedQuery;
+
+	public BudgetSuggestionOracle() {
+		mTimer = new Timer() {
+			@Override
+			public void run() {
+				mAllowed = true;
+				doQuery();				
+			}
+		};
 	}
 	
 	@Override
@@ -19,32 +32,52 @@ class BudgetSuggestionOracle extends SuggestOracle {
 		return true;
 	}
 
+	private void doQuery() {
+		if ( mRequestQuery != null &&
+			 mAllowed &&
+			 !mOngoing ) {
+			
+			mOngoing = true;
+			mRequestedQuery = mRequestQuery;
+			mRequestQuery = null;
+
+			BudgetAPICaller api = new BudgetAPICaller();
+			api.setParameter("text", mRequestedQuery);
+			api.setParameter("full", "1");
+			api.setParameter("num", "20");
+			api.setParameter("distinct", "1");
+			
+			api.go(new BudgetAPICallback() {	
+				@Override
+				public void onSuccess(JSONArray array) {
+					mOngoing = false;
+					Response response = new Response();
+					LinkedList<Suggestion> suggestions = new LinkedList<Suggestion>();
+					for ( int i = 0 ; i < array.size() ; i ++ ) {
+						String title = array.get(i).isObject().get("title").isString().stringValue();
+						String code =  array.get(i).isObject().get("budget_id").isString().stringValue();
+						Suggestion suggestion = new BudgetSuggestion(mRequestedQuery, title, code);
+						suggestions.add(suggestion);
+					}
+					response.setSuggestions( suggestions );
+					mCallback.onSuggestionsReady(mRequest, response);
+				}
+			});	
+			
+		} else {
+			if ( mAllowed ) {
+				mAllowed = false;
+				mTimer.schedule(500);
+			}
+		}
+	}
+	
 	@Override
 	public void requestSuggestions(final Request request, final Callback callback) {
-		final String query = request.getQuery();
-		
-		BudgetAPICaller api = new BudgetAPICaller();
-		api.setParameter("text", query);
-		api.setParameter("full", "1");
-		api.setParameter("num", "20");
-		api.setParameter("distinct", "1");
-		api.go(new BudgetAPICallback() {
-			
-			@Override
-			public void onSuccess(JSONArray array) {
-				Response response = new Response();
-				LinkedList<Suggestion> suggestions = new LinkedList<Suggestion>();
-				for ( int i = 0 ; i < array.size() ; i ++ ) {
-					String title = array.get(i).isObject().get("title").isString().stringValue();
-					String code =  array.get(i).isObject().get("budget_id").isString().stringValue();
-					Suggestion suggestion = new BudgetSuggestion(query, title, code);
-					suggestions.add(suggestion);
-				}
-				response.setSuggestions( suggestions );
-				callback.onSuggestionsReady(request, response);
-			}
-			
-		});
+		mCallback = callback;
+		mRequest = request;
+		mRequestQuery = request.getQuery();
+		doQuery();
 	}
 	
 }

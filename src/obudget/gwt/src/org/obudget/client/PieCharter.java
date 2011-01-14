@@ -2,6 +2,8 @@ package org.obudget.client;
 
 import java.util.LinkedList;
 
+import org.apache.catalina.startup.Embedded;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -34,7 +36,7 @@ class PieCharter extends Composite {
 	private ToggleButton mNetButton;
 	private LinkedList<BudgetLine> mList = null;
 
-	public PieCharter( Application app ) {
+	public PieCharter( Application app, boolean embedded ) {
 		mApp = app;
 		mTabPanel = new TabLayoutPanel(0,Unit.PX);
 		mTabPanel.setHeight("305px");
@@ -104,6 +106,9 @@ class PieCharter extends Composite {
 		hPanel.add( mRevisedButton );
 		hPanel.add( mUsedButton );
 		hPanel.add( mNetButton );
+		if ( embedded ) {
+			//TODO
+		}
 		mPanel.add(hPanel);
 		
 		initWidget(mPanel);
