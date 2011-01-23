@@ -10,3 +10,4 @@ develop-eggs/
 *.db
 *~
 WEB-INF
+local_settings.py
