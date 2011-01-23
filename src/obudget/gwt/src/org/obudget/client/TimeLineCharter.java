@@ -145,9 +145,9 @@ class TimeLineCharter extends Composite {
 			}
 		});
 
-		mGrossAllocatedButton.setDown(true);
+		mNetAllocatedButton.setDown(true);
 		mNetRevisedButton.setDown(true);
-		mGrossUsedButton.setDown(true);
+		mNetUsedButton.setDown(true);
 
 		HorizontalPanel mDataFieldPanelNet = new HorizontalPanel();
 		mDataFieldPanelNet.add( mNetAllocatedButton );

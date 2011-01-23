@@ -9,6 +9,8 @@ from piston.resource import Resource
 from piston.handler import BaseHandler
 from piston.utils import rc
 from obudget.budget_lines.models import BudgetLine
+from django.db.models.expressions import F
+from django.db.models.aggregates import Max
 
 
 DEFAULT_PAGE_LEN = 20
@@ -33,7 +35,12 @@ def text_by_request(qs, request):
 
 def distinct_by_request(qs, request):
     if 'distinct' in request.GET and request.GET['distinct']=="1":
-        return qs.order_by('budget_id_len','budget_id').values('title','budget_id').distinct()
+#        return qs.order_by('budget_id_len','budget_id').values('title','budget_id','containing_line').distinct()
+        qs = qs.order_by('budget_id_len','budget_id')
+        qs.query.group_by = ['budget_id']
+
+    
+        #       annotate(max_year=Max('year')).filter(year=F('max_year')).order_by('budget_id_len','budget_id')
     else:
         return qs.order_by('-year','budget_id_len','budget_id')
     return qs
@@ -93,6 +100,9 @@ class BudgetLineHandler(BaseHandler):
         l = line.containing_line
         parent = []
         while l != None:
+            if type(l)==int:
+                l = BudgetLine.objects.get(id=l)
+
             parent.append({ 'budget_id' : l.budget_id, 
                             'title'     : l.title })
             l = l.containing_line

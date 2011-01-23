@@ -56,7 +56,12 @@ class BudgetSuggestionOracle extends SuggestOracle {
 					for ( int i = 0 ; i < array.size() ; i ++ ) {
 						String title = array.get(i).isObject().get("title").isString().stringValue();
 						String code =  array.get(i).isObject().get("budget_id").isString().stringValue();
-						Suggestion suggestion = new BudgetSuggestion(mRequestedQuery, title, code);
+						JSONArray parentsArray = array.get(i).isObject().get("parent").isArray();
+						String[] parents = new String[parentsArray.size()];
+						for ( int j = 0 ; j < parentsArray.size() ; j++ ) {
+							parents[j] = parentsArray.get(j).isObject().get("title").isString().stringValue();
+						}
+						Suggestion suggestion = new BudgetSuggestion(mRequestedQuery, title, code, parents);
 						suggestions.add(suggestion);
 					}
 					response.setSuggestions( suggestions );
