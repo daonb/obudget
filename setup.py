@@ -6,6 +6,7 @@ install_requires = [
     'django-extensions',
     'python-memcached',
     'gunicorn',
+    'psycopg2',
     ]
 setup(
         name = "obudget",
