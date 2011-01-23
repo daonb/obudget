@@ -1,21 +1,20 @@
 function obudget(){
-  var $intern_0 = '', $intern_34 = '" for "gwt:onLoadErrorFn"', $intern_32 = '" for "gwt:onPropertyErrorFn"', $intern_15 = '"><\/script>', $intern_17 = '#', $intern_43 = '&', $intern_53 = '.cache.html', $intern_19 = '/', $intern_50 = '32BC16B5854832495BEAC0901B388469', $intern_51 = '832C29A8E7A59365A9F46B76E1C58FAF', $intern_52 = ':', $intern_26 = '::', $intern_64 = '<script defer="defer">obudget.onInjectionDone(\'obudget\')<\/script>', $intern_14 = '<script id="', $intern_63 = '<script language="javascript" src="http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"><\/script>', $intern_29 = '=', $intern_18 = '?', $intern_31 = 'Bad handler "', $intern_61 = 'DOMContentLoaded', $intern_16 = 'SCRIPT', $intern_46 = 'Unexpected exception in locale detection, using default: ', $intern_45 = '_', $intern_44 = '__gwt_Locale', $intern_13 = '__gwt_marker_obudget', $intern_20 = 'base', $intern_10 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_22 = 'clear.cache.gif', $intern_28 = 'content', $intern_41 = 'default', $intern_9 = 'end', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_54 = 'gwt/chrome/chrome.css', $intern_33 = 'gwt:onLoadErrorFn', $intern_30 = 'gwt:onPropertyErrorFn', $intern_27 = 'gwt:property', $intern_40 = 'he', $intern_59 = 'head', $intern_48 = 'hosted.html?obudget', $intern_58 = 'href', $intern_62 = 'http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA', $intern_60 = 'http://www.google.com/uds/css/gsearch.css', $intern_35 = 'iframe', $intern_21 = 'img', $intern_36 = "javascript:''", $intern_55 = 'link', $intern_47 = 'loadExternalRefs', $intern_39 = 'locale', $intern_42 = 'locale=', $intern_23 = 'meta', $intern_38 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_24 = 'name', $intern_1 = 'obudget', $intern_12 = 'obudget.nocache.js', $intern_25 = 'obudget::', $intern_37 = 'position:absolute;width:0;height:0;border:none', $intern_56 = 'rel', $intern_11 = 'script', $intern_49 = 'selectingPermutation', $intern_2 = 'startup', $intern_57 = 'stylesheet';
-  var $wnd = window, $doc = document, $stats = $wnd.__gwtStatsEvent?function(a){
-    return $wnd.__gwtStatsEvent(a);
+  var $wnd_0 = window, $doc_0 = document, $stats = $wnd_0.__gwtStatsEvent?function(a){
+    return $wnd_0.__gwtStatsEvent(a);
   }
-  :null, $sessionId = $wnd.__gwtStatsSessionId?$wnd.__gwtStatsSessionId:null, scriptsDone, loadDone, bodyDone, base = $intern_0, metaProps = {}, values = [], providers = [], answers = [], softPermutationId = 0, onLoadErrorFunc, propertyErrorFunc;
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_4});
-  if (!$wnd.__gwt_stylesLoaded) {
-    $wnd.__gwt_stylesLoaded = {};
+  :null, $sessionId_0 = $wnd_0.__gwtStatsSessionId?$wnd_0.__gwtStatsSessionId:null, scriptsDone, loadDone, bodyDone, base = '', metaProps = {}, values = [], providers = [], answers = [], softPermutationId = 0, onLoadErrorFunc, propertyErrorFunc;
+  $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'begin'});
+  if (!$wnd_0.__gwt_stylesLoaded) {
+    $wnd_0.__gwt_stylesLoaded = {};
   }
-  if (!$wnd.__gwt_scriptsLoaded) {
-    $wnd.__gwt_scriptsLoaded = {};
+  if (!$wnd_0.__gwt_scriptsLoaded) {
+    $wnd_0.__gwt_scriptsLoaded = {};
   }
   function isHostedMode(){
     var result = false;
     try {
-      var query = $wnd.location.search;
-      return (query.indexOf($intern_5) != -1 || (query.indexOf($intern_6) != -1 || $wnd.external && $wnd.external.gwtOnLoad)) && query.indexOf($intern_7) == -1;
+      var query = $wnd_0.location.search;
+      return (query.indexOf('gwt.codesvr=') != -1 || (query.indexOf('gwt.hosted=') != -1 || $wnd_0.external && $wnd_0.external.gwtOnLoad)) && query.indexOf('gwt.hybrid') == -1;
     }
      catch (e) {
     }
@@ -28,73 +27,73 @@ function obudget(){
 
   function maybeStartModule(){
     if (scriptsDone && loadDone) {
-      var iframe = $doc.getElementById($intern_1);
+      var iframe = $doc_0.getElementById('obudget');
       var frameWnd = iframe.contentWindow;
       if (isHostedMode()) {
-        frameWnd.__gwt_getProperty = function(name){
-          return computePropValue(name);
+        frameWnd.__gwt_getProperty = function(name_0){
+          return computePropValue(name_0);
         }
         ;
       }
       obudget = null;
-      frameWnd.gwtOnLoad(onLoadErrorFunc, $intern_1, base, softPermutationId);
-      $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_8, millis:(new Date).getTime(), type:$intern_9});
+      frameWnd.gwtOnLoad(onLoadErrorFunc, 'obudget', base, softPermutationId);
+      $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'moduleStartup', millis:(new Date).getTime(), type:'end'});
     }
   }
 
   function computeScriptBase(){
-    if (metaProps[$intern_10]) {
-      base = metaProps[$intern_10];
+    if (metaProps['baseUrl']) {
+      base = metaProps['baseUrl'];
       return base;
     }
     var thisScript;
-    var scriptTags = $doc.getElementsByTagName($intern_11);
+    var scriptTags = $doc_0.getElementsByTagName('script');
     for (var i = 0; i < scriptTags.length; ++i) {
-      if (scriptTags[i].src.indexOf($intern_12) != -1) {
+      if (scriptTags[i].src.indexOf('obudget.nocache.js') != -1) {
         thisScript = scriptTags[i];
       }
     }
     if (!thisScript) {
-      var markerId = $intern_13;
+      var markerId = '__gwt_marker_obudget';
       var markerScript;
-      $doc.write($intern_14 + markerId + $intern_15);
-      markerScript = $doc.getElementById(markerId);
+      $doc_0.write('<script id="' + markerId + '"><\/script>');
+      markerScript = $doc_0.getElementById(markerId);
       thisScript = markerScript && markerScript.previousSibling;
-      while (thisScript && thisScript.tagName != $intern_16) {
+      while (thisScript && thisScript.tagName != 'SCRIPT') {
         thisScript = thisScript.previousSibling;
       }
     }
     function getDirectoryOfFile(path){
-      var hashIndex = path.lastIndexOf($intern_17);
+      var hashIndex = path.lastIndexOf('#');
       if (hashIndex == -1) {
         hashIndex = path.length;
       }
-      var queryIndex = path.indexOf($intern_18);
+      var queryIndex = path.indexOf('?');
       if (queryIndex == -1) {
         queryIndex = path.length;
       }
-      var slashIndex = path.lastIndexOf($intern_19, Math.min(queryIndex, hashIndex));
-      return slashIndex >= 0?path.substring(0, slashIndex + 1):$intern_0;
+      var slashIndex = path.lastIndexOf('/', Math.min(queryIndex, hashIndex));
+      return slashIndex >= 0?path.substring(0, slashIndex + 1):'';
     }
 
     ;
     if (thisScript && thisScript.src) {
       base = getDirectoryOfFile(thisScript.src);
     }
-    if (base == $intern_0) {
-      var baseElements = $doc.getElementsByTagName($intern_20);
+    if (base == '') {
+      var baseElements = $doc_0.getElementsByTagName('base');
       if (baseElements.length > 0) {
         base = baseElements[baseElements.length - 1].href;
       }
        else {
-        base = getDirectoryOfFile($doc.location.href);
+        base = getDirectoryOfFile($doc_0.location.href);
       }
     }
      else if (base.match(/^\w+:\/\//)) {
     }
      else {
-      var img = $doc.createElement($intern_21);
-      img.src = base + $intern_22;
+      var img = $doc_0.createElement('img');
+      img.src = base + 'clear.cache.gif';
       base = getDirectoryOfFile(img.src);
     }
     if (markerScript) {
@@ -104,48 +103,48 @@ function obudget(){
   }
 
   function processMetas(){
-    var metas = document.getElementsByTagName($intern_23);
+    var metas = document.getElementsByTagName('meta');
     for (var i = 0, n = metas.length; i < n; ++i) {
-      var meta = metas[i], name = meta.getAttribute($intern_24), content;
-      if (name) {
-        name = name.replace($intern_25, $intern_0);
-        if (name.indexOf($intern_26) >= 0) {
+      var meta = metas[i], name_0 = meta.getAttribute('name'), content_0;
+      if (name_0) {
+        name_0 = name_0.replace('obudget::', '');
+        if (name_0.indexOf('::') >= 0) {
           continue;
         }
-        if (name == $intern_27) {
-          content = meta.getAttribute($intern_28);
-          if (content) {
-            var value, eq = content.indexOf($intern_29);
+        if (name_0 == 'gwt:property') {
+          content_0 = meta.getAttribute('content');
+          if (content_0) {
+            var value, eq = content_0.indexOf('=');
             if (eq >= 0) {
-              name = content.substring(0, eq);
-              value = content.substring(eq + 1);
+              name_0 = content_0.substring(0, eq);
+              value = content_0.substring(eq + 1);
             }
              else {
-              name = content;
-              value = $intern_0;
+              name_0 = content_0;
+              value = '';
             }
-            metaProps[name] = value;
+            metaProps[name_0] = value;
           }
         }
-         else if (name == $intern_30) {
-          content = meta.getAttribute($intern_28);
-          if (content) {
+         else if (name_0 == 'gwt:onPropertyErrorFn') {
+          content_0 = meta.getAttribute('content');
+          if (content_0) {
             try {
-              propertyErrorFunc = eval(content);
+              propertyErrorFunc = eval(content_0);
             }
              catch (e) {
-              alert($intern_31 + content + $intern_32);
+              alert('Bad handler "' + content_0 + '" for "gwt:onPropertyErrorFn"');
             }
           }
         }
-         else if (name == $intern_33) {
-          content = meta.getAttribute($intern_28);
-          if (content) {
+         else if (name_0 == 'gwt:onLoadErrorFn') {
+          content_0 = meta.getAttribute('content');
+          if (content_0) {
             try {
-              onLoadErrorFunc = eval(content);
+              onLoadErrorFunc = eval(content_0);
             }
              catch (e) {
-              alert($intern_31 + content + $intern_34);
+              alert('Bad handler "' + content_0 + '" for "gwt:onLoadErrorFn"');
             }
           }
         }
@@ -157,8 +156,8 @@ function obudget(){
     return propValue in values[propName];
   }
 
-  function __gwt_getMetaProperty(name){
-    var value = metaProps[name];
+  function __gwt_getMetaProperty(name_0){
+    var value = metaProps[name_0];
     return value == null?null:value;
   }
 
@@ -189,28 +188,28 @@ function obudget(){
   function maybeInjectFrame(){
     if (!frameInjected) {
       frameInjected = true;
-      var iframe = $doc.createElement($intern_35);
-      iframe.src = $intern_36;
-      iframe.id = $intern_1;
-      iframe.style.cssText = $intern_37;
+      var iframe = $doc_0.createElement('iframe');
+      iframe.src = "javascript:''";
+      iframe.id = 'obudget';
+      iframe.style.cssText = 'position:absolute;width:0;height:0;border:none';
       iframe.tabIndex = -1;
-      $doc.body.appendChild(iframe);
-      $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_8, millis:(new Date).getTime(), type:$intern_38});
+      $doc_0.body.appendChild(iframe);
+      $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'moduleStartup', millis:(new Date).getTime(), type:'moduleRequested'});
       iframe.contentWindow.location.replace(base + initialHtml);
     }
   }
 
-  providers[$intern_39] = function(){
+  providers['locale'] = function(){
     try {
       var locale;
-      var defaultLocale = $intern_40 || $intern_41;
+      var defaultLocale = 'he' || 'default';
       if (locale == null) {
         var args = location.search;
-        var startLang = args.indexOf($intern_42);
+        var startLang = args.indexOf('locale=');
         if (startLang >= 0) {
           var language = args.substring(startLang);
-          var begin = language.indexOf($intern_29) + 1;
-          var end = language.indexOf($intern_43);
+          var begin = language.indexOf('=') + 1;
+          var end = language.indexOf('&');
           if (end == -1) {
             end = language.length;
           }
@@ -218,19 +217,19 @@ function obudget(){
         }
       }
       if (locale == null) {
-        locale = __gwt_getMetaProperty($intern_39);
+        locale = __gwt_getMetaProperty('locale');
       }
       if (locale == null) {
-        locale = $wnd[$intern_44];
+        locale = $wnd_0['__gwt_Locale'];
       }
        else {
-        $wnd[$intern_44] = locale || defaultLocale;
+        $wnd_0['__gwt_Locale'] = locale || defaultLocale;
       }
       if (locale == null) {
         return defaultLocale;
       }
-      while (!__gwt_isKnownPropertyValue($intern_39, locale)) {
-        var lastIndex = locale.lastIndexOf($intern_45);
+      while (!__gwt_isKnownPropertyValue('locale', locale)) {
+        var lastIndex = locale.lastIndexOf('_');
         if (lastIndex == -1) {
           locale = defaultLocale;
           break;
@@ -242,12 +241,50 @@ function obudget(){
       return locale;
     }
      catch (e) {
-      alert($intern_46 + e);
-      return $intern_41;
+      alert('Unexpected exception in locale detection, using default: ' + e);
+      return 'default';
     }
   }
   ;
-  values[$intern_39] = {'default':0, he:1};
+  values['locale'] = {'default':0, he:1};
+  providers['user.agent'] = function(){
+    var ua = navigator.userAgent.toLowerCase();
+    var makeVersion = function(result){
+      return parseInt(result[1]) * 1000 + parseInt(result[2]);
+    }
+    ;
+    if (ua.indexOf('opera') != -1) {
+      return 'opera';
+    }
+     else if (ua.indexOf('webkit') != -1) {
+      return 'safari';
+    }
+     else if (ua.indexOf('msie') != -1) {
+      if (document.documentMode >= 8) {
+        return 'ie8';
+      }
+       else {
+        var result_0 = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
+        if (result_0 && result_0.length == 3) {
+          var v = makeVersion(result_0);
+          if (v >= 6000) {
+            return 'ie6';
+          }
+        }
+      }
+    }
+     else if (ua.indexOf('gecko') != -1) {
+      var result_0 = /rv:([0-9]+)\.([0-9]+)/.exec(ua);
+      if (result_0 && result_0.length == 3) {
+        if (makeVersion(result_0) >= 1008)
+          return 'gecko1_8';
+      }
+      return 'gecko';
+    }
+    return 'unknown';
+  }
+  ;
+  values['user.agent'] = {gecko:0, gecko1_8:1, ie6:2, ie8:3, opera:4, safari:5};
   obudget.onScriptLoad = function(){
     if (frameInjected) {
       loadDone = true;
@@ -257,7 +294,7 @@ function obudget(){
   ;
   obudget.onInjectionDone = function(){
     scriptsDone = true;
-    $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_47, millis:(new Date).getTime(), type:$intern_9});
+    $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'loadExternalRefs', millis:(new Date).getTime(), type:'end'});
     maybeStartModule();
   }
   ;
@@ -266,25 +303,35 @@ function obudget(){
   var strongName;
   var initialHtml;
   if (isHostedMode()) {
-    if ($wnd.external && ($wnd.external.initModule && $wnd.external.initModule($intern_1))) {
-      $wnd.location.reload();
+    if ($wnd_0.external && ($wnd_0.external.initModule && $wnd_0.external.initModule('obudget'))) {
+      $wnd_0.location.reload();
       return;
     }
-    initialHtml = $intern_48;
-    strongName = $intern_0;
+    initialHtml = 'hosted.html?obudget';
+    strongName = '';
   }
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_49});
+  $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers([$intern_41], $intern_50);
-      unflattenKeylistIntoAnswers([$intern_40], $intern_51);
-      strongName = answers[computePropValue($intern_39)];
-      var idx = strongName.indexOf($intern_52);
+      unflattenKeylistIntoAnswers(['default', 'gecko'], '302F0D47B8D229BC8CB4F2FAEBD290D6');
+      unflattenKeylistIntoAnswers(['default', 'ie8'], '42E74E5453910C885AFBC0003B4D4394');
+      unflattenKeylistIntoAnswers(['default', 'gecko1_8'], '4B32FB5780B143F667618CF40541D259');
+      unflattenKeylistIntoAnswers(['default', 'ie6'], '4B8042178B10B9577747BCE9B71CFFDB');
+      unflattenKeylistIntoAnswers(['default', 'opera'], '6E14B2C12B4C6F87D39BE98BD72F04D4');
+      unflattenKeylistIntoAnswers(['he', 'safari'], '7C114327BB6FAABB5AA0D4205765E9A2');
+      unflattenKeylistIntoAnswers(['he', 'ie8'], '8BB26F9295CCFB3ACE03E9597D5525FD');
+      unflattenKeylistIntoAnswers(['default', 'safari'], '90FF82BD76AC748491CE259EB69673FA');
+      unflattenKeylistIntoAnswers(['he', 'ie6'], 'A71D6589EBC345E91FE1702A6101416E');
+      unflattenKeylistIntoAnswers(['he', 'gecko1_8'], 'E5BBF25C0FC122D5E1360B1B979909A0');
+      unflattenKeylistIntoAnswers(['he', 'opera'], 'E7F36DC76A24D7EFE15E71CF0BC8C494');
+      unflattenKeylistIntoAnswers(['he', 'gecko'], 'EC93060E67C400303ABDC81B6162E1CA');
+      strongName = answers[computePropValue('locale')][computePropValue('user.agent')];
+      var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));
         strongName = strongName.substring(0, idx);
       }
-      initialHtml = strongName + $intern_53;
+      initialHtml = strongName + '.cache.html';
     }
      catch (e) {
       return;
@@ -294,23 +341,23 @@ function obudget(){
   function onBodyDone(){
     if (!bodyDone) {
       bodyDone = true;
-      if (!__gwt_stylesLoaded[$intern_54]) {
-        var l = $doc.createElement($intern_55);
-        __gwt_stylesLoaded[$intern_54] = l;
-        l.setAttribute($intern_56, $intern_57);
-        l.setAttribute($intern_58, base + $intern_54);
-        $doc.getElementsByTagName($intern_59)[0].appendChild(l);
+      if (!__gwt_stylesLoaded['gwt/chrome/chrome.css']) {
+        var l = $doc_0.createElement('link');
+        __gwt_stylesLoaded['gwt/chrome/chrome.css'] = l;
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('href', base + 'gwt/chrome/chrome.css');
+        $doc_0.getElementsByTagName('head')[0].appendChild(l);
       }
-      if (!__gwt_stylesLoaded[$intern_60]) {
-        var l = $doc.createElement($intern_55);
-        __gwt_stylesLoaded[$intern_60] = l;
-        l.setAttribute($intern_56, $intern_57);
-        l.setAttribute($intern_58, $intern_60);
-        $doc.getElementsByTagName($intern_59)[0].appendChild(l);
+      if (!__gwt_stylesLoaded['http://www.google.com/uds/css/gsearch.css']) {
+        var l = $doc_0.createElement('link');
+        __gwt_stylesLoaded['http://www.google.com/uds/css/gsearch.css'] = l;
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('href', 'http://www.google.com/uds/css/gsearch.css');
+        $doc_0.getElementsByTagName('head')[0].appendChild(l);
       }
       maybeStartModule();
-      if ($doc.removeEventListener) {
-        $doc.removeEventListener($intern_61, onBodyDone, false);
+      if ($doc_0.removeEventListener) {
+        $doc_0.removeEventListener('DOMContentLoaded', onBodyDone, false);
       }
       if (onBodyDoneTimerId) {
         clearInterval(onBodyDoneTimerId);
@@ -318,27 +365,27 @@ function obudget(){
     }
   }
 
-  if ($doc.addEventListener) {
-    $doc.addEventListener($intern_61, function(){
+  if ($doc_0.addEventListener) {
+    $doc_0.addEventListener('DOMContentLoaded', function(){
       maybeInjectFrame();
       onBodyDone();
     }
     , false);
   }
   var onBodyDoneTimerId = setInterval(function(){
-    if (/loaded|complete/.test($doc.readyState)) {
+    if (/loaded|complete/.test($doc_0.readyState)) {
       maybeInjectFrame();
       onBodyDone();
     }
   }
   , 50);
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_9});
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_47, millis:(new Date).getTime(), type:$intern_4});
-  if (!__gwt_scriptsLoaded[$intern_62]) {
-    __gwt_scriptsLoaded[$intern_62] = true;
-    document.write($intern_63);
+  $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'end'});
+  $stats && $stats({moduleName:'obudget', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'loadExternalRefs', millis:(new Date).getTime(), type:'begin'});
+  if (!__gwt_scriptsLoaded['http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA']) {
+    __gwt_scriptsLoaded['http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA'] = true;
+    document.write('<script language="javascript" src="http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"><\/script>');
   }
-  $doc.write($intern_64);
+  $doc_0.write('<script defer="defer">obudget.onInjectionDone(\'obudget\')<\/script>');
 }
 
 obudget();
