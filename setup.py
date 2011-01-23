@@ -5,6 +5,7 @@ install_requires = [
     'django-piston',
     'django-extensions',
     'python-memcached',
+    'gunicorn',
     ]
 setup(
         name = "obudget",

@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'django_extensions',
+    'gunicorn',
     'obudget.budget_lines',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
