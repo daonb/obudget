@@ -122,11 +122,15 @@ class PieCharter extends Composite {
 	private void redrawChart() {
 	    mTabPanel.clear();
 
+	    // mList contains header row (which we disregard) and sub items 
 	    if ( mList == null ) { return; }
-	    if ( mList.size() < 2 ) { return; }
+
+	    Integer subitemCount = mList.size()-1;
+	    if ( subitemCount < 1 ) { return; }
 	    
-	    Integer mActualRows = Math.min( mList.size()-1, 10 );
-	    boolean hasActualRows = mList.size()-1 > mActualRows; 
+	    
+	    Integer mActualRows = Math.min( subitemCount, 10 );
+	    boolean hasExtraRow = subitemCount > mActualRows; 
 
 		Application.getInstance().stateChanged();
 
@@ -140,53 +144,64 @@ class PieCharter extends Composite {
 	    for ( int t = 0 ; t < 3 ; t ++ ) { 
 		    data[t].addColumn(ColumnType.STRING, "Title");
 		    data[t].addColumn(ColumnType.NUMBER, "Allocated");
-		    if ( hasActualRows ) {
+		    if ( hasExtraRow ) {
 		    	data[t].addRows(mActualRows+1);
 		    } else {
-		    	data[t].addRows(mList.size()-1);		    	
+		    	data[t].addRows(mActualRows);		    	
 		    }
+		    
 		    for ( int i = 0 ; i < mActualRows ; i ++ ) {
 			    data[t].setValue(i, 0, mList.get(i+1).getTitle());
 		    }
-		    if ( hasActualRows ) {
+		    if ( hasExtraRow ) {
 			    data[t].setValue(mActualRows, 0, "אחרים");
 			    data[t].setValue(mActualRows, 1, 0);
 		    }
 	    }
+	    
 	    Boolean net = !mNetButton.isDown();
 	    for ( int i = 0 ; i < mList.size()-1 ; i ++ ) {
 	    	if ( ( mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ) != null ) &&
 	    		 ( mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ) > 0 ) ) {
-		    	if ( i >= mActualRows && hasActualRows ) {
-		    		data[0].setValue(mActualRows, 1, data[0].getValueInt(mActualRows, 1) + 
-   						 mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ));		    		
+		    	
+	    		if ( i >= mActualRows && hasExtraRow ) {
+		    		data[0].setValue(mActualRows, 1, 
+		    						 data[0].getValueInt(mActualRows, 1) + 
+		    						 mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ));		    		
 		    	} else {
 		    		data[0].setValue(i, 1, mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ));
 		    	}
 	    	} else {
-	    		data[0].setValue(i, 1, 0 );	    		
+	    		if ( i < mActualRows ) {
+	    			data[0].setValue(i, 1, 0 );
+	    		}
 	    	}
 	    	if ( (mList.get(i+1).getOriginal( BudgetLine.REVISED, net ) != null) && 
 	    		 (mList.get(i+1).getOriginal( BudgetLine.REVISED, net ) > 0) ) {
-		    	if ( i >= mActualRows && hasActualRows ) {
-		    		data[1].setValue(mActualRows, 1, data[1].getValueInt(mActualRows, 1) + 
-					 			 mList.get(i+1).getOriginal( BudgetLine.REVISED, net ));		    		
+		    	if ( i >= mActualRows && hasExtraRow ) {
+		    		data[1].setValue(mActualRows, 1, 
+		    						 data[1].getValueInt(mActualRows, 1) + 
+		    						 mList.get(i+1).getOriginal( BudgetLine.REVISED, net ));		    		
 		    	} else {
 		    		data[1].setValue(i, 1, mList.get(i+1).getOriginal( BudgetLine.REVISED, net ) );
 		    	}
 	    	} else {
-			    data[1].setValue(i, 1, 0);    			    		
+	    		if ( i < mActualRows ) {
+	    			data[1].setValue(i, 1, 0);
+	    		}
 	    	}
 	    	if ( (mList.get(i+1).getOriginal( BudgetLine.USED, net ) != null) &&
 	    		 (mList.get(i+1).getOriginal( BudgetLine.USED, net ) > 0) ) {
-		    	if ( i >= mActualRows && hasActualRows ) {
+		    	if ( i >= mActualRows && hasExtraRow ) {
 		    		data[2].setValue(mActualRows, 1, data[2].getValueInt(mActualRows, 1) + 
    						 mList.get(i+1).getOriginal( BudgetLine.USED, net ));		    		
 	    		} else {
 	    			data[2].setValue(i, 1, mList.get(i+1).getOriginal( BudgetLine.USED, net ) );
 	    		}
 	    	} else {
-	    		data[2].setValue(i, 1, 0);	    		
+	    		if ( i < mActualRows ) {
+	    			data[2].setValue(i, 1, 0);
+	    		}
 	    	}
 	    }
 
