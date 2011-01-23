@@ -4,6 +4,9 @@ body > div, .suggestPopupContent {
 	direction:rtl;
 }
 
+#logo { background: transparent url(http://www.shituf.gov.il/sites/e.shituf.gov.il/themes/shituf/images/bg_gov_header.png) no-repeat 100% 0%; color: white; }
+#logo h1 { padding: 0.5em; margin:0;}
+
 #page { margin: 0 auto; width: 747px; font-size:13px; line-height:16px;}
 #search 
 {
