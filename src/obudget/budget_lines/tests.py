@@ -12,19 +12,25 @@ from models import *
 class APITest(TestCase):
     def setUp(self):
     	self.line1 = BudgetLine.objects.create(title="line 1", budget_id="0001",
-		amount_allocated=2, amount_revised=20, amount_used=18, year=1992)
+		net_amount_allocated=2, net_amount_revised=20, net_amount_used=18, year=1992)
     	self.line11 = BudgetLine.objects.create(title="line 101", budget_id="000101",
-		amount_allocated=12, amount_revised=15, amount_used=13, year=1992)
+		net_amount_allocated=12, net_amount_revised=15, net_amount_used=13, year=1992)
 
     def test_basic_line(self):
-	import json
+        import json
 
-	res = self.client.get(reverse('budget-line-handler', kwargs={'id':'000101'}))
+        res = self.client.get(reverse('budget-line-handler', kwargs={'id':'000101'}))
         self.assertEqual(res.status_code, 200)
-	data = json.loads(res.content, encoding='utf8')
-	self.assertEqual(data, [{u'inf_amount_revised': 36, u'amount_allocated': 12, u'inf_amount_used': 31, u'budget_id': u'000101', u'year': 1992, u'title': u'line 101', u'inf_amount_allocated': 29, u'amount_used': 13, u'amount_revised': 15}])
-	res = self.client.get(reverse('budget-line-handler', kwargs={'id':'0001'}))
+        data = json.loads(res.content, encoding='utf8')
+        self.assertEqual(data, [{u'parent': [], u'title': u'line 101',
+                                 u'net_amount_revised': 15, u'gross_amount_used':
+                                 None, u'gross_amount_revised': None, u'budget_id':
+                                 u'000101', u'year': 1992, u'inflation_factor':
+                                 2.453464625854, u'net_amount_allocated': 12,
+                                 u'net_amount_used': 13, 
+                                 u'gross_amount_allocated': None}])
+        res = self.client.get(reverse('budget-line-handler', kwargs={'id':'0001'}))
         self.assertEqual(res.status_code, 200)
-	data = json.loads(res.content, encoding='utf8')
-	self.assertEqual(len(data), 2)
-	# TODO: test content
+        data = json.loads(res.content, encoding='utf8')
+        self.assertEqual(len(data), 2)
+        # TODO: test content
