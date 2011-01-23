@@ -1,5 +1,5 @@
 function obudget(){
-  var $intern_0 = '', $intern_34 = '" for "gwt:onLoadErrorFn"', $intern_32 = '" for "gwt:onPropertyErrorFn"', $intern_15 = '"><\/script>', $intern_17 = '#', $intern_43 = '&', $intern_53 = '.cache.html', $intern_19 = '/', $intern_50 = '32BC16B5854832495BEAC0901B388469', $intern_51 = '832C29A8E7A59365A9F46B76E1C58FAF', $intern_52 = ':', $intern_26 = '::', $intern_64 = '<script defer="defer">obudget.onInjectionDone(\'obudget\')<\/script>', $intern_14 = '<script id="', $intern_63 = '<script language="javascript" src="http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"><\/script>', $intern_29 = '=', $intern_18 = '?', $intern_31 = 'Bad handler "', $intern_61 = 'DOMContentLoaded', $intern_16 = 'SCRIPT', $intern_46 = 'Unexpected exception in locale detection, using default: ', $intern_45 = '_', $intern_44 = '__gwt_Locale', $intern_13 = '__gwt_marker_obudget', $intern_20 = 'base', $intern_10 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_22 = 'clear.cache.gif', $intern_28 = 'content', $intern_41 = 'default', $intern_9 = 'end', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_54 = 'gwt/chrome/chrome.css', $intern_33 = 'gwt:onLoadErrorFn', $intern_30 = 'gwt:onPropertyErrorFn', $intern_27 = 'gwt:property', $intern_40 = 'he', $intern_59 = 'head', $intern_48 = 'hosted.html?obudget', $intern_58 = 'href', $intern_62 = 'http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA', $intern_60 = 'http://www.google.com/uds/css/gsearch.css', $intern_35 = 'iframe', $intern_21 = 'img', $intern_36 = "javascript:''", $intern_55 = 'link', $intern_47 = 'loadExternalRefs', $intern_39 = 'locale', $intern_42 = 'locale=', $intern_23 = 'meta', $intern_38 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_24 = 'name', $intern_1 = 'obudget', $intern_12 = 'obudget.nocache.js', $intern_25 = 'obudget::', $intern_37 = 'position:absolute;width:0;height:0;border:none', $intern_56 = 'rel', $intern_11 = 'script', $intern_49 = 'selectingPermutation', $intern_2 = 'startup', $intern_57 = 'stylesheet';
+  var $intern_0 = '', $intern_34 = '" for "gwt:onLoadErrorFn"', $intern_32 = '" for "gwt:onPropertyErrorFn"', $intern_15 = '"><\/script>', $intern_17 = '#', $intern_43 = '&', $intern_73 = '.cache.html', $intern_19 = '/', $intern_60 = '07B9B27C0B8B1C7068989FBE9B3B03CC', $intern_61 = '282EBC7C6A96E32BF7FC412D13B993DE', $intern_62 = '34660A912A17C448812ED41DBB4B572B', $intern_63 = '4CF7AA4E3041A26972E6ED1A2FCF394C', $intern_64 = '65276760CF77D81D4455DD35DF3D6DBF', $intern_65 = '66C49D3C1F85AC427A0E296FA4C2E7BE', $intern_66 = '6E488C1E661592FDE4AFA03175EFFC39', $intern_72 = ':', $intern_26 = '::', $intern_84 = '<script defer="defer">obudget.onInjectionDone(\'obudget\')<\/script>', $intern_14 = '<script id="', $intern_83 = '<script language="javascript" src="http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"><\/script>', $intern_29 = '=', $intern_18 = '?', $intern_67 = 'ABD4125BDA69FCFECC7E567DDD601ADD', $intern_31 = 'Bad handler "', $intern_68 = 'C010457911682D97BA255324FBB891C4', $intern_69 = 'C6B3E08407C5AAAA4803F636772B1B83', $intern_70 = 'D21965AA6F51A7E441AB05E25604286C', $intern_81 = 'DOMContentLoaded', $intern_71 = 'FD1061FB0B4E0EB4E0A1B2C3D92EF455', $intern_16 = 'SCRIPT', $intern_46 = 'Unexpected exception in locale detection, using default: ', $intern_45 = '_', $intern_44 = '__gwt_Locale', $intern_13 = '__gwt_marker_obudget', $intern_20 = 'base', $intern_10 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_22 = 'clear.cache.gif', $intern_28 = 'content', $intern_41 = 'default', $intern_9 = 'end', $intern_54 = 'gecko', $intern_55 = 'gecko1_8', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_74 = 'gwt/chrome/chrome.css', $intern_33 = 'gwt:onLoadErrorFn', $intern_30 = 'gwt:onPropertyErrorFn', $intern_27 = 'gwt:property', $intern_40 = 'he', $intern_79 = 'head', $intern_58 = 'hosted.html?obudget', $intern_78 = 'href', $intern_82 = 'http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA', $intern_80 = 'http://www.google.com/uds/css/gsearch.css', $intern_53 = 'ie6', $intern_52 = 'ie8', $intern_35 = 'iframe', $intern_21 = 'img', $intern_36 = "javascript:''", $intern_75 = 'link', $intern_57 = 'loadExternalRefs', $intern_39 = 'locale', $intern_42 = 'locale=', $intern_23 = 'meta', $intern_38 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_51 = 'msie', $intern_24 = 'name', $intern_1 = 'obudget', $intern_12 = 'obudget.nocache.js', $intern_25 = 'obudget::', $intern_48 = 'opera', $intern_37 = 'position:absolute;width:0;height:0;border:none', $intern_76 = 'rel', $intern_50 = 'safari', $intern_11 = 'script', $intern_59 = 'selectingPermutation', $intern_2 = 'startup', $intern_77 = 'stylesheet', $intern_56 = 'unknown', $intern_47 = 'user.agent', $intern_49 = 'webkit';
   var $wnd = window, $doc = document, $stats = $wnd.__gwtStatsEvent?function(a){
     return $wnd.__gwtStatsEvent(a);
   }
@@ -248,6 +248,44 @@ function obudget(){
   }
   ;
   values[$intern_39] = {'default':0, he:1};
+  providers[$intern_47] = function(){
+    var ua = navigator.userAgent.toLowerCase();
+    var makeVersion = function(result){
+      return parseInt(result[1]) * 1000 + parseInt(result[2]);
+    }
+    ;
+    if (ua.indexOf($intern_48) != -1) {
+      return $intern_48;
+    }
+     else if (ua.indexOf($intern_49) != -1) {
+      return $intern_50;
+    }
+     else if (ua.indexOf($intern_51) != -1) {
+      if (document.documentMode >= 8) {
+        return $intern_52;
+      }
+       else {
+        var result = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
+        if (result && result.length == 3) {
+          var v = makeVersion(result);
+          if (v >= 6000) {
+            return $intern_53;
+          }
+        }
+      }
+    }
+     else if (ua.indexOf($intern_54) != -1) {
+      var result = /rv:([0-9]+)\.([0-9]+)/.exec(ua);
+      if (result && result.length == 3) {
+        if (makeVersion(result) >= 1008)
+          return $intern_55;
+      }
+      return $intern_54;
+    }
+    return $intern_56;
+  }
+  ;
+  values[$intern_47] = {gecko:0, gecko1_8:1, ie6:2, ie8:3, opera:4, safari:5};
   obudget.onScriptLoad = function(){
     if (frameInjected) {
       loadDone = true;
@@ -257,7 +295,7 @@ function obudget(){
   ;
   obudget.onInjectionDone = function(){
     scriptsDone = true;
-    $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_47, millis:(new Date).getTime(), type:$intern_9});
+    $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_57, millis:(new Date).getTime(), type:$intern_9});
     maybeStartModule();
   }
   ;
@@ -270,21 +308,31 @@ function obudget(){
       $wnd.location.reload();
       return;
     }
-    initialHtml = $intern_48;
+    initialHtml = $intern_58;
     strongName = $intern_0;
   }
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_49});
+  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_59});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers([$intern_41], $intern_50);
-      unflattenKeylistIntoAnswers([$intern_40], $intern_51);
-      strongName = answers[computePropValue($intern_39)];
-      var idx = strongName.indexOf($intern_52);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_53], $intern_60);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_55], $intern_61);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_52], $intern_62);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_54], $intern_63);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_50], $intern_64);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_52], $intern_65);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_50], $intern_66);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_48], $intern_67);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_53], $intern_68);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_48], $intern_69);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_55], $intern_70);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_54], $intern_71);
+      strongName = answers[computePropValue($intern_39)][computePropValue($intern_47)];
+      var idx = strongName.indexOf($intern_72);
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));
         strongName = strongName.substring(0, idx);
       }
-      initialHtml = strongName + $intern_53;
+      initialHtml = strongName + $intern_73;
     }
      catch (e) {
       return;
@@ -294,23 +342,23 @@ function obudget(){
   function onBodyDone(){
     if (!bodyDone) {
       bodyDone = true;
-      if (!__gwt_stylesLoaded[$intern_54]) {
-        var l = $doc.createElement($intern_55);
-        __gwt_stylesLoaded[$intern_54] = l;
-        l.setAttribute($intern_56, $intern_57);
-        l.setAttribute($intern_58, base + $intern_54);
-        $doc.getElementsByTagName($intern_59)[0].appendChild(l);
+      if (!__gwt_stylesLoaded[$intern_74]) {
+        var l = $doc.createElement($intern_75);
+        __gwt_stylesLoaded[$intern_74] = l;
+        l.setAttribute($intern_76, $intern_77);
+        l.setAttribute($intern_78, base + $intern_74);
+        $doc.getElementsByTagName($intern_79)[0].appendChild(l);
       }
-      if (!__gwt_stylesLoaded[$intern_60]) {
-        var l = $doc.createElement($intern_55);
-        __gwt_stylesLoaded[$intern_60] = l;
-        l.setAttribute($intern_56, $intern_57);
-        l.setAttribute($intern_58, $intern_60);
-        $doc.getElementsByTagName($intern_59)[0].appendChild(l);
+      if (!__gwt_stylesLoaded[$intern_80]) {
+        var l = $doc.createElement($intern_75);
+        __gwt_stylesLoaded[$intern_80] = l;
+        l.setAttribute($intern_76, $intern_77);
+        l.setAttribute($intern_78, $intern_80);
+        $doc.getElementsByTagName($intern_79)[0].appendChild(l);
       }
       maybeStartModule();
       if ($doc.removeEventListener) {
-        $doc.removeEventListener($intern_61, onBodyDone, false);
+        $doc.removeEventListener($intern_81, onBodyDone, false);
       }
       if (onBodyDoneTimerId) {
         clearInterval(onBodyDoneTimerId);
@@ -319,7 +367,7 @@ function obudget(){
   }
 
   if ($doc.addEventListener) {
-    $doc.addEventListener($intern_61, function(){
+    $doc.addEventListener($intern_81, function(){
       maybeInjectFrame();
       onBodyDone();
     }
@@ -333,12 +381,12 @@ function obudget(){
   }
   , 50);
   $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_9});
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_47, millis:(new Date).getTime(), type:$intern_4});
-  if (!__gwt_scriptsLoaded[$intern_62]) {
-    __gwt_scriptsLoaded[$intern_62] = true;
-    document.write($intern_63);
+  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_57, millis:(new Date).getTime(), type:$intern_4});
+  if (!__gwt_scriptsLoaded[$intern_82]) {
+    __gwt_scriptsLoaded[$intern_82] = true;
+    document.write($intern_83);
   }
-  $doc.write($intern_64);
+  $doc.write($intern_84);
 }
 
 obudget();
