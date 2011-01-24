@@ -8,7 +8,7 @@ from django.db.models import Count
 from piston.resource import Resource
 from piston.handler import BaseHandler
 from piston.utils import rc
-from obudget.budget_lines.models import BudgetLine
+from budget_lines.models import BudgetLine
 from django.db.models.expressions import F
 from django.db.models.aggregates import Max
 

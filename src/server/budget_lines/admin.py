@@ -1,9 +1,9 @@
 from django.contrib import admin
-from obudget.budget_lines.models import BudgetLine 
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
 from django.conf.urls.defaults import patterns, url
+from models import BudgetLine 
 
 class BudgetLineAdmin(admin.ModelAdmin):
     fields =  ( 'budget_id', 'title', 'year', 'amount_allocated', 'amount_revised', 'amount_used' )

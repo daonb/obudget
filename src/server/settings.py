@@ -77,7 +77,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'obudget.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -96,7 +96,7 @@ INSTALLED_APPS = (
     'south',
     'django_extensions',
     'gunicorn',
-    'obudget.budget_lines',
+    'budget_lines',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
