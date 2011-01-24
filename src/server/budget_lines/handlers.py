@@ -31,7 +31,7 @@ def distinct_by_request(qs, request):
     
         #       annotate(max_year=Max('year')).filter(year=F('max_year')).order_by('budget_id_len','budget_id')
     else:
-        return qs.order_by('-year','budget_id_len','budget_id')
+        return qs.order_by('-year','budget_id_len','-net_amount_allocated')
     return qs
 
 def depth_by_request(qs, request, budget_code):
