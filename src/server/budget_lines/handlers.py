@@ -1,17 +1,6 @@
-from datetime import datetime
-import urllib
-from django.db.models import Q
-from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
-from django.core.cache import cache
-from django.db.models import Count
 from piston.resource import Resource
 from piston.handler import BaseHandler
-from piston.utils import rc
 from budget_lines.models import BudgetLine
-from django.db.models.expressions import F
-from django.db.models.aggregates import Max
-
 
 DEFAULT_PAGE_LEN = 20
 def limit_by_request(qs, request):

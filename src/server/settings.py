@@ -87,6 +87,8 @@ INSTALLED_APPS = (
     'budget_lines',
 )
 
+CACHE_BACKEND = 'dummy://'
+
 try:
     from local_settings import *
 except ImportError:
