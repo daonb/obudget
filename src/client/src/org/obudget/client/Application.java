@@ -54,7 +54,7 @@ class Application implements ValueChangeHandler<String> {
 		TotalBudget.getInstance();
 		
 		mResultsGrid = new ResultGrid();
-		mResultsGrid.setWidth("60%");
+		mResultsGrid.setWidth("100%");
 
 		mPieCharter = new PieCharter(this, mEmbedded);
 		mPieCharter.setWidth("600px");
@@ -334,10 +334,10 @@ class Application implements ValueChangeHandler<String> {
 									  pieChartNet );
 				mResultsGrid.setState( resultsGridNet );
 			} catch (Exception e){
-				newCodeAndYear("00", 2009);
+				newCodeAndYear("00", 2010);
 			}
 		} else {
-			newCodeAndYear("00", 2009);
+			newCodeAndYear("00", 2010);
 		}
 	}
 

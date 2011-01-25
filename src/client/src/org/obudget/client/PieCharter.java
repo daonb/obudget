@@ -56,8 +56,8 @@ class PieCharter extends Composite {
 			}
 		});
 		mAllocatedButton = new ToggleButton("הקצאה");
+		mAllocatedButton.setDown(true);
 		mRevisedButton = new ToggleButton("הקצאה מעודכנת");
-		mRevisedButton.setDown(true);
 		mUsedButton = new ToggleButton("שימוש");
 		mAllocatedButton.addClickHandler( new ClickHandler() {	
 			@Override
@@ -214,9 +214,9 @@ class PieCharter extends Composite {
 		mTabPanel.add(piechartRevised,"הקצאה מעודכנת");
 		mTabPanel.add(piechartUsed,"שימוש");
 		mTabPanel.selectTab(1);
-		mAllocatedButton.setDown(false);
-		mRevisedButton.setDown(true);
-		mUsedButton.setDown(false);
+//		mAllocatedButton.setDown(false);
+//		mRevisedButton.setDown(true);
+//		mUsedButton.setDown(false);
 	}
 
 	public void setState(Integer pieChartDataType, Integer pieChartNet) {
