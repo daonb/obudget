@@ -126,9 +126,8 @@ class PieCharter extends Composite {
 	    if ( mList == null ) { return; }
 
 	    Integer subitemCount = mList.size()-1;
-	    if ( subitemCount < 1 ) { return; }
-	    
-	    
+	    //if ( subitemCount < 1 ) { return; }
+	    	    
 	    Integer mActualRows = Math.min( subitemCount, 10 );
 	    boolean hasExtraRow = subitemCount > mActualRows; 
 
@@ -213,17 +212,14 @@ class PieCharter extends Composite {
 	    mTabPanel.add(piechartAllocated,"הקצאה");
 		mTabPanel.add(piechartRevised,"הקצאה מעודכנת");
 		mTabPanel.add(piechartUsed,"שימוש");
-		mTabPanel.selectTab(1);
-//		mAllocatedButton.setDown(false);
-//		mRevisedButton.setDown(true);
-//		mUsedButton.setDown(false);
 	}
 
 	public void setState(Integer pieChartDataType, Integer pieChartNet) {
 		mNetButton.setDown( pieChartNet == 1 );
 		mAllocatedButton.setDown( pieChartDataType == 0 );
 		mRevisedButton.setDown( pieChartDataType == 1 );
-		mUsedButton.setDown( pieChartDataType == 2 );	
+		mUsedButton.setDown( pieChartDataType == 2 );
+		redrawChart();
 	}
 
 	public String getState() {

@@ -4,7 +4,7 @@ var $gwt_version = "2.1.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '2FBE8C00C9327000DC20D52FB5500458';
+var $strongName = '7AD258381A654D25D67234BAAC554D6C';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'obudget',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -11785,7 +11785,7 @@ _.onValueChange__Lcom_google_gwt_event_logical_shared_ValueChangeEvent_2V = func
      catch ($e0) {
       $e0 = com_google_gwt_lang_Exceptions_caught__Ljava_lang_Object_2Ljava_lang_Object_2($e0);
       if (com_google_gwt_lang_Cast_instanceOf__Ljava_lang_Object_2IZ($e0, 80)) {
-        this.org_obudget_client_Application_mYear = java_lang_Integer_valueOf__ILjava_lang_Integer_2(2009);
+        this.org_obudget_client_Application_mYear = java_lang_Integer_valueOf__ILjava_lang_Integer_2(2010);
         this.org_obudget_client_Application_mCode = $intern_471;
         com_google_gwt_user_client_History_newItem__Ljava_lang_String_2V(this.org_obudget_client_Application_mCode + $intern_211 + this.org_obudget_client_Application_mYear + $intern_211 + org_obudget_client_TimeLineCharter_$getState__Lorg_obudget_client_TimeLineCharter_2Ljava_lang_String_2(this.org_obudget_client_Application_mTimeLineCharter) + $intern_211 + org_obudget_client_PieCharter_$getState__Lorg_obudget_client_PieCharter_2Ljava_lang_String_2(this.org_obudget_client_Application_mPieCharter) + $intern_211 + (com_google_gwt_user_client_ui_ToggleButton_$isDown__Lcom_google_gwt_user_client_ui_ToggleButton_2Z(this.org_obudget_client_Application_mResultsGrid.org_obudget_client_ResultGrid_mNetButton)?$intern_20:$intern_156));
       }
@@ -11794,7 +11794,7 @@ _.onValueChange__Lcom_google_gwt_event_logical_shared_ValueChangeEvent_2V = func
     }
   }
    else {
-    this.org_obudget_client_Application_mYear = java_lang_Integer_valueOf__ILjava_lang_Integer_2(2009);
+    this.org_obudget_client_Application_mYear = java_lang_Integer_valueOf__ILjava_lang_Integer_2(2010);
     this.org_obudget_client_Application_mCode = $intern_471;
     com_google_gwt_user_client_History_newItem__Ljava_lang_String_2V(this.org_obudget_client_Application_mCode + $intern_211 + this.org_obudget_client_Application_mYear + $intern_211 + org_obudget_client_TimeLineCharter_$getState__Lorg_obudget_client_TimeLineCharter_2Ljava_lang_String_2(this.org_obudget_client_Application_mTimeLineCharter) + $intern_211 + org_obudget_client_PieCharter_$getState__Lorg_obudget_client_PieCharter_2Ljava_lang_String_2(this.org_obudget_client_Application_mPieCharter) + $intern_211 + (com_google_gwt_user_client_ui_ToggleButton_$isDown__Lcom_google_gwt_user_client_ui_ToggleButton_2Z(this.org_obudget_client_Application_mResultsGrid.org_obudget_client_ResultGrid_mNetButton)?$intern_20:$intern_156));
   }
@@ -12493,9 +12493,6 @@ function org_obudget_client_PieCharter_$redrawChart__Lorg_obudget_client_PieChar
     return;
   }
   subitemCount = java_lang_Integer_valueOf__ILjava_lang_Integer_2(this$static.org_obudget_client_PieCharter_mList.java_util_LinkedList_size - 1);
-  if (subitemCount.java_lang_Integer_value < 1) {
-    return;
-  }
   mActualRows = java_lang_Integer_valueOf__ILjava_lang_Integer_2(java_lang_Math_min__III(subitemCount.java_lang_Integer_value));
   hasExtraRow = subitemCount.java_lang_Integer_value > mActualRows.java_lang_Integer_value;
   org_obudget_client_Application_$stateChanged__Lorg_obudget_client_Application_2V(org_obudget_client_Application_getInstance__Lorg_obudget_client_Application_2());
@@ -12530,7 +12527,6 @@ function org_obudget_client_PieCharter_$redrawChart__Lorg_obudget_client_PieChar
   com_google_gwt_user_client_ui_TabLayoutPanel_$add__Lcom_google_gwt_user_client_ui_TabLayoutPanel_2Lcom_google_gwt_user_client_ui_Widget_2Ljava_lang_String_2V(this$static.org_obudget_client_PieCharter_mTabPanel, piechartAllocated, $intern_538);
   com_google_gwt_user_client_ui_TabLayoutPanel_$add__Lcom_google_gwt_user_client_ui_TabLayoutPanel_2Lcom_google_gwt_user_client_ui_Widget_2Ljava_lang_String_2V(this$static.org_obudget_client_PieCharter_mTabPanel, piechartRevised, $intern_539);
   com_google_gwt_user_client_ui_TabLayoutPanel_$add__Lcom_google_gwt_user_client_ui_TabLayoutPanel_2Lcom_google_gwt_user_client_ui_Widget_2Ljava_lang_String_2V(this$static.org_obudget_client_PieCharter_mTabPanel, piechartUsed, $intern_540);
-  com_google_gwt_user_client_ui_TabLayoutPanel_$selectTab__Lcom_google_gwt_user_client_ui_TabLayoutPanel_2IZV(this$static.org_obudget_client_PieCharter_mTabPanel, 1);
 }
 
 function org_obudget_client_PieCharter_$setState__Lorg_obudget_client_PieCharter_2Ljava_lang_Integer_2Ljava_lang_Integer_2V(this$static, pieChartDataType, pieChartNet){
@@ -12538,6 +12534,7 @@ function org_obudget_client_PieCharter_$setState__Lorg_obudget_client_PieCharter
   com_google_gwt_user_client_ui_ToggleButton_$setDown__Lcom_google_gwt_user_client_ui_ToggleButton_2ZV(this$static.org_obudget_client_PieCharter_mAllocatedButton, pieChartDataType.java_lang_Integer_value == 0);
   com_google_gwt_user_client_ui_ToggleButton_$setDown__Lcom_google_gwt_user_client_ui_ToggleButton_2ZV(this$static.org_obudget_client_PieCharter_mRevisedButton, pieChartDataType.java_lang_Integer_value == 1);
   com_google_gwt_user_client_ui_ToggleButton_$setDown__Lcom_google_gwt_user_client_ui_ToggleButton_2ZV(this$static.org_obudget_client_PieCharter_mUsedButton, pieChartDataType.java_lang_Integer_value == 2);
+  org_obudget_client_PieCharter_$redrawChart__Lorg_obudget_client_PieCharter_2V(this$static);
 }
 
 function org_obudget_client_PieCharter_PieCharter__Lorg_obudget_client_Application_2ZV(){
@@ -12553,8 +12550,8 @@ function org_obudget_client_PieCharter_PieCharter__Lorg_obudget_client_Applicati
   this.org_obudget_client_PieCharter_mNetButton = new com_google_gwt_user_client_ui_ToggleButton_ToggleButton__Ljava_lang_String_2Ljava_lang_String_2V;
   com_google_gwt_user_client_ui_Widget_$addDomHandler__Lcom_google_gwt_user_client_ui_Widget_2Lcom_google_gwt_event_shared_EventHandler_2Lcom_google_gwt_event_dom_client_DomEvent$Type_2Lcom_google_gwt_event_shared_HandlerRegistration_2(this.org_obudget_client_PieCharter_mNetButton, new org_obudget_client_PieCharter$1_PieCharter$1__Lorg_obudget_client_PieCharter_2V(this), (com_google_gwt_event_dom_client_ClickEvent_$clinit__V() , com_google_gwt_event_dom_client_ClickEvent_$clinit__V() , com_google_gwt_event_dom_client_ClickEvent_TYPE));
   this.org_obudget_client_PieCharter_mAllocatedButton = new com_google_gwt_user_client_ui_ToggleButton_ToggleButton__Ljava_lang_String_2V($intern_538);
+  com_google_gwt_user_client_ui_ToggleButton_$setDown__Lcom_google_gwt_user_client_ui_ToggleButton_2ZV(this.org_obudget_client_PieCharter_mAllocatedButton, true);
   this.org_obudget_client_PieCharter_mRevisedButton = new com_google_gwt_user_client_ui_ToggleButton_ToggleButton__Ljava_lang_String_2V($intern_539);
-  com_google_gwt_user_client_ui_ToggleButton_$setDown__Lcom_google_gwt_user_client_ui_ToggleButton_2ZV(this.org_obudget_client_PieCharter_mRevisedButton, true);
   this.org_obudget_client_PieCharter_mUsedButton = new com_google_gwt_user_client_ui_ToggleButton_ToggleButton__Ljava_lang_String_2V($intern_540);
   com_google_gwt_user_client_ui_Widget_$addDomHandler__Lcom_google_gwt_user_client_ui_Widget_2Lcom_google_gwt_event_shared_EventHandler_2Lcom_google_gwt_event_dom_client_DomEvent$Type_2Lcom_google_gwt_event_shared_HandlerRegistration_2(this.org_obudget_client_PieCharter_mAllocatedButton, new org_obudget_client_PieCharter$2_PieCharter$2__Lorg_obudget_client_PieCharter_2V(this), com_google_gwt_event_dom_client_ClickEvent_TYPE);
   com_google_gwt_user_client_ui_Widget_$addDomHandler__Lcom_google_gwt_user_client_ui_Widget_2Lcom_google_gwt_event_shared_EventHandler_2Lcom_google_gwt_event_dom_client_DomEvent$Type_2Lcom_google_gwt_event_shared_HandlerRegistration_2(this.org_obudget_client_PieCharter_mRevisedButton, new org_obudget_client_PieCharter$3_PieCharter$3__Lorg_obudget_client_PieCharter_2V(this), com_google_gwt_event_dom_client_ClickEvent_TYPE);
