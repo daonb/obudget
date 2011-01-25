@@ -47,22 +47,3 @@ class Command(BaseCommand):
                 if k % 1000 == 0:
                     print k
         
-        # Update internal relationships in the DB
-        print 'Internal relationships'
-        for line in BudgetLine.objects.filter( containing_line__isnull = True, budget_id_len__gt=2 ):
-            k+=1
-            if k % 1000 == 0:
-                print k
-
-            if line.budget_id == None or len(line.budget_id) == 2:        
-                continue
-            
-            for i in range(2,len(line.budget_id),2):
-                parent_budget_id  = line.budget_id[:-i]
-                parents = BudgetLine.objects.filter( year = line.year, budget_id = parent_budget_id, budget_id_len = len(parent_budget_id) ).count()
-                if parents > 0:
-                    parent = BudgetLine.objects.get( year = line.year, budget_id = parent_budget_id, budget_id_len = len(parent_budget_id) )
-                    line.containing_line = parent
-                    line.save()
-                    break
-        

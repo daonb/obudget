@@ -102,7 +102,7 @@ class ResultGrid extends Composite {
 				title = "סה\"כ:";				
 			}
 			HTML titleHtml = new HTML(title);
-			titleHtml.setWordWrap(false);
+			//titleHtml.setWordWrap(false);
 			mGrid.setWidget(r+1, 0, titleHtml);
 			mGrid.setText(r+1, 1, formatNumber( bl.getOriginal(BudgetLine.ALLOCATED, net) ) );
 			mGrid.setText(r+1, 2, formatNumber( bl.getOriginal(BudgetLine.REVISED, net) ) );

@@ -27,7 +27,7 @@ def distinct_by_request(qs, request):
     if 'distinct' in request.GET and request.GET['distinct']=="1":
         values = qs.order_by('budget_id_len','budget_id').values('budget_id_len','budget_id').distinct()
         values = limit_by_request(values, request)
-        ids = [ BudgetLine.objects.filter(**x)[0].id for x in values ]
+        ids = [ text_by_request(BudgetLine.objects.filter(**x), request)[0].id for x in values ]
         qs = BudgetLine.objects.filter( id__in=ids ).order_by('budget_id_len','budget_id')
     else:
         return qs.order_by('-year','budget_id_len','-net_amount_allocated')
