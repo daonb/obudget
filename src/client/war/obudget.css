@@ -50,7 +50,7 @@ body > div, .suggestPopupContent {
 #obudget-breadcrumbs
 {
 	padding:3px;
-	background:#eef8ff;
+	/*background:#eef8ff;*/
 	border-radius:10px;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
@@ -69,8 +69,17 @@ body > div, .suggestPopupContent {
 #obudget-summary-2
 {font-size:17px; font-weight:bold;}
 
-#obudget-detailed-results { display:inline-block; width:500px;  }
-#news { display:inline-block; width:220px; }
+#obudget-detailed-results { 
+	/*display:inline-block;*/
+	width:500px;  
+	overflow:clip;
+}
+
+#news { 
+	/*display:inline-block;*/ 
+	/*width:220px;*/
+	float:left;
+ }
 #footer { 
 	height:40px; 
 	padding-right:10px; 
