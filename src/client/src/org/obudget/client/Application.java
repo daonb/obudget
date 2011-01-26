@@ -188,16 +188,30 @@ class Application implements ValueChangeHandler<String> {
 				final String revisedSumType;
 				if ( (firstResult.get("gross_amount_revised") != null) &&
 					 (firstResult.get("gross_amount_revised").isNumber() != null) ) {
-					revisedSumType = "gross";
+					revisedSumType = "gross_amount_revised";
+				} else if ( (firstResult.get("gross_amount_allocated") != null) &&
+					 (firstResult.get("gross_amount_allocated").isNumber() != null) ) {
+					revisedSumType = "gross_amount_allocated";
+				} else if ( (firstResult.get("net_amount_revised") != null) &&
+					 (firstResult.get("net_amount_revised").isNumber() != null) ) {
+					revisedSumType = "net_amount_revised";
+				} else if ( (firstResult.get("net_amount_allocated") != null) &&
+					 (firstResult.get("net_amount_allocated").isNumber() != null) ) {
+					revisedSumType = "net_amount_allocated";
 				} else {
-					revisedSumType = "net";
+					revisedSumType = null;
 				}
-				if ( ( firstResult.get(revisedSumType+"_amount_revised") != null ) && 
-					   firstResult.get(revisedSumType+"_amount_revised").isNumber() != null ) {
-					revisedSum = (int) firstResult.get(revisedSumType+"_amount_revised").isNumber().doubleValue();				
-					mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa" + (revisedSumType == "net" ? " (נטו)" : ""));
+				if ( revisedSumType != null ) {
+					if ( ( firstResult.get(revisedSumType) != null ) && 
+						   firstResult.get(revisedSumType).isNumber() != null ) {
+						revisedSum = (int) firstResult.get(revisedSumType).isNumber().doubleValue();				
+						mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa" + (revisedSumType.startsWith("net") ? " (נטו)" : ""));
+					} else {
+						revisedSum = null;
+					}
 				} else {
 					revisedSum = null;
+					mSummary2.setText("");
 				}
 				
 				mSummary3.setHTML("");							
@@ -214,9 +228,9 @@ class Application implements ValueChangeHandler<String> {
 						percent.go( new BudgetAPICallback() {						
 							@Override
 							public void onSuccess(JSONArray data) {
-								if ( (data.get(0).isObject().get(revisedSumType+"_amount_revised") != null) && 
-									 (data.get(0).isObject().get(revisedSumType+"_amount_revised").isNumber() != null) ) {
-									double percent = revisedSum / data.get(0).isObject().get(revisedSumType+"_amount_revised").isNumber().doubleValue();
+								if ( (data.get(0).isObject().get(revisedSumType) != null) && 
+									 (data.get(0).isObject().get(revisedSumType).isNumber() != null) ) {
+									double percent = revisedSum / data.get(0).isObject().get(revisedSumType).isNumber().doubleValue();
 									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
 								}
 							}

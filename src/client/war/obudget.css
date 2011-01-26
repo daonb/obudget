@@ -13,7 +13,8 @@ body > div, .suggestPopupContent {
 	text-align: center;
 	font:bold 16px helvetica;
 }
-#obudget-cheatsheet
+#obudget-cheatsheet,
+.embed-link
 {
 	font:normal 12px helvetica;
 	color:blue;
