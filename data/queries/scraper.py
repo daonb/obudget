@@ -18,12 +18,12 @@ def parse_data(data,code,year):
     l = td_re.findall(data.replace('&nbsp;',' '),re.I|re.M)
     records = []
     start = 0
-    while start < (len(l) - 9):
+    while start < (len(l) - 8):
         if l[start].strip().startswith(code):
             break
         else:
             start += 1
-    while start < (len(l) - 9):
+    while start < (len(l) - 8):
         if l[start].strip().startswith(code):
             records.append(l[start:start+9])
             start += 9
@@ -44,7 +44,7 @@ def parse_data(data,code,year):
         
 def download_one(year,code):
     
-    fn = 'result-%s-%s.html' % (year,code)
+    fn = 'results/result-%s-%s.html' % (year,code)
     
     try:
         data = file(fn).read()
