@@ -37,11 +37,11 @@ for f in filenames:
     
 for year in range(1992,2013):
     totalkey = '%s|%8s' % (year,"00")
-    if totalkey in keys:
+    if '%s|%10s' % (year,"00") in keys:
         continue
     totalrec = { 'title'     : u'המדינה',
                  'year'      : year,
-                 'budget_id' : '00',
+                 'code' : '00',
                  }
     for key in keys:
         if key.startswith(totalkey):
@@ -49,10 +49,12 @@ for year in range(1992,2013):
             for k,v in rec.iteritems():
                 if type(v) == int:
                     totalrec[k] = totalrec.setdefault(k,0) + v
+    totalrec['year'] = year
 
     print 'total:',year,totalrec
                      
     alldata.setdefault(totalkey,{}).update(totalrec)
+    keys.add(totalkey)
     
         
 keys = list(keys)

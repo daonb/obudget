@@ -4,12 +4,17 @@ import java.util.LinkedList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedPopupPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.LegendPosition;
@@ -31,6 +36,8 @@ class TimeLineCharter extends Composite {
 	private ToggleButton mGrossAllocatedButton;
 	private ToggleButton mGrossRevisedButton;
 	private ToggleButton mGrossUsedButton;
+	private boolean mEmbedded;
+	private Label mChartTitle;
 
 	public TimeLineCharter( Application app, boolean embedded ) {
 		mApp = app;
@@ -83,9 +90,9 @@ class TimeLineCharter extends Composite {
 		});
 		
 		mDataTypePanel = new HorizontalPanel();
-		LayoutPanel spacerPanel = new LayoutPanel();
-		spacerPanel.setWidth("260px");
-		mDataTypePanel.add(spacerPanel);
+		mChartTitle = new Label("");
+		mChartTitle.setWidth("260px");
+		mDataTypePanel.add(mChartTitle);
 		mDataTypePanel.add(mInfButton);
 		mDataTypePanel.add(mOrigButton);
 		mDataTypePanel.add(mPercentButton);
@@ -161,9 +168,33 @@ class TimeLineCharter extends Composite {
 		mPanel.add(mDataFieldPanelNet);
 		mPanel.add(mDataFieldPanelGross);
 		
-		if ( embedded ) {
-			//TODO
+		mEmbedded = embedded;
+		HTML embedLabel = null;
+		if ( mEmbedded ) {
+			embedLabel = new HTML("מ<a target='_blank' href='http://"+Window.Location.getHost()+"'>אתר התקציב הפתוח</a>");
+			
+		} else {
+			embedLabel = new HTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");
+			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
+							   		   "src=&quot;http://" + Window.Location.getHost() + "/embed_time.html" + Window.Location.getHash() +
+							   		   "&quot;>" +
+							   "</iframe>";
+			
+			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
+			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"'></textarea>");
+			simplePopup.setWidget( simplePopupContents );
+			embedLabel.addClickHandler( new ClickHandler() {			
+				@Override
+				public void onClick(ClickEvent event) {
+		            Widget source = (Widget) event.getSource();
+		            int left = source.getAbsoluteLeft() + 150;
+		            int top = source.getAbsoluteTop() - 100;
+		            simplePopup.setPopupPosition(left, top);
+		            simplePopup.show();				
+				}
+			});
 		}
+		mPanel.add( embedLabel );
 		
 		mPanel.setWidth("385px");
 
@@ -216,6 +247,12 @@ class TimeLineCharter extends Composite {
 	    if ( grossUsed    )   { data.addColumn(ColumnType.NUMBER, "שימוש בפועל - ברוטו" ); }
 	    if ( grossRevised )   { data.addColumn(ColumnType.NUMBER, "הקצאה מעודכנת - ברוטו" ); }
 	    if ( grossAllocated ) { data.addColumn(ColumnType.NUMBER, "הקצאת תקציב - ברוטו" ); }
+
+	    if ( mEmbedded ) {
+	    	if ( mList.size() > 0 ) {
+	    		mChartTitle.setText( mList.getLast().getCode() + " - " + mList.getLast().getTitle() );
+	    	}
+	    }
 	    
 	    data.addRows(mList.size());
 	    for ( int i = 0 ; i < mList.size() ; i ++ ) {

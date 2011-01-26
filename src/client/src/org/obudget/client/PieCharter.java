@@ -10,7 +10,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -19,6 +21,7 @@ import com.google.gwt.user.client.ui.TabBar;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.LegendPosition;
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
@@ -35,6 +38,7 @@ class PieCharter extends Composite {
 	private ToggleButton mUsedButton;
 	private ToggleButton mNetButton;
 	private LinkedList<BudgetLine> mList = null;
+	private boolean mEmbedded;
 
 	public PieCharter( Application app, boolean embedded ) {
 		mApp = app;
@@ -106,10 +110,35 @@ class PieCharter extends Composite {
 		hPanel.add( mRevisedButton );
 		hPanel.add( mUsedButton );
 		hPanel.add( mNetButton );
-		if ( embedded ) {
-			//TODO
-		}
 		mPanel.add(hPanel);
+
+		mEmbedded = embedded;
+		HTML embedLabel = null;
+		if ( mEmbedded ) {
+			embedLabel = new HTML("מ<a target='_blank' href='http://"+Window.Location.getHost()+"'>אתר התקציב הפתוח</a>");
+			
+		} else {
+			embedLabel = new HTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");
+			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
+							   		   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
+							   		   "&quot;>" +
+							   "</iframe>";
+			
+			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
+			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"'></textarea>");
+			simplePopup.setWidget( simplePopupContents );
+			embedLabel.addClickHandler( new ClickHandler() {			
+				@Override
+				public void onClick(ClickEvent event) {
+		            Widget source = (Widget) event.getSource();
+		            int left = source.getAbsoluteLeft() + 150;
+		            int top = source.getAbsoluteTop() - 100;
+		            simplePopup.setPopupPosition(left, top);
+		            simplePopup.show();				
+				}
+			});
+		}
+		mPanel.add( embedLabel );
 		
 		initWidget(mPanel);
 	}
@@ -138,6 +167,11 @@ class PieCharter extends Composite {
 		options.setHeight(305);
 		options.set3D(true);	
 		options.setLegend(LegendPosition.BOTTOM);
+		if ( mEmbedded ) {
+			if ( mList.size() > 0 ) {
+				options.setTitle( mList.getFirst().getCode() + " - " + mList.getFirst().getTitle() );
+			}
+		}
 
 	    DataTable[] data = new DataTable[] { DataTable.create(), DataTable.create(), DataTable.create() };
 	    for ( int t = 0 ; t < 3 ; t ++ ) { 
