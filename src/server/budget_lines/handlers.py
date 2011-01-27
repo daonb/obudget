@@ -30,7 +30,8 @@ def distinct_by_request(qs, request):
         ids = [ text_by_request(BudgetLine.objects.filter(**x), request)[0].id for x in values ]
         qs = BudgetLine.objects.filter( id__in=ids ).order_by('budget_id_len','budget_id')
     else:
-        return qs.order_by('-year','budget_id_len','-net_amount_allocated')
+        qs = qs.extra( select = {'naa_null': 'net_amount_allocated is null'} )
+        return qs.extra(order_by=['-year','budget_id_len', 'naa_null', '-net_amount_allocated'])
     return qs
 
 def depth_by_request(qs, request, budget_code):
