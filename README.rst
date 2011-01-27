@@ -36,9 +36,9 @@ Point your browser at http://127.0.0.1:8000/gwt/obudget.html
 API
 ---
 
-Currently the system includes a simple API to get data on a known budget row or section. `Full API documentation`_ can be found in our wiki.
+Currently the system includes a simple API to get data on a known budget row or section. Full `API documentation` can be found in our wiki.
 
-.. _`Full API documentation`:https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%9E%D7%99%D7%93%D7%A2
+.. _`API documentation`:https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%9E%D7%99%D7%93%D7%A2
 
 
 Example:
