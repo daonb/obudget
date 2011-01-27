@@ -19,7 +19,7 @@ INSTALL
 	$ bin/buildout
 	$ bin/test
 	$ bin/django syncdb --migrate
-	$ bin/django budget_lines_jsons_to_db data/history_neto/history.json
+	$ bin/django budget_lines_jsons_to_db data/master.json
 
 If you'd like to work on the GWT based user interfce you'll have to install the GWT_ and `gwt-visualization`_ and update the path reference in src/obudget/gwt/src/build.xml.
 
