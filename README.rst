@@ -8,7 +8,7 @@ This projects makes it easy for citizens and their serveris to access the Israel
 
 Other sources can be found `here`_.
 
-.._`here`: https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%A7%D7%95%D7%A8%D7%95%D7%AA
+.. _`here`: https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%A7%D7%95%D7%A8%D7%95%D7%AA
 
 INSTALL
 -------
@@ -40,7 +40,7 @@ Currently the system includes a simple API to get data on a known budget row or 
 
 `Full API documentation`_
 
-.._`Full API documentation`:https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%9E%D7%99%D7%93%D7%A2
+.. _`Full API documentation`:https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%9E%D7%99%D7%93%D7%A2
 
 
 Example:
