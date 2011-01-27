@@ -181,7 +181,7 @@ class TimeLineCharter extends Composite {
 							   "</iframe>";
 			
 			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
-			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"'></textarea>");
+			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
 			simplePopup.setWidget( simplePopupContents );
 			embedLabel.addClickHandler( new ClickHandler() {			
 				@Override
