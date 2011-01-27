@@ -6,7 +6,8 @@ This projects makes it easy for citizens and their serveris to access the Israel
 
 .. _`Accountant General`: http://www.ag.mof.gov.il/AccountantGeneral/Templates/BudgetExecution/PublicationFiles.aspx?NRMODE=Published&NRNODEGUID=%7b67B554DC-C476-4966-82A4-836E1201DF2B%7d&NRORIGINALURL=%2fAccountantGeneral%2fBudgetExecution%2fBudgetExecutionTopNav%2fBEHistoryData%2f&NRCACHEHINT=Guest
 
-Other sources can be found `here`_
+Other sources can be found `here`_.
+
 .._`here`: https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%A7%D7%95%D7%A8%D7%95%D7%AA
 
 INSTALL
