@@ -38,7 +38,7 @@ API
 
 Currently the system includes a simple API to get data on a known budget row or section. Full `API documentation`_ can be found in our wiki.
 
-.. _`API documentation`:https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%9E%D7%99%D7%93%D7%A2
+.. _`api documentation`: https://track.nsa.co.il/projects/obudget/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%9E%D7%99%D7%93%D7%A2
 
 
 Example:
