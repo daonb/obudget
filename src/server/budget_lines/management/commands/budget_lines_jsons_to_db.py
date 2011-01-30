@@ -1,7 +1,7 @@
 import sys
 import csv
 import re
-from obudget.budget_lines.models import BudgetLine 
+from budget_lines.models import BudgetLine 
 from django.core.management.base import BaseCommand
 import json
 
