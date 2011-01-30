@@ -5,10 +5,12 @@ a, a:visited {
 }
 a:hover { text-decoration:underline; }
 #logo { background: transparent url(http://www.shituf.gov.il/sites/e.shituf.gov.il/themes/shituf/images/bg_gov_header.png) no-repeat 100% 0%; color: white; }
-#logo h1 { padding: 0.5em; margin:0;}
+#logo h1 { padding: 0.7em; margin:0; }
+#logo img { margin: 6px; display: block; float:right;}
 
 #page { margin: 0 auto; width: 747px; font-size:13px; line-height:16px;}
 #search {
+        clear: both;
 	text-align: center;
 	font:bold 16px helvetica;
 }

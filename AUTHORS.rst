@@ -8,3 +8,6 @@ Coders
 Designers
 =========
 * Effi Fuks
+* `Everaldo Coelho`_ - logo
+
+.. _`Everaldo Coelho`: http://www.everaldo.com/
