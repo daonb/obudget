@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import org.apache.catalina.startup.Embedded;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -15,6 +17,7 @@ import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TabBar;
@@ -36,9 +39,10 @@ class PieCharter extends Composite {
 	private ToggleButton mAllocatedButton;
 	private ToggleButton mRevisedButton;
 	private ToggleButton mUsedButton;
-	private ToggleButton mNetButton;
+//	private ToggleButton mNetButton;
 	private LinkedList<BudgetLine> mList = null;
 	private boolean mEmbedded;
+	private ListBox mNetSelector;
 
 	public PieCharter( Application app, boolean embedded ) {
 		mApp = app;
@@ -52,13 +56,24 @@ class PieCharter extends Composite {
 		
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setStylePrimaryName("obudget-piechart-type");
-		mNetButton = new ToggleButton("נטו","ברוטו");
-		mNetButton.addClickHandler( new ClickHandler() {			
+		
+		mNetSelector = new ListBox();
+		mNetSelector.addItem("נטו");
+		mNetSelector.addItem("ברוטו");
+		mNetSelector.addChangeHandler( new ChangeHandler() {			
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onChange(ChangeEvent event) {
 				redrawChart();
 			}
 		});
+		
+//		mNetButton = new ToggleButton("נטו","ברוטו");
+//		mNetButton.addClickHandler( new ClickHandler() {			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				redrawChart();
+//			}
+//		});
 		mAllocatedButton = new ToggleButton("הקצאה");
 		mAllocatedButton.setDown(true);
 		mRevisedButton = new ToggleButton("הקצאה מעודכנת");
@@ -109,7 +124,11 @@ class PieCharter extends Composite {
 		hPanel.add( mAllocatedButton );
 		hPanel.add( mRevisedButton );
 		hPanel.add( mUsedButton );
-		hPanel.add( mNetButton );
+//		hPanel.add( mNetButton );
+		LayoutPanel spacer = new LayoutPanel();
+		spacer.setWidth("30px");
+		hPanel.add( spacer );
+		hPanel.add( mNetSelector );
 		mPanel.add(hPanel);
 
 		mEmbedded = embedded;
@@ -192,7 +211,8 @@ class PieCharter extends Composite {
 		    }
 	    }
 	    
-	    Boolean net = !mNetButton.isDown();
+//	    Boolean net = !mNetButton.isDown();
+	    Boolean net = mNetSelector.getSelectedIndex() == 0;
 	    for ( int i = 0 ; i < mList.size()-1 ; i ++ ) {
 	    	if ( ( mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ) != null ) &&
 	    		 ( mList.get(i+1).getOriginal( BudgetLine.ALLOCATED, net ) > 0 ) ) {
@@ -249,7 +269,8 @@ class PieCharter extends Composite {
 	}
 
 	public void setState(Integer pieChartDataType, Integer pieChartNet) {
-		mNetButton.setDown( pieChartNet == 1 );
+		//mNetButton.setDown( pieChartNet == 1 );
+		mNetSelector.setSelectedIndex( pieChartNet );
 		mAllocatedButton.setDown( pieChartDataType == 0 );
 		mRevisedButton.setDown( pieChartDataType == 1 );
 		mUsedButton.setDown( pieChartDataType == 2 );
@@ -258,6 +279,7 @@ class PieCharter extends Composite {
 
 	public String getState() {
 		return (mAllocatedButton.isDown() ? "0," : (mRevisedButton.isDown() ? "1," : "2," )) +
-		   	   (mNetButton.isDown() ? "1" : "0");
+		   mNetSelector.getSelectedIndex();
+//	   	   (mNetButton.isDown() ? "1" : "0");
 	}
 }
