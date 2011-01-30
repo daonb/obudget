@@ -241,16 +241,16 @@ class TimeLineCharter extends Composite {
 	    boolean grossUsed = mGrossUsedButton.isDown();
 	    boolean grossRevised = mGrossRevisedButton.isDown();
 	    boolean grossAllocated = mGrossAllocatedButton.isDown();
-	    if ( netUsed    )   { data.addColumn(ColumnType.NUMBER, "שימוש בפועל - נטו" ); }
-	    if ( netRevised )   { data.addColumn(ColumnType.NUMBER, "הקצאה מעודכנת - נטו" ); }
-	    if ( netAllocated ) { data.addColumn(ColumnType.NUMBER, "הקצאת תקציב - נטו" ); }
-	    if ( grossUsed    )   { data.addColumn(ColumnType.NUMBER, "שימוש בפועל - ברוטו" ); }
-	    if ( grossRevised )   { data.addColumn(ColumnType.NUMBER, "הקצאה מעודכנת - ברוטו" ); }
-	    if ( grossAllocated ) { data.addColumn(ColumnType.NUMBER, "הקצאת תקציב - ברוטו" ); }
+	    if ( netUsed    )   { data.addColumn(ColumnType.NUMBER, StringUtils.compStr( "שימוש בפועל - נטו" ) ); }
+	    if ( netRevised )   { data.addColumn(ColumnType.NUMBER, StringUtils.compStr( "הקצאה מעודכנת - נטו" ) ); }
+	    if ( netAllocated ) { data.addColumn(ColumnType.NUMBER, StringUtils.compStr( "הקצאת תקציב - נטו" ) ); }
+	    if ( grossUsed    )   { data.addColumn(ColumnType.NUMBER, StringUtils.compStr( "שימוש בפועל - ברוטו" ) ); }
+	    if ( grossRevised )   { data.addColumn(ColumnType.NUMBER, StringUtils.compStr( "הקצאה מעודכנת - ברוטו" ) ); }
+	    if ( grossAllocated ) { data.addColumn(ColumnType.NUMBER, StringUtils.compStr( "הקצאת תקציב - ברוטו" ) ); }
 
 	    if ( mEmbedded ) {
 	    	if ( mList.size() > 0 ) {
-	    		mChartTitle.setText( mList.getLast().getCode() + " - " + mList.getLast().getTitle() );
+	    		mChartTitle.setText( StringUtils.compStr( mList.getLast().getCode() + " - " + mList.getLast().getTitle() ) );
 	    	}
 	    }
 	    
@@ -265,7 +265,7 @@ class TimeLineCharter extends Composite {
 		    	if ( grossUsed      ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.USED, false) );      column++; }
 		    	if ( grossRevised   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.REVISED, false) );      column++; }
 		    	if ( grossAllocated ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getInf( BudgetLine.ALLOCATED, false ) );      column++; }
-				options.setTitleY("אלפי \u20AA ריאליים");
+				options.setTitleY( StringUtils.compStr( "אלפי \u20AA ריאליים" ) );
 		    } else if ( mOrigButton.isDown() ) {
 		    	column = 1;
 		    	if ( netUsed        ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.USED, true ) );      column++; }
@@ -274,7 +274,7 @@ class TimeLineCharter extends Composite {
 		    	if ( grossUsed      ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.USED, false) );      column++; }
 		    	if ( grossRevised   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.REVISED, false) );      column++; }
 		    	if ( grossAllocated ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getOriginal( BudgetLine.ALLOCATED, false ) );      column++; }
-				options.setTitleY("אלפי \u20AA נומינליים");
+				options.setTitleY( StringUtils.compStr( "אלפי \u20AA נומינליים" ) );
 		    } else if ( mPercentButton.isDown() ) {
 		    	column = 1;
 		    	if ( netUsed        ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.USED, true ) );      column++; }
@@ -283,7 +283,7 @@ class TimeLineCharter extends Composite {
 		    	if ( grossUsed      ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.USED, false) );      column++; }
 		    	if ( grossRevised   ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.REVISED, false) );      column++; }
 		    	if ( grossAllocated ) { setValueIfNotNull( data, mList.size()-i-1, column, mList.get(i).getPercent( BudgetLine.ALLOCATED, false ) );      column++; }
-				options.setTitleY("אחוזים");
+				options.setTitleY( StringUtils.compStr( "אחוזים" ) );
 		    } 
 	    }
 		AreaChart areachart = new AreaChart( data, options );

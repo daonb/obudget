@@ -169,7 +169,7 @@ class PieCharter extends Composite {
 		options.setLegend(LegendPosition.BOTTOM);
 		if ( mEmbedded ) {
 			if ( mList.size() > 0 ) {
-				options.setTitle( mList.getFirst().getCode() + " - " + mList.getFirst().getTitle() );
+				options.setTitle( StringUtils.compStr( mList.getFirst().getCode() + " - " + mList.getFirst().getTitle() ) );
 			}
 		}
 
@@ -184,10 +184,10 @@ class PieCharter extends Composite {
 		    }
 		    
 		    for ( int i = 0 ; i < mActualRows ; i ++ ) {
-			    data[t].setValue(i, 0, mList.get(i+1).getTitle());
+			    data[t].setValue(i, 0, StringUtils.compStr( mList.get(i+1).getTitle() ) );
 		    }
 		    if ( hasExtraRow ) {
-			    data[t].setValue(mActualRows, 0, "אחרים");
+			    data[t].setValue(mActualRows, 0, StringUtils.compStr( "אחרים" ) );
 			    data[t].setValue(mActualRows, 1, 0);
 		    }
 	    }

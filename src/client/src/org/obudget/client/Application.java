@@ -137,7 +137,7 @@ class Application implements ValueChangeHandler<String> {
 			}
 		});
 		
-		History.addValueChangeHandler( this );
+		History.addValueChangeHandler( this );		
 	}
 	
 	public ResultGrid getResultsGrid() {
@@ -390,5 +390,5 @@ class Application implements ValueChangeHandler<String> {
 	public static void setEmbedded( boolean embedded ) {
 		mEmbedded  = embedded;
 	}
-
+	
 }
