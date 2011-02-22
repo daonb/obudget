@@ -220,7 +220,7 @@ class TimeLineCharter extends Composite {
 	
 	private void redrawChart() {
 		
-		if ( mEmbedded ) {
+		if ( !mEmbedded ) {
 			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
 							   "src=&quot;http://" + Window.Location.getHost() + "/embed_time.html" + Window.Location.getHash() +
 	   		   		           "&quot;>" +
