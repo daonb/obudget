@@ -141,7 +141,8 @@ class PieCharter extends Composite {
 		} else {
 			mEmbedLabel.setHTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");			
 			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
-			mSimplePopupContents = new HTML( "");
+			String embedCode = "";
+			mSimplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
 			simplePopup.setWidget( mSimplePopupContents );
 			mEmbedLabel.addClickHandler( new ClickHandler() {			
 				@Override
@@ -168,8 +169,8 @@ class PieCharter extends Composite {
 
 		if ( mEmbedded ) {
 			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
-							   		   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
-							   		   "&quot;>" +
+							   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
+							   "&quot;>" +
 							   "</iframe>";			
 			mSimplePopupContents.setHTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
 		}
