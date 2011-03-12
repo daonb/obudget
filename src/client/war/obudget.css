@@ -126,3 +126,8 @@ a:hover { text-decoration:underline; }
 .gwt-TabLayoutPanelTab {
 	float:right;
 }
+
+.gsc-branding {
+	direction:ltr;
+	float:left;
+}

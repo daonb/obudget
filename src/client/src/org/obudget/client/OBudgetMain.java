@@ -2,6 +2,7 @@ package org.obudget.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.client.History;
@@ -38,21 +39,21 @@ public class OBudgetMain implements EntryPoint {
 	
 	private void init() {
 
-		Boolean hasChartsDiv = RootPanel.get("charts") != null;
+		Boolean hasChartsDiv = Document.get().getElementById("charts") != null;
 		Application.setEmbedded( !hasChartsDiv );
 		mApp = Application.getInstance();
 
 		addWidgetToId("obudget-searchbox",mApp.getSearchBox());
-		addWidgetToId("obudget-piechart",mApp.getPieCharter());
-		addWidgetToId("obudget-timeline",mApp.getTimeLineCharter());
 		addWidgetToId("obudget-summary-1",mApp.getSummary1() );
 		addWidgetToId("obudget-breadcrumbs",mApp.getBreadcrumbs() );
 		addWidgetToId("obudget-year-selection",mApp.getYearSelection() );
 		addWidgetToId("obudget-summary-2",mApp.getSummary2() );
 		addWidgetToId("obudget-summary-3",mApp.getSummary3() );
 		addWidgetToId("obudget-detailed-results",mApp.getResultsGrid() );
-		addWidgetToId("obudget-news",mApp.getBudgetNews() );
+		//addWidgetToId("obudget-news",mApp.getBudgetNews() );
 		addWidgetToId("obudget-cheatsheet",mApp.getCheatSheet() );
+		addWidgetToId("obudget-piechart",mApp.getPieCharter());
+		addWidgetToId("obudget-timeline",mApp.getTimeLineCharter());
 
 		History.fireCurrentHistoryState();
 	}

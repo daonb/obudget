@@ -1,5 +1,9 @@
 package org.obudget.client;
 
+import java.util.List;
+import java.util.Map;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,19 +29,19 @@ class Application implements ValueChangeHandler<String> {
 
 	private BudgetLines mChildrenBudgetLines = new BudgetLines();
 	private BudgetLines  mHistoricBudgetLines = new BudgetLines();
-	private ResultGrid mResultsGrid;
-	private PieCharter mPieCharter;
-	private HTML mBreadcrumbs;
-	private TimeLineCharter mTimeLineCharter;
+	private ResultGrid mResultsGrid = null;
+	private PieCharter mPieCharter = null;
+	private HTML mBreadcrumbs = null;
+	private TimeLineCharter mTimeLineCharter = null;
 	private String mCode = null;
 	private Integer mYear = null;
-	private ListBox mYearSelection;
-	private SuggestBox mSearchBox;
-	private Label mSummary1;
-	private Label mSummary2;
-	private HTML mSummary3;
-	private BudgetNews mBudgetNews;
-	private HTML mCheatSheet;
+	private ListBox mYearSelection = null;
+	private SuggestBox mSearchBox = null;
+	private Label mSummary1 = null;
+	private Label mSummary2 = null;
+	private HTML mSummary3 = null;
+	private BudgetNews mBudgetNews = null;
+	private HTML mCheatSheet = null;
 	
 	static private Application mInstance = null;
 	private static boolean mEmbedded = false;
@@ -53,16 +57,29 @@ class Application implements ValueChangeHandler<String> {
 	public void init() {
 		TotalBudget.getInstance();
 		
+		Integer height = null;
+		Integer width = null;
+		Map<String,List<String>> parameters = Window.Location.getParameterMap();
+		if ( parameters.containsKey("w") && 
+			 parameters.containsKey("h") ) {
+			height= Integer.parseInt( parameters.get("h").get(0) );
+			width = Integer.parseInt( parameters.get("w").get(0) );
+		} 
+
 		mResultsGrid = new ResultGrid();
 		mResultsGrid.setWidth("100%");
 
-		mPieCharter = new PieCharter(this, mEmbedded);
-		mPieCharter.setWidth("600px");
-		mPieCharter.setHeight("300px");
+		Integer pieWidth = width == null ? 330 : width;  
+		Integer pieHeight = height == null ? 335 : height;  
+		mPieCharter = new PieCharter(this, mEmbedded, pieWidth, pieHeight);
+		mPieCharter.setWidth(pieWidth+"px");
+		mPieCharter.setHeight(pieHeight+"px");
 		
-		mTimeLineCharter = new TimeLineCharter(this, mEmbedded);
-		mTimeLineCharter.setWidth("600px");
-		mTimeLineCharter.setHeight("300px");
+		Integer timeWidth = width == null ? 390 : width;  
+		Integer timeHeight = height == null ? 350 : height;
+		mTimeLineCharter = new TimeLineCharter(this, mEmbedded, timeWidth, timeHeight);
+		mTimeLineCharter.setWidth(timeWidth+"px");
+		mTimeLineCharter.setHeight(timeHeight+"px");
 		
 		mBreadcrumbs = new HTML("");
 		mBreadcrumbs.setHeight("20px");
@@ -109,7 +126,7 @@ class Application implements ValueChangeHandler<String> {
 		mSummary2 = new Label();
 		mSummary3 = new HTML();
 		
-		mBudgetNews = new BudgetNews();
+		//mBudgetNews = new BudgetNews();
 		
 		mCheatSheet = new HTML("(הסברים)");
 		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
@@ -121,6 +138,7 @@ class Application implements ValueChangeHandler<String> {
 											 "<li><b>הקצאה</b>: <u>תקציב מקורי</u> – התקציב שאושר בכנסת במסגרת חוק התקציב. ייתכנו הבדלים בין הצעת התקציב לבין התקציב שיאושר בכנסת בסופו של דבר.</li>"+
 											 "<li><b>הקצאה מעודכנת</b>: <u>תקציב על שינוייו</u> – תקציב המדינה עשוי להשתנות במהלך השנה. שינויים אלו כוללים תוספות, הפחתות והעברות תקציביות בין סעיפי תקציב (באישור ועדת הכספים של הכנסת). נוסף על כך, פעמים רבות מועברים עודפים מחויבים משנה קודמת הנכללים בתקציב זה. רוב השינויים בתקציב דורשים את אישורה של ועדת הכספים של הכנסת. התקציב בסוף השנה הכולל את השינויים שנעשו בו במהלך השנה נקרא התקציב על שינוייו או התקציב המאושר.</li>"+
 											 "<li><b>שימוש</b>:  <u>ביצוע</u> – התקציב שכבר נוצל ושולם בפועל על-ידי החשב.</li>"+
+											 "<li><b>ערך ריאלי ונומילני</b>:  ראו הסבר ב<a href='http://he.wikipedia.org/wiki/%D7%A2%D7%A8%D7%9A_%D7%A8%D7%99%D7%90%D7%9C%D7%99_%D7%95%D7%A2%D7%A8%D7%9A_%D7%A0%D7%95%D7%9E%D7%99%D7%A0%D7%9C%D7%99'>ויקיפדיה</a>.</li>"+
 											 "</lu>"+
 											 "<br/>"+
 											 "<i>לחץ מחוץ לחלונית זו לסגירתה</i>"+
@@ -182,7 +200,7 @@ class Application implements ValueChangeHandler<String> {
 
 				//mYearSelection.setSelectedIndex( mYear - 1992 );
 
-				mBudgetNews.update("\""+title+"\"");
+				//mBudgetNews.update("\""+title+"\"");
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
 				mSummary1.setText( "לתקציב "+title+" הוקצו בשנת");
@@ -350,9 +368,11 @@ class Application implements ValueChangeHandler<String> {
 									  pieChartNet );
 				mResultsGrid.setState( resultsGridNet );
 			} catch (Exception e){
+				Log.error("Application::onValueChange: Error while parsing url", e);
 				newCodeAndYear("00", 2010);
 			}
 		} else {
+			Log.error("Application::onValueChange: Error while parsing url");
 			newCodeAndYear("00", 2010);
 		}
 	}
