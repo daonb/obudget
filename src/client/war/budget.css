@@ -168,6 +168,9 @@ a:hover{
 .row{
   clear:both;
 }
+.resultgrid tr {
+  line-height: 1.4em;
+}
 
 #footer{
   clear:both;
