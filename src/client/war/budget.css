@@ -59,7 +59,7 @@ a:hover{
   background-image:url('media/bg_gov_header.png');
   height:50px;
 }
-#budget_heading h2{
+#budget_heading h2 {
   background-image:url('media/cube.png');
   background-position:right;
   background-repeat: no-repeat;
@@ -69,6 +69,7 @@ a:hover{
   font-size:24px;
   margin-right: 4px;
 }
+#budget_heading a, #budget_heading a:visited {color:inherit;}
 
 #search{
   background: #1B6AAF; /* old browsers */
