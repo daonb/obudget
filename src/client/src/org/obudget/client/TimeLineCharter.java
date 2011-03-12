@@ -39,10 +39,15 @@ class TimeLineCharter extends Composite {
 	private boolean mEmbedded;
 	private Label mChartTitle;
 	private HTML mSimplePopupContents;
+	private Integer mWidth;
+	private Integer mHeight;
 
-	public TimeLineCharter( Application app, boolean embedded ) {
+	public TimeLineCharter( Application app, boolean embedded, Integer width, Integer height ) {
 		mApp = app;
 		mPanel = new VerticalPanel();
+		
+		mWidth = width;
+		mHeight = height;
 		
 		mInfButton = new ToggleButton("ריאלי");
 		mInfButton.setWidth("30px");
@@ -92,7 +97,7 @@ class TimeLineCharter extends Composite {
 		
 		mDataTypePanel = new HorizontalPanel();
 		mChartTitle = new Label("");
-		mChartTitle.setWidth("260px");
+		mChartTitle.setWidth((mWidth-130)+"px");
 		mDataTypePanel.add(mChartTitle);
 		mDataTypePanel.add(mInfButton);
 		mDataTypePanel.add(mOrigButton);
@@ -100,8 +105,8 @@ class TimeLineCharter extends Composite {
 		mPanel.add(mDataTypePanel);
 		
 		mChartPanel = new LayoutPanel();
-		mChartPanel.setHeight("260px");
-		mChartPanel.setWidth("390px");
+		mChartPanel.setHeight((mHeight-90)+"px");
+		mChartPanel.setWidth(mWidth+"px");
 		mPanel.add(mChartPanel);
 
 		mNetAllocatedButton = new ToggleButton("הקצאה נטו");
@@ -194,7 +199,7 @@ class TimeLineCharter extends Composite {
 		}
 		mPanel.add( embedLabel );
 		
-		mPanel.setWidth("385px");
+		mPanel.setWidth((mWidth-5)+"px");
 
 		initWidget(mPanel);
 	}
@@ -231,8 +236,8 @@ class TimeLineCharter extends Composite {
 		Application.getInstance().stateChanged();
 		
 		AreaChart.Options options = AreaChart.Options.create();
-		options.setWidth(385);
-		options.setHeight(260);
+		options.setWidth(mWidth-5);
+		options.setHeight(mHeight-90);
 		//options.setTitle( list.get(0).getTitle() + " - " + "הקצאה באלפי \u20AA, מותאם לאינפלציה" );
 		//options.setTitleX("שנה");
 		options.setLegend(LegendPosition.BOTTOM);

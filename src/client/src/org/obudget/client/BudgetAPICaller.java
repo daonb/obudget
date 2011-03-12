@@ -1,5 +1,6 @@
 package org.obudget.client;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.json.client.JSONArray;
@@ -17,7 +18,7 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 		try {
 			url.setPort(Integer.parseInt( port ));
 		} catch (Exception e) {}
-		//url.setPort(33333);
+		url.setPort(33333);
 		url.setPath("00");
 	}
 	
@@ -30,11 +31,17 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 	}
 	
 	public void go( final BudgetAPICallback callback ) {
-		requestObject(url.buildString(), new AsyncCallback<JavaScriptObject>() {
+		final String urlStr = url.buildString();
+		requestObject(urlStr, new AsyncCallback<JavaScriptObject>() {
 			@Override
 			public void onSuccess(JavaScriptObject result) {
+				Log.info("BudgerAPICaller::onSuccess url="+urlStr+" -result="+result);
 				JSONArray array = new JSONArray(result);
-				callback.onSuccess(array);
+				if ( array != null ) {
+					callback.onSuccess(array);
+				} else {
+					Log.warn("BudgerAPICaller::onSuccess array==null");					
+				}
 			}
 
 			@Override
