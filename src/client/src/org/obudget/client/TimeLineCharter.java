@@ -38,6 +38,7 @@ class TimeLineCharter extends Composite {
 	private ToggleButton mGrossUsedButton;
 	private boolean mEmbedded;
 	private Label mChartTitle;
+	private HTML mSimplePopupContents;
 
 	public TimeLineCharter( Application app, boolean embedded ) {
 		mApp = app;
@@ -175,14 +176,11 @@ class TimeLineCharter extends Composite {
 			
 		} else {
 			embedLabel = new HTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");
-			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
-							   		   "src=&quot;http://" + Window.Location.getHost() + "/embed_time.html" + Window.Location.getHash() +
-							   		   "&quot;>" +
-							   "</iframe>";
 			
 			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
-			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
-			simplePopup.setWidget( simplePopupContents );
+			String embedCode = "";
+			mSimplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
+			simplePopup.setWidget( mSimplePopupContents );
 			embedLabel.addClickHandler( new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
@@ -221,6 +219,14 @@ class TimeLineCharter extends Composite {
 	}
 	
 	private void redrawChart() {
+		
+		if ( !mEmbedded ) {
+			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
+							   "src=&quot;http://" + Window.Location.getHost() + "/embed_time.html" + Window.Location.getHash() +
+	   		   		           "&quot;>" +
+	   		   		           "</iframe>";
+			mSimplePopupContents.setHTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
+		}
 
 		Application.getInstance().stateChanged();
 		

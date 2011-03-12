@@ -123,7 +123,9 @@ class Application implements ValueChangeHandler<String> {
 											 "<li><b>שימוש</b>:  <u>ביצוע</u> – התקציב שכבר נוצל ושולם בפועל על-ידי החשב.</li>"+
 											 "</lu>"+
 											 "<br/>"+
-											 "<a href='http://www.knesset.gov.il/mmm/data/docs/m02217.doc'>מקור</a>");
+											 "<i>לחץ מחוץ לחלונית זו לסגירתה</i>"+
+											 "<br/>"+
+											 "מקור: <a href='http://www.knesset.gov.il/mmm/data/docs/m02217.doc' target='_blank'>מסמך Word ממחלקת המחקר של הכנסת</a>");
 		simplePopupContents.setStyleName("obudget-cheatsheet-popup");
 		simplePopup.setWidget( simplePopupContents );
 		mCheatSheet.addClickHandler( new ClickHandler() {			

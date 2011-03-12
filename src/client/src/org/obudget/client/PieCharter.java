@@ -43,6 +43,8 @@ class PieCharter extends Composite {
 	private LinkedList<BudgetLine> mList = null;
 	private boolean mEmbedded;
 	private ListBox mNetSelector;
+	private HTML mEmbedLabel;
+	private HTML mSimplePopupContents;
 
 	public PieCharter( Application app, boolean embedded ) {
 		mApp = app;
@@ -132,21 +134,17 @@ class PieCharter extends Composite {
 		mPanel.add(hPanel);
 
 		mEmbedded = embedded;
-		HTML embedLabel = null;
+		mEmbedLabel = new HTML("");
 		if ( mEmbedded ) {
-			embedLabel = new HTML("מ<a target='_blank' href='http://"+Window.Location.getHost()+"'>אתר התקציב הפתוח</a>");
+			mEmbedLabel.setHTML("מ<a target='_blank' href='http://"+Window.Location.getHost()+"'>אתר התקציב הפתוח</a>");
 			
 		} else {
-			embedLabel = new HTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");
-			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
-							   		   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
-							   		   "&quot;>" +
-							   "</iframe>";
-			
+			mEmbedLabel.setHTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");			
 			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
-			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
-			simplePopup.setWidget( simplePopupContents );
-			embedLabel.addClickHandler( new ClickHandler() {			
+			String embedCode = "";
+			mSimplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
+			simplePopup.setWidget( mSimplePopupContents );
+			mEmbedLabel.addClickHandler( new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
 		            Widget source = (Widget) event.getSource();
@@ -157,7 +155,7 @@ class PieCharter extends Composite {
 				}
 			});
 		}
-		mPanel.add( embedLabel );
+		mPanel.add( mEmbedLabel );
 		
 		initWidget(mPanel);
 	}
@@ -168,6 +166,15 @@ class PieCharter extends Composite {
 	}
 	
 	private void redrawChart() {
+
+		if ( !mEmbedded ) {
+			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
+							   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
+							   "&quot;>" +
+							   "</iframe>";			
+			mSimplePopupContents.setHTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
+		}
+
 	    mTabPanel.clear();
 
 	    // mList contains header row (which we disregard) and sub items 
@@ -274,6 +281,7 @@ class PieCharter extends Composite {
 		mAllocatedButton.setDown( pieChartDataType == 0 );
 		mRevisedButton.setDown( pieChartDataType == 1 );
 		mUsedButton.setDown( pieChartDataType == 2 );
+		mTabPanel.selectTab( pieChartDataType );
 		redrawChart();
 	}
 
