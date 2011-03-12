@@ -69,14 +69,14 @@ class Application implements ValueChangeHandler<String> {
 		mResultsGrid = new ResultGrid();
 		mResultsGrid.setWidth("100%");
 
-		Integer pieWidth = width == null ? 330 : width;  
-		Integer pieHeight = height == null ? 335 : height;  
+		Integer pieWidth = width == null ? 485 : width;  
+		Integer pieHeight = height == null ? 400 : height;  
 		mPieCharter = new PieCharter(this, mEmbedded, pieWidth, pieHeight);
 		mPieCharter.setWidth(pieWidth+"px");
 		mPieCharter.setHeight(pieHeight+"px");
 		
-		Integer timeWidth = width == null ? 390 : width;  
-		Integer timeHeight = height == null ? 350 : height;
+		Integer timeWidth = width == null ? 485 : width;  
+		Integer timeHeight = height == null ? 400 : height;
 		mTimeLineCharter = new TimeLineCharter(this, mEmbedded, timeWidth, timeHeight);
 		mTimeLineCharter.setWidth(timeWidth+"px");
 		mTimeLineCharter.setHeight(timeHeight+"px");
@@ -126,7 +126,7 @@ class Application implements ValueChangeHandler<String> {
 		mSummary2 = new Label();
 		mSummary3 = new HTML();
 		
-		//mBudgetNews = new BudgetNews();
+		mBudgetNews = new BudgetNews();
 		
 		mCheatSheet = new HTML("(הסברים)");
 		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
@@ -138,7 +138,8 @@ class Application implements ValueChangeHandler<String> {
 											 "<li><b>הקצאה</b>: <u>תקציב מקורי</u> – התקציב שאושר בכנסת במסגרת חוק התקציב. ייתכנו הבדלים בין הצעת התקציב לבין התקציב שיאושר בכנסת בסופו של דבר.</li>"+
 											 "<li><b>הקצאה מעודכנת</b>: <u>תקציב על שינוייו</u> – תקציב המדינה עשוי להשתנות במהלך השנה. שינויים אלו כוללים תוספות, הפחתות והעברות תקציביות בין סעיפי תקציב (באישור ועדת הכספים של הכנסת). נוסף על כך, פעמים רבות מועברים עודפים מחויבים משנה קודמת הנכללים בתקציב זה. רוב השינויים בתקציב דורשים את אישורה של ועדת הכספים של הכנסת. התקציב בסוף השנה הכולל את השינויים שנעשו בו במהלך השנה נקרא התקציב על שינוייו או התקציב המאושר.</li>"+
 											 "<li><b>שימוש</b>:  <u>ביצוע</u> – התקציב שכבר נוצל ושולם בפועל על-ידי החשב.</li>"+
-											 "<li><b>ערך ריאלי ונומילני</b>:  ראו הסבר ב<a href='http://he.wikipedia.org/wiki/%D7%A2%D7%A8%D7%9A_%D7%A8%D7%99%D7%90%D7%9C%D7%99_%D7%95%D7%A2%D7%A8%D7%9A_%D7%A0%D7%95%D7%9E%D7%99%D7%A0%D7%9C%D7%99'>ויקיפדיה</a>.</li>"+
+											 "<li><b>ערך ריאלי ונומינלי</b>:  ראו הסבר ב<a href='http://he.wikipedia.org/wiki/%D7%A2%D7%A8%D7%9A_%D7%A8%D7%99%D7%90%D7%9C%D7%99_%D7%95%D7%A2%D7%A8%D7%9A_%D7%A0%D7%95%D7%9E%D7%99%D7%A0%D7%9C%D7%99' target ='_blank'>ויקיפדיה</a>.</li>"+
+											 "<li><b>ערך יחסי</b>:  האחוז היחסי של סעיף זה מכלל תקציב המדינה</li>"+
 											 "</lu>"+
 											 "<br/>"+
 											 "<i>לחץ מחוץ לחלונית זו לסגירתה</i>"+
@@ -200,7 +201,7 @@ class Application implements ValueChangeHandler<String> {
 
 				//mYearSelection.setSelectedIndex( mYear - 1992 );
 
-				//mBudgetNews.update("\""+title+"\"");
+				mBudgetNews.update("\""+title+"\"");
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
 				mSummary1.setText( "לתקציב "+title+" הוקצו בשנת");
@@ -337,9 +338,16 @@ class Application implements ValueChangeHandler<String> {
 		History.newItem(hash(mCode, mYear),false);
 	}
 
+	public static native void recordAnalyticsHit(String pageName) /*-{
+ 		$wnd._gaq.push(['_trackPageview', pageName]);
+	}-*/;
+	
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		String hash = event.getValue();
+		
+		recordAnalyticsHit( Window.Location.getPath() + Window.Location.getHash() );
+		
 		String[] parts = hash.split(",");
 		
 		if ( parts.length == 12 ) {
