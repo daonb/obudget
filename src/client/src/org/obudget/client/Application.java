@@ -77,7 +77,7 @@ class Application implements ValueChangeHandler<String> {
 		mPieCharter.setWidth(pieWidth+"px");
 		mPieCharter.setHeight(pieHeight+"px");
 		
-		Integer timeWidth = width == null ? 485 : width;  
+		Integer timeWidth = width == null ? 686 : width;  
 		Integer timeHeight = height == null ? 400 : height;
 		mTimeLineCharter = new TimeLineCharter(this, mEmbedded, timeWidth, timeHeight);
 		mTimeLineCharter.setWidth(timeWidth+"px");
