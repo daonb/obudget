@@ -157,11 +157,18 @@ a:hover{
 #footer{
   clear:both;
   margin-top:35px;
-  padding:10px 15px 10px 0;
+  padding:10px 15px;
   background-color:#deecf9;
 }
 
 #footer p{
   margin:5px 0;
   padding:0;
+  float:right;
+  width:460px;
+}
+
+#footer .left{
+  text-align:left;
+  float:left;
 }
