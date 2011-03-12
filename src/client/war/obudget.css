@@ -1,133 +1,198 @@
-body>div { direction: rtl; }
-a, a:visited { 
-    color: #2B9DDE;
-    text-decoration:none;
-}
-a:hover { text-decoration:underline; }
-#logo { background: transparent url(http://www.shituf.gov.il/sites/e.shituf.gov.il/themes/shituf/images/bg_gov_header.png) no-repeat 100% 0%; color: white; }
-#logo h1 { padding: 0.7em; margin:0; }
-#logo img { margin: 6px; display: block; float:right;}
-
-#page { margin: 0 auto; width: 747px; font-size:13px; line-height:16px;}
-#search {
-        clear: both;
-	text-align: center;
-	font:bold 16px helvetica;
-}
-#obudget-cheatsheet,
-.embed-link {
-	font:normal 12px helvetica;
-	color:#2B9DDE;
-	text-decoration:none;
-	cursor:pointer;
-}
-#obudget-cheatsheet div { 	display:inline; }	
-
-#summary {text-align: center; }
-#summary > div
-{ padding-bottom:5px; }
-#summary-lines 
-{ 
-	margin-left:auto;
-	margin-right:auto;
-}	
-#charts, #details {
-	margin-top: 10px;
-        padding: 10px 2px;
-	background:#ddeeff;
-	border-radius:0.1em;
-	-moz-border-radius:0.1em;
-	-webkit-border-radius:0.1em;
-}
-#search, #summary, #breadcrumbs, #footer {
-	margin-top:0.8em;
-        padding: 0.8em 0.8em;
-	background:#ddeeff;
-	border-radius:0.1em;
-	-moz-border-radius:0.1em;
-	-webkit-border-radius:0.1em;
+body{
+  margin:0;
+  padding:0;
+  font:normal normal 14px/1.3em Arial,Verdana,sans-serif;
+  background:#fff;
 }
 
-#obudget-piechart,
-#obudget-timeline,
-#obudget-detailed-results,
-#news,
-#summary-lines,
-#obudget-breadcrumbs
-{
-	padding:3px;
-	/*background:#eef8ff;*/
-	border-radius:10px;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
+/** HTML elements **/
+h1,h2,h3,h4,h5,h6{
+  margin:0;
+  padding:0;
 }
 
-#details > div { vertical-align: top;  }
-#obudget-piechart {display:inline-block; width:330px; overflow:hidden; }
-.obudget-piechart-type .gwt-ListBox { margin-top:4px; }
-#obudget-timeline {display:inline-block; width:390px; overflow:hidden; }
-
-#obudget-summary-1,
-#obudget-year-selection,
-#obudget-summary-2,
-#obudget-summary-3
-{display:inline-block; font-size:14px; font-family:helvetica; }
-
-#obudget-summary-2
-{font-size:17px; font-weight:bold;}
-
-#obudget-detailed-results { 
-	/*display:inline-block;*/
-	width:500px;  
-	overflow:clip;
+a{
+  color:#589DDE;
+  text-decoration:none;
 }
 
-#news { 
-	/*display:inline-block;*/ 
-	/*width:220px;*/
-	float:left;
- }
-#footer { 
-	height:60px; 
-	padding-right:10px; 
-	padding-left:10px;
-	background:#eeeeff; 
+a:hover{
+  text-decoration:underline;
+}
+/** global classes **/
+ 
+.rep{
+  display:block;
+  overflow:hidden;
+  text-indent:-1000em;
+  direction:ltr;
+  background-repeat:no-repeat;
 }
 
-.gwt-TabLayoutPanel,
-.gwt-TabLayoutPanelContent {
-		border-style:none;
+.clr{
+  clear:both;
+  display:block;
+  height:1px;
+  overflow:hidden;
+}
+/** layout **/
+#main{
+  direction:rtl;
+  width:980px;
+  margin:0 auto;
 }
 
-.resultgrid-header-row td {
-	border-bottom:3px double black;
-	border-collapse:collapse;
-	text-align:center;
+#header{
+  margin-bottom:10px;
 }
 
-.resultgrid-totals-row td {
-	border-bottom:1px solid black;
-	border-collapse:collapse;
+#logo{
+  height:72px;
+  background-image:url('media/gov-il-logo.jpg');
+  background-position:right top;
+  border-bottom:1px dotted #b5b5b5;
+  padding-bottom:3px;
+  margin-bottom:15px;
 }
 
-.resultgrid-data {
-	text-align:center;
-	white-space:nowrap;
-	direction:ltr;
-	border-right:solid 1px;
-	padding-right:2px;
-	padding-left:2px;
+#budget_heading{
+  background-image:url('media/bg_gov_header.png');
+  height:50px;
+}
+#budget_heading h2 {
+  background-image:url('media/cube.png');
+  background-position:right;
+  background-repeat: no-repeat;
+  line-height:49px;
+  color:#fff;
+  padding-right:60px;
+  font-size:24px;
+  margin-right: 4px;
+}
+#budget_heading a, #budget_heading a:visited {color:inherit;}
+
+#dev_state {float:left; color: #fff; margin-left:15px;}
+#search{
+  background: #1B6AAF; /* old browsers */
+  background: -moz-linear-gradient(top, #1B6AAF 0%, #0B3060 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1B6AAF), color-stop(100%,#0B3060)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1B6AAF', endColorstr='#0B3060',GradientType=0 ); /* ie */
+  color:#fff;
+  height:30px;
+  line-height:30px;
+  padding: 5px 0;
 }
 
-.resultgrid-header {
-	font-weight:bold;
+#search strong{
+  font-weight:normal;
+  padding-left:10px;
 }
 
-.gwt-TabLayoutPanelTab {
-	float:right;
+#obudget-searchbox,
+#obudget-cheatsheet{
+  float: right;
+  min-width:80px;
+  padding-right:15px;
 }
 
-.gsc-branding {
-	direction:ltr;
-	float:left;
+#content{
+  min-height:460px;
 }
+
+#breadcrumbs,
+#summary{
+  padding:2px 15px;
+  height:20px;
+  line-height:19px;
+}
+
+#summary {
+  background-color:#deecf9;
+  text-align:center;
+  height:100%
+}
+
+#summary div{
+  display:inline;
+  color: #333;
+  font: normal 19px/36px Arial;
+  padding-bottom: 5px;
+}
+
+#charts{
+  margin-top:10px;
+}
+
+#charts .col{
+  min-height:330px;
+  float:right;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+
+#charts .col.right{
+  margin-left:10px;
+}
+
+#obudget-news table {
+  margin: 0 auto;
+}
+
+.col.span50{
+  width:485px;
+}
+
+.col.span70{
+  width:686px;
+}
+
+.col.span20{
+  width:283px;
+}
+
+.col h3{
+  background: #acd1f3; /* old browsers */
+  background: -moz-linear-gradient(top, #6eb3e9 0%, #acd1f3 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6eb3e9), color-stop(100%,#acd1f3)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6eb3e9', endColorstr='#acd1f3',GradientType=0 ); /* ie */
+  color:#062253;
+  height:30px;
+  line-height:30px;
+  padding:0 15px;
+  margin-bottom:10px;
+  font-size:18px;
+  font-weight:normal;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+  -webkit-border-top-left-radius:4px;
+  -webkit-border-top-right-radius:4px;
+  -moz-border-radius-bottomleft:4px;
+  -moz-border-radius-bottomright:4px;
+}
+
+.row{
+  clear:both;
+}
+.resultgrid tr {
+  line-height: 1.4em;
+}
+
+#footer{
+  clear:both;
+  margin-top:35px;
+  padding:10px 15px;
+  background-color:#deecf9;
+}
+
+#footer p{
+  margin:5px 0;
+  padding:0;
+  float:right;
+  width:460px;
+}
+
+#footer .left{
+  text-align:left;
+  float:left;
+}
+
