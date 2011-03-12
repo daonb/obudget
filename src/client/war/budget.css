@@ -100,10 +100,15 @@ a:hover{
 
 #breadcrumbs,
 #summary{
-  padding:5px 15px 0;
+  padding:2px 15px;
   height:20px;
   line-height:19px;
+}
+
+#summary {
   background-color:#deecf9;
+  text-align:center;
+  height:100%
 }
 
 #summary div{
@@ -111,11 +116,6 @@ a:hover{
   color: #333;
   font: normal 19px/36px Arial;
   padding-bottom: 5px;
-}
-
-#summary {
-  text-align:center;
-  height:100%
 }
 
 #charts{
