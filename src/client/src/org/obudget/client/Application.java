@@ -39,7 +39,9 @@ class Application implements ValueChangeHandler<String> {
 	private SuggestBox mSearchBox = null;
 	private Label mSummary1 = null;
 	private Label mSummary2 = null;
+	private Label mSummary2_1 = null;
 	private HTML mSummary3 = null;
+	private HTML mSummary3_1 = null;
 	private BudgetNews mBudgetNews = null;
 	private HTML mCheatSheet = null;
 	
@@ -69,14 +71,14 @@ class Application implements ValueChangeHandler<String> {
 		mResultsGrid = new ResultGrid();
 		mResultsGrid.setWidth("100%");
 
-		Integer pieWidth = width == null ? 330 : width;  
-		Integer pieHeight = height == null ? 335 : height;  
+		Integer pieWidth = width == null ? 485 : width;  
+		Integer pieHeight = height == null ? 400 : height;  
 		mPieCharter = new PieCharter(this, mEmbedded, pieWidth, pieHeight);
 		mPieCharter.setWidth(pieWidth+"px");
 		mPieCharter.setHeight(pieHeight+"px");
 		
-		Integer timeWidth = width == null ? 390 : width;  
-		Integer timeHeight = height == null ? 350 : height;
+		Integer timeWidth = width == null ? 485 : width;  
+		Integer timeHeight = height == null ? 400 : height;
 		mTimeLineCharter = new TimeLineCharter(this, mEmbedded, timeWidth, timeHeight);
 		mTimeLineCharter.setWidth(timeWidth+"px");
 		mTimeLineCharter.setHeight(timeHeight+"px");
@@ -124,9 +126,11 @@ class Application implements ValueChangeHandler<String> {
 
 		mSummary1 = new Label();
 		mSummary2 = new Label();
+		mSummary2_1 = new Label();
 		mSummary3 = new HTML();
+		mSummary3_1 = new HTML();
 		
-		//mBudgetNews = new BudgetNews();
+		mBudgetNews = new BudgetNews();
 		
 		mCheatSheet = new HTML("(הסברים)");
 		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
@@ -138,7 +142,8 @@ class Application implements ValueChangeHandler<String> {
 											 "<li><b>הקצאה</b>: <u>תקציב מקורי</u> – התקציב שאושר בכנסת במסגרת חוק התקציב. ייתכנו הבדלים בין הצעת התקציב לבין התקציב שיאושר בכנסת בסופו של דבר.</li>"+
 											 "<li><b>הקצאה מעודכנת</b>: <u>תקציב על שינוייו</u> – תקציב המדינה עשוי להשתנות במהלך השנה. שינויים אלו כוללים תוספות, הפחתות והעברות תקציביות בין סעיפי תקציב (באישור ועדת הכספים של הכנסת). נוסף על כך, פעמים רבות מועברים עודפים מחויבים משנה קודמת הנכללים בתקציב זה. רוב השינויים בתקציב דורשים את אישורה של ועדת הכספים של הכנסת. התקציב בסוף השנה הכולל את השינויים שנעשו בו במהלך השנה נקרא התקציב על שינוייו או התקציב המאושר.</li>"+
 											 "<li><b>שימוש</b>:  <u>ביצוע</u> – התקציב שכבר נוצל ושולם בפועל על-ידי החשב.</li>"+
-											 "<li><b>ערך ריאלי ונומילני</b>:  ראו הסבר ב<a href='http://he.wikipedia.org/wiki/%D7%A2%D7%A8%D7%9A_%D7%A8%D7%99%D7%90%D7%9C%D7%99_%D7%95%D7%A2%D7%A8%D7%9A_%D7%A0%D7%95%D7%9E%D7%99%D7%A0%D7%9C%D7%99'>ויקיפדיה</a>.</li>"+
+											 "<li><b>ערך ריאלי ונומינלי</b>:  ראו הסבר ב<a href='http://he.wikipedia.org/wiki/%D7%A2%D7%A8%D7%9A_%D7%A8%D7%99%D7%90%D7%9C%D7%99_%D7%95%D7%A2%D7%A8%D7%9A_%D7%A0%D7%95%D7%9E%D7%99%D7%A0%D7%9C%D7%99' target ='_blank'>ויקיפדיה</a>.</li>"+
+											 "<li><b>ערך יחסי</b>:  האחוז היחסי של סעיף זה מכלל תקציב המדינה</li>"+
 											 "</lu>"+
 											 "<br/>"+
 											 "<i>לחץ מחוץ לחלונית זו לסגירתה</i>"+
@@ -200,10 +205,10 @@ class Application implements ValueChangeHandler<String> {
 
 				//mYearSelection.setSelectedIndex( mYear - 1992 );
 
-				//mBudgetNews.update("\""+title+"\"");
+				mBudgetNews.update("\""+title+"\"");
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
-				mSummary1.setText( "לתקציב "+title+" הוקצו בשנת");
+				mSummary1.setText( title );
 				final Integer revisedSum;
 				final String revisedSumType;
 				if ( (firstResult.get("gross_amount_revised") != null) &&
@@ -225,13 +230,15 @@ class Application implements ValueChangeHandler<String> {
 					if ( ( firstResult.get(revisedSumType) != null ) && 
 						   firstResult.get(revisedSumType).isNumber() != null ) {
 						revisedSum = (int) firstResult.get(revisedSumType).isNumber().doubleValue();				
-						mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa" + (revisedSumType.startsWith("net") ? " (נטו)" : ""));
+						mSummary2.setText( NumberFormat.getDecimalFormat().format(revisedSum)+",000" );
+						mSummary2_1.setText( (revisedSumType.startsWith("net") ? " (נטו)" : "") );
 					} else {
 						revisedSum = null;
 					}
 				} else {
 					revisedSum = null;
 					mSummary2.setText("");
+					mSummary2_1.setText("");
 				}
 				
 				mSummary3.setHTML("");							
@@ -251,7 +258,8 @@ class Application implements ValueChangeHandler<String> {
 								if ( (data.get(0).isObject().get(revisedSumType) != null) && 
 									 (data.get(0).isObject().get(revisedSumType).isNumber() != null) ) {
 									double percent = revisedSum / data.get(0).isObject().get(revisedSumType).isNumber().doubleValue();
-									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
+									mSummary3.setHTML( NumberFormat.getPercentFormat().format(percent) );
+									mSummary3_1.setHTML( "<a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
 								}
 							}
 						});
@@ -337,9 +345,16 @@ class Application implements ValueChangeHandler<String> {
 		History.newItem(hash(mCode, mYear),false);
 	}
 
+	public static native void recordAnalyticsHit(String pageName) /*-{
+ 		$wnd._gaq.push(['_trackPageview', pageName]);
+	}-*/;
+	
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		String hash = event.getValue();
+		
+		recordAnalyticsHit( Window.Location.getPath() + Window.Location.getHash() );
+		
 		String[] parts = hash.split(",");
 		
 		if ( parts.length == 12 ) {
@@ -399,6 +414,14 @@ class Application implements ValueChangeHandler<String> {
 
 	public Widget getSummary3() {
 		return mSummary3;
+	}
+
+	public Widget getSummary2_1() {
+		return mSummary2_1;
+	}
+
+	public Widget getSummary3_1() {
+		return mSummary3_1;
 	}
 
 	public Widget getBudgetNews() {

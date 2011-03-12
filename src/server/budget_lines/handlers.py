@@ -76,7 +76,7 @@ class BudgetLineHandler(BaseHandler):
     
     def read(self, request, **kwargs):
         budget_code = kwargs["id"]
-        qs = self.qs.filter(budget_id__startswith=budget_code)
+        qs = self.qs.filter(budget_id__startswith=budget_code, title__isnull=False).exclude(title = "")
         qs = depth_by_request(qs, request, budget_code)
         qs = year_by_request(qs, request)
         qs = text_by_request(qs, request)

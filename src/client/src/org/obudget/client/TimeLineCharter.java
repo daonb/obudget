@@ -80,8 +80,9 @@ class TimeLineCharter extends Composite {
 			}
 		});
 
-		mPercentButton = new ToggleButton("אחוזי");
+		mPercentButton = new ToggleButton("יחסי");
 		mPercentButton.setWidth("30px");
+		mPercentButton.setTitle("אחוז מכלל התקציב באותה שנה");
 		mPercentButton.addClickHandler( new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
