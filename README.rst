@@ -33,6 +33,8 @@ UI
 
 Point your browser at http://127.0.0.1:8000/gwt/obudget.html
 
+To see the embed interface open the file found in src/samples/post.html
+
 API
 ---
 

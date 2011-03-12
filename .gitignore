@@ -11,3 +11,4 @@ develop-eggs/
 *~
 WEB-INF
 local_settings.py
+.*
