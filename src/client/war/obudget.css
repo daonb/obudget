@@ -71,7 +71,11 @@ a:hover{
 }
 #budget_heading a, #budget_heading a:visited {color:inherit;}
 
-#dev_state {float:left; color: #fff; margin-left:15px;}
+#dev_state {
+  float:left;
+  margin: 6px 15px;
+}
+
 #search{
   background: #1B6AAF; /* old browsers */
   background: -moz-linear-gradient(top, #1B6AAF 0%, #0B3060 100%); /* firefox */
