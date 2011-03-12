@@ -49,6 +49,8 @@ public class OBudgetMain implements EntryPoint {
 		addWidgetToId("obudget-year-selection",mApp.getYearSelection() );
 		addWidgetToId("obudget-summary-2",mApp.getSummary2() );
 		addWidgetToId("obudget-summary-3",mApp.getSummary3() );
+		addWidgetToId("obudget-summary-2-1",mApp.getSummary2_1() );
+		addWidgetToId("obudget-summary-3-1",mApp.getSummary3_1() );
 		addWidgetToId("obudget-detailed-results",mApp.getResultsGrid() );
 		addWidgetToId("obudget-news",mApp.getBudgetNews() );
 		addWidgetToId("obudget-cheatsheet",mApp.getCheatSheet() );

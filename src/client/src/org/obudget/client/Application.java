@@ -39,7 +39,9 @@ class Application implements ValueChangeHandler<String> {
 	private SuggestBox mSearchBox = null;
 	private Label mSummary1 = null;
 	private Label mSummary2 = null;
+	private Label mSummary2_1 = null;
 	private HTML mSummary3 = null;
+	private HTML mSummary3_1 = null;
 	private BudgetNews mBudgetNews = null;
 	private HTML mCheatSheet = null;
 	
@@ -124,7 +126,9 @@ class Application implements ValueChangeHandler<String> {
 
 		mSummary1 = new Label();
 		mSummary2 = new Label();
+		mSummary2_1 = new Label();
 		mSummary3 = new HTML();
+		mSummary3_1 = new HTML();
 		
 		mBudgetNews = new BudgetNews();
 		
@@ -204,7 +208,7 @@ class Application implements ValueChangeHandler<String> {
 				mBudgetNews.update("\""+title+"\"");
 				
 				Window.setTitle("תקציב המדינה - "+title+" ("+mYear+")");
-				mSummary1.setText( "לתקציב "+title+" הוקצו בשנת");
+				mSummary1.setText( title );
 				final Integer revisedSum;
 				final String revisedSumType;
 				if ( (firstResult.get("gross_amount_revised") != null) &&
@@ -226,13 +230,15 @@ class Application implements ValueChangeHandler<String> {
 					if ( ( firstResult.get(revisedSumType) != null ) && 
 						   firstResult.get(revisedSumType).isNumber() != null ) {
 						revisedSum = (int) firstResult.get(revisedSumType).isNumber().doubleValue();				
-						mSummary2.setText( "סה\"כ "+NumberFormat.getDecimalFormat().format(revisedSum)+",000 \u20aa" + (revisedSumType.startsWith("net") ? " (נטו)" : ""));
+						mSummary2.setText( NumberFormat.getDecimalFormat().format(revisedSum)+",000" );
+						mSummary2_1.setText( (revisedSumType.startsWith("net") ? " (נטו)" : "") );
 					} else {
 						revisedSum = null;
 					}
 				} else {
 					revisedSum = null;
 					mSummary2.setText("");
+					mSummary2_1.setText("");
 				}
 				
 				mSummary3.setHTML("");							
@@ -252,7 +258,8 @@ class Application implements ValueChangeHandler<String> {
 								if ( (data.get(0).isObject().get(revisedSumType) != null) && 
 									 (data.get(0).isObject().get(revisedSumType).isNumber() != null) ) {
 									double percent = revisedSum / data.get(0).isObject().get(revisedSumType).isNumber().doubleValue();
-									mSummary3.setHTML( "שהם "+NumberFormat.getPercentFormat().format(percent)+" מתקציב <a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
+									mSummary3.setHTML( NumberFormat.getPercentFormat().format(percent) );
+									mSummary3_1.setHTML( "<a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
 								}
 							}
 						});
@@ -407,6 +414,14 @@ class Application implements ValueChangeHandler<String> {
 
 	public Widget getSummary3() {
 		return mSummary3;
+	}
+
+	public Widget getSummary2_1() {
+		return mSummary2_1;
+	}
+
+	public Widget getSummary3_1() {
+		return mSummary3_1;
 	}
 
 	public Widget getBudgetNews() {
