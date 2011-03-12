@@ -95,18 +95,30 @@ class BudgetLine {
 		try {
 			switch ( field) {
 				case ALLOCATED:
+					if ( (TotalBudget.getInstance().getAllocated(mYear,net) == null) || 
+							 (TotalBudget.getInstance().getAllocated(mYear,net) <= 0) ) {
+							return null;
+					}
 					if ( net ) {
 						return 100.0 * mNetAllocated / TotalBudget.getInstance().getAllocated(mYear,net);
 					} else {
 						return 100.0 * mGrossAllocated / TotalBudget.getInstance().getAllocated(mYear,net);
 					}
 				case REVISED:
+					if ( (TotalBudget.getInstance().getRevised(mYear,net) == null) || 
+							 (TotalBudget.getInstance().getRevised(mYear,net) <= 0) ) {
+							return null;
+					}
 					if ( net ) {
 						return 100.0 * mNetRevised / TotalBudget.getInstance().getRevised(mYear,net);
 					} else {
 						return 100.0 * mGrossRevised / TotalBudget.getInstance().getRevised(mYear,net);
 					}
 				case USED:
+					if ( (TotalBudget.getInstance().getUsed(mYear,net) == null) || 
+							 (TotalBudget.getInstance().getUsed(mYear,net) <= 0) ) {
+							return null;
+					}
 					if ( net ) {
 						return 100.0 * mNetUsed/ TotalBudget.getInstance().getUsed(mYear,net);
 					} else {

@@ -1,5 +1,5 @@
 function obudget(){
-  var $intern_0 = '', $intern_34 = '" for "gwt:onLoadErrorFn"', $intern_32 = '" for "gwt:onPropertyErrorFn"', $intern_15 = '"><\/script>', $intern_17 = '#', $intern_43 = '&', $intern_73 = '.cache.html', $intern_19 = '/', $intern_60 = '06877858B5D90D640D50CA902EDA0EFD', $intern_61 = '15FD5C73FCDE69FC63FC97FC05CA4464', $intern_62 = '16CE2E04034AA31BAE7B745B462F7896', $intern_63 = '4069745E2C1D22E5D34CAE4D5CC9B004', $intern_64 = '94DABCFF8C2C4844DACB116104518346', $intern_65 = '9F60D5B7D3FE8DE8932D4540BE3DF117', $intern_72 = ':', $intern_26 = '::', $intern_84 = '<script defer="defer">obudget.onInjectionDone(\'obudget\')<\/script>', $intern_14 = '<script id="', $intern_83 = '<script language="javascript" src="http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"><\/script>', $intern_29 = '=', $intern_18 = '?', $intern_66 = 'ACF5A220F488D21AC21572CDA9FD4E07', $intern_67 = 'B4738347C4853BCBE439D673BFADFC0F', $intern_68 = 'B7475F9E9B17125F501EFB98ED9B39D5', $intern_31 = 'Bad handler "', $intern_69 = 'D8F1F3D98428FE63B74E9E7A6C317B98', $intern_81 = 'DOMContentLoaded', $intern_70 = 'E04FF2F58599DB3D067F1F5DFC864DCF', $intern_71 = 'FFF60EC5AE13C0597A9D9B116E677BB0', $intern_16 = 'SCRIPT', $intern_46 = 'Unexpected exception in locale detection, using default: ', $intern_45 = '_', $intern_44 = '__gwt_Locale', $intern_13 = '__gwt_marker_obudget', $intern_20 = 'base', $intern_10 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_22 = 'clear.cache.gif', $intern_28 = 'content', $intern_41 = 'default', $intern_9 = 'end', $intern_54 = 'gecko', $intern_55 = 'gecko1_8', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_74 = 'gwt/chrome/chrome.css', $intern_33 = 'gwt:onLoadErrorFn', $intern_30 = 'gwt:onPropertyErrorFn', $intern_27 = 'gwt:property', $intern_40 = 'he', $intern_79 = 'head', $intern_58 = 'hosted.html?obudget', $intern_78 = 'href', $intern_82 = 'http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA', $intern_80 = 'http://www.google.com/uds/css/gsearch.css', $intern_53 = 'ie6', $intern_52 = 'ie8', $intern_35 = 'iframe', $intern_21 = 'img', $intern_36 = "javascript:''", $intern_75 = 'link', $intern_57 = 'loadExternalRefs', $intern_39 = 'locale', $intern_42 = 'locale=', $intern_23 = 'meta', $intern_38 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_51 = 'msie', $intern_24 = 'name', $intern_1 = 'obudget', $intern_12 = 'obudget.nocache.js', $intern_25 = 'obudget::', $intern_48 = 'opera', $intern_37 = 'position:absolute;width:0;height:0;border:none', $intern_76 = 'rel', $intern_50 = 'safari', $intern_11 = 'script', $intern_59 = 'selectingPermutation', $intern_2 = 'startup', $intern_77 = 'stylesheet', $intern_56 = 'unknown', $intern_47 = 'user.agent', $intern_49 = 'webkit';
+  var $intern_0 = '', $intern_34 = '" for "gwt:onLoadErrorFn"', $intern_32 = '" for "gwt:onPropertyErrorFn"', $intern_15 = '"><\/script>', $intern_17 = '#', $intern_43 = '&', $intern_71 = '.cache.html', $intern_19 = '/', $intern_60 = '1C48639AC7DA2EA7BF96789D7345F2F1', $intern_61 = '23A4B7F55FDFF6BB4EB966B6F3F3E93B', $intern_62 = '25B9516963F631F788AA309A96A11ABA', $intern_63 = '4E5D155B12F95B2C0700CC4EFE01952C', $intern_64 = '5DED754A64E583B2AAC2537EF77C1C1C', $intern_65 = '923302713B7B1E93F092B4EC60D4D748', $intern_66 = '99495E69AE6293DE9024DCFCDA94C4D5', $intern_70 = ':', $intern_26 = '::', $intern_82 = '<script defer="defer">obudget.onInjectionDone(\'obudget\')<\/script>', $intern_14 = '<script id="', $intern_81 = '<script language="javascript" src="http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA"><\/script>', $intern_29 = '=', $intern_18 = '?', $intern_67 = 'B48685AF1E2BF3961B7EABD0332D3166', $intern_31 = 'Bad handler "', $intern_68 = 'D0FE7A738B252536EE02BE23C7242978', $intern_79 = 'DOMContentLoaded', $intern_69 = 'F1F01718C9881C8FDE451470AD68E434', $intern_16 = 'SCRIPT', $intern_46 = 'Unexpected exception in locale detection, using default: ', $intern_45 = '_', $intern_44 = '__gwt_Locale', $intern_13 = '__gwt_marker_obudget', $intern_20 = 'base', $intern_10 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_22 = 'clear.cache.gif', $intern_28 = 'content', $intern_41 = 'default', $intern_9 = 'end', $intern_54 = 'gecko', $intern_55 = 'gecko1_8', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_72 = 'gwt/chrome/chrome.css', $intern_33 = 'gwt:onLoadErrorFn', $intern_30 = 'gwt:onPropertyErrorFn', $intern_27 = 'gwt:property', $intern_40 = 'he', $intern_77 = 'head', $intern_58 = 'hosted.html?obudget', $intern_76 = 'href', $intern_80 = 'http://www.google.com/uds/api?file=uds.js&v=1.0&gwt=1&key=ABQIAAAAVod5Pu0931RwFXJHdV6DHxTJXVff3bWsZ1metLdhTEha2CpUExQ0UWj-wHL7kfEMZkvK8Fu90-F_yA', $intern_78 = 'http://www.google.com/uds/css/gsearch.css', $intern_53 = 'ie6', $intern_52 = 'ie8', $intern_35 = 'iframe', $intern_21 = 'img', $intern_36 = "javascript:''", $intern_73 = 'link', $intern_57 = 'loadExternalRefs', $intern_39 = 'locale', $intern_42 = 'locale=', $intern_23 = 'meta', $intern_38 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_51 = 'msie', $intern_24 = 'name', $intern_1 = 'obudget', $intern_12 = 'obudget.nocache.js', $intern_25 = 'obudget::', $intern_48 = 'opera', $intern_37 = 'position:absolute;width:0;height:0;border:none', $intern_74 = 'rel', $intern_50 = 'safari', $intern_11 = 'script', $intern_59 = 'selectingPermutation', $intern_2 = 'startup', $intern_75 = 'stylesheet', $intern_56 = 'unknown', $intern_47 = 'user.agent', $intern_49 = 'webkit';
   var $wnd = window, $doc = document, $stats = $wnd.__gwtStatsEvent?function(a){
     return $wnd.__gwtStatsEvent(a);
   }
@@ -275,17 +275,12 @@ function obudget(){
       }
     }
      else if (ua.indexOf($intern_54) != -1) {
-      var result = /rv:([0-9]+)\.([0-9]+)/.exec(ua);
-      if (result && result.length == 3) {
-        if (makeVersion(result) >= 1008)
-          return $intern_55;
-      }
-      return $intern_54;
+      return $intern_55;
     }
     return $intern_56;
   }
   ;
-  values[$intern_47] = {gecko:0, gecko1_8:1, ie6:2, ie8:3, opera:4, safari:5};
+  values[$intern_47] = {gecko1_8:0, ie6:1, ie8:2, opera:3, safari:4};
   obudget.onScriptLoad = function(){
     if (frameInjected) {
       loadDone = true;
@@ -314,25 +309,23 @@ function obudget(){
   $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_59});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers([$intern_40, $intern_50], $intern_60);
-      unflattenKeylistIntoAnswers([$intern_40, $intern_54], $intern_61);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_55], $intern_60);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_52], $intern_61);
       unflattenKeylistIntoAnswers([$intern_40, $intern_53], $intern_62);
       unflattenKeylistIntoAnswers([$intern_40, $intern_52], $intern_63);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_54], $intern_64);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_50], $intern_65);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_55], $intern_66);
-      unflattenKeylistIntoAnswers([$intern_40, $intern_48], $intern_67);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_48], $intern_68);
-      unflattenKeylistIntoAnswers([$intern_40, $intern_55], $intern_69);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_52], $intern_70);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_53], $intern_71);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_48], $intern_64);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_53], $intern_65);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_50], $intern_66);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_50], $intern_67);
+      unflattenKeylistIntoAnswers([$intern_41, $intern_55], $intern_68);
+      unflattenKeylistIntoAnswers([$intern_40, $intern_48], $intern_69);
       strongName = answers[computePropValue($intern_39)][computePropValue($intern_47)];
-      var idx = strongName.indexOf($intern_72);
+      var idx = strongName.indexOf($intern_70);
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));
         strongName = strongName.substring(0, idx);
       }
-      initialHtml = strongName + $intern_73;
+      initialHtml = strongName + $intern_71;
     }
      catch (e) {
       return;
@@ -342,23 +335,23 @@ function obudget(){
   function onBodyDone(){
     if (!bodyDone) {
       bodyDone = true;
-      if (!__gwt_stylesLoaded[$intern_74]) {
-        var l = $doc.createElement($intern_75);
-        __gwt_stylesLoaded[$intern_74] = l;
-        l.setAttribute($intern_76, $intern_77);
-        l.setAttribute($intern_78, base + $intern_74);
-        $doc.getElementsByTagName($intern_79)[0].appendChild(l);
+      if (!__gwt_stylesLoaded[$intern_72]) {
+        var l = $doc.createElement($intern_73);
+        __gwt_stylesLoaded[$intern_72] = l;
+        l.setAttribute($intern_74, $intern_75);
+        l.setAttribute($intern_76, base + $intern_72);
+        $doc.getElementsByTagName($intern_77)[0].appendChild(l);
       }
-      if (!__gwt_stylesLoaded[$intern_80]) {
-        var l = $doc.createElement($intern_75);
-        __gwt_stylesLoaded[$intern_80] = l;
-        l.setAttribute($intern_76, $intern_77);
-        l.setAttribute($intern_78, $intern_80);
-        $doc.getElementsByTagName($intern_79)[0].appendChild(l);
+      if (!__gwt_stylesLoaded[$intern_78]) {
+        var l = $doc.createElement($intern_73);
+        __gwt_stylesLoaded[$intern_78] = l;
+        l.setAttribute($intern_74, $intern_75);
+        l.setAttribute($intern_76, $intern_78);
+        $doc.getElementsByTagName($intern_77)[0].appendChild(l);
       }
       maybeStartModule();
       if ($doc.removeEventListener) {
-        $doc.removeEventListener($intern_81, onBodyDone, false);
+        $doc.removeEventListener($intern_79, onBodyDone, false);
       }
       if (onBodyDoneTimerId) {
         clearInterval(onBodyDoneTimerId);
@@ -367,7 +360,7 @@ function obudget(){
   }
 
   if ($doc.addEventListener) {
-    $doc.addEventListener($intern_81, function(){
+    $doc.addEventListener($intern_79, function(){
       maybeInjectFrame();
       onBodyDone();
     }
@@ -382,11 +375,11 @@ function obudget(){
   , 50);
   $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_9});
   $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_57, millis:(new Date).getTime(), type:$intern_4});
-  if (!__gwt_scriptsLoaded[$intern_82]) {
-    __gwt_scriptsLoaded[$intern_82] = true;
-    document.write($intern_83);
+  if (!__gwt_scriptsLoaded[$intern_80]) {
+    __gwt_scriptsLoaded[$intern_80] = true;
+    document.write($intern_81);
   }
-  $doc.write($intern_84);
+  $doc.write($intern_82);
 }
 
 obudget();

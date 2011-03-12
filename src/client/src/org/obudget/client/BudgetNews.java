@@ -50,6 +50,7 @@ public class BudgetNews extends Composite {
 	    mControl = new SearchControl(options);
 	    mControl.addSearchResultsHandler(new SearchResultsHandler() {
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onSearchResults(SearchResultsEvent event) {
 				JsArray<? extends Result> results = event.getResults();
@@ -60,7 +61,7 @@ public class BudgetNews extends Composite {
 				for ( int i = 0 ; i < results.length() && currentRow < 10 ; i ++ ) {
 				     if (results.get(i).getResultClass().equals(ResultClass.NEWS_SEARCH_RESULT)) {
 			            NewsResult result = (NewsResult) results.get(i);
-			            String html = result.getPublisher()+":&nbsp;<a href='"+result.getUnescapedUrl()+"' target='_blank'>"+result.getTitleNoFormatting()+"</a>";	            				            	
+			            String html = result.getPublisher()+":&nbsp;<a href='"+result.getUnescapedUrl()+"' target='_blank'>"+result.getTitleNoFormatting()+"</a>"+" ("+(1900+result.getPublishedDate().getYear())+"/"+result.getPublishedDate().getMonth()+"/"+result.getPublishedDate().getDay()+")";	            				            	
 			            mGrid.setHTML(currentRow, 0, html);
 			            currentRow++;
 				     }					

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import org.apache.catalina.startup.Embedded;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -32,23 +33,29 @@ import com.google.gwt.visualization.client.visualizations.PieChart;
 import com.google.gwt.visualization.client.visualizations.PieChart.Options;
 
 class PieCharter extends Composite {
-	private TabLayoutPanel mTabPanel;
-	private VerticalPanel mPanel;
-	private Application mApp;
-	private RadioButton mRadio2;
-	private ToggleButton mAllocatedButton;
-	private ToggleButton mRevisedButton;
-	private ToggleButton mUsedButton;
+	private TabLayoutPanel mTabPanel = null;
+	private VerticalPanel mPanel = null;
+	private Application mApp = null;
+	private RadioButton mRadio2 = null;
+	private ToggleButton mAllocatedButton = null;
+	private ToggleButton mRevisedButton = null;
+	private ToggleButton mUsedButton = null;
 //	private ToggleButton mNetButton;
 	private LinkedList<BudgetLine> mList = null;
-	private boolean mEmbedded;
-	private ListBox mNetSelector;
+	private boolean mEmbedded = false;
+	private ListBox mNetSelector = null;
+	private HTML mEmbedLabel = null;
+	private HTML mSimplePopupContents = null;
+	private Integer mHeight;
+	private Integer mWidth;
 
-	public PieCharter( Application app, boolean embedded ) {
+	public PieCharter( Application app, boolean embedded, Integer width, Integer height ) {
 		mApp = app;
 		mTabPanel = new TabLayoutPanel(0,Unit.PX);
-		mTabPanel.setHeight("305px");
-		mTabPanel.setWidth("325px");
+		mHeight = height;
+		mWidth = width;
+		mTabPanel.setHeight((mHeight-20)+"px");
+		mTabPanel.setWidth((mWidth-5)+"px");
 		mTabPanel.setStylePrimaryName("obudget-piechart");	
 		
 		mPanel = new VerticalPanel();
@@ -132,21 +139,17 @@ class PieCharter extends Composite {
 		mPanel.add(hPanel);
 
 		mEmbedded = embedded;
-		HTML embedLabel = null;
+		mEmbedLabel = new HTML("");
 		if ( mEmbedded ) {
-			embedLabel = new HTML("מ<a target='_blank' href='http://"+Window.Location.getHost()+"'>אתר התקציב הפתוח</a>");
+			mEmbedLabel.setHTML("מ<a target='_blank' href='http://"+Window.Location.getHost()+"'>אתר התקציב הפתוח</a>");
 			
 		} else {
-			embedLabel = new HTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");
-			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
-							   		   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
-							   		   "&quot;>" +
-							   "</iframe>";
-			
+			mEmbedLabel.setHTML("<span class='embed-link'>שיבוץ התרשים באתר אחר (embed)<span>");			
 			final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
-			HTML simplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
-			simplePopup.setWidget( simplePopupContents );
-			embedLabel.addClickHandler( new ClickHandler() {			
+			String embedCode = "";
+			mSimplePopupContents = new HTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
+			simplePopup.setWidget( mSimplePopupContents );
+			mEmbedLabel.addClickHandler( new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
 		            Widget source = (Widget) event.getSource();
@@ -157,7 +160,7 @@ class PieCharter extends Composite {
 				}
 			});
 		}
-		mPanel.add( embedLabel );
+		mPanel.add( mEmbedLabel );
 		
 		initWidget(mPanel);
 	}
@@ -168,6 +171,15 @@ class PieCharter extends Composite {
 	}
 	
 	private void redrawChart() {
+
+		if ( !mEmbedded ) {
+			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
+							   "src=&quot;http://" + Window.Location.getHost() + "/embed_pie.html" + Window.Location.getHash() +
+							   "&quot;>" +
+							   "</iframe>";			
+			mSimplePopupContents.setHTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");
+		}
+
 	    mTabPanel.clear();
 
 	    // mList contains header row (which we disregard) and sub items 
@@ -182,8 +194,8 @@ class PieCharter extends Composite {
 		Application.getInstance().stateChanged();
 
 		Options	options = Options.create();
-		options.setWidth(340);
-		options.setHeight(305);
+		options.setWidth(mWidth-5);
+		options.setHeight(mHeight-40);
 		options.set3D(true);	
 		options.setLegend(LegendPosition.BOTTOM);
 		if ( mEmbedded ) {
@@ -262,7 +274,7 @@ class PieCharter extends Composite {
 	    PieChart piechartRevised = new PieChart( data[1], options );
 	    PieChart piechartUsed = new PieChart( data[2], options );
 
-		mTabPanel.setWidth("325px");   
+		mTabPanel.setWidth((mWidth-5)+"px");   
 	    mTabPanel.add(piechartAllocated,"הקצאה");
 		mTabPanel.add(piechartRevised,"הקצאה מעודכנת");
 		mTabPanel.add(piechartUsed,"שימוש");
@@ -270,11 +282,16 @@ class PieCharter extends Composite {
 
 	public void setState(Integer pieChartDataType, Integer pieChartNet) {
 		//mNetButton.setDown( pieChartNet == 1 );
+		Log.info("PieCharter::setState pieChartDataType="+pieChartDataType+" pieChartNet="+pieChartNet);
 		mNetSelector.setSelectedIndex( pieChartNet );
 		mAllocatedButton.setDown( pieChartDataType == 0 );
 		mRevisedButton.setDown( pieChartDataType == 1 );
 		mUsedButton.setDown( pieChartDataType == 2 );
 		redrawChart();
+		if ( mTabPanel.getWidgetCount() > 0 ) { 
+			Log.debug("PieCharter::setState mTabPanel="+mTabPanel+" #tabs="+mTabPanel.getWidgetCount());
+			mTabPanel.selectTab( pieChartDataType );
+		}
 	}
 
 	public String getState() {
