@@ -228,7 +228,7 @@ class TimeLineCharter extends Composite {
 		
 		if ( !mEmbedded ) {
 			String embedCode = "<iframe scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;width: 390px; height: 350px&quot; " +
-							   "src=&quot;http://" + Window.Location.getHost() + "/embed_time.html" + Window.Location.getHash() +
+							   "src=&quot;http://" + Window.Location.getHost() + "/embed_time.html?w=390&amp;h=350" + Window.Location.getHash() +
 	   		   		           "&quot;>" +
 	   		   		           "</iframe>";
 			mSimplePopupContents.setHTML( "<b>קוד HTML לשיבוץ התרשים באתר אחר:</b><textarea rows='3' cols='40' style='direction: ltr;'>"+embedCode+"</textarea>");

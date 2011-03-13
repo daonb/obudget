@@ -85,7 +85,7 @@ class Application implements ValueChangeHandler<String> {
 		
 		mBreadcrumbs = new HTML("");
 		mBreadcrumbs.setHeight("20px");
-		mBreadcrumbs.setWidth("700px");
+		mBreadcrumbs.setWidth("100%");
 		
 		mYearSelection = new ListBox();
 		mYearSelection.addChangeHandler( new ChangeHandler() {
@@ -93,7 +93,13 @@ class Application implements ValueChangeHandler<String> {
 			public void onChange(ChangeEvent event) {
 				Integer index = mYearSelection.getSelectedIndex();
 				String yearStr = mYearSelection.getItemText(index);
-				Integer year = Integer.parseInt(yearStr);
+				Integer year;
+				try {
+					year = Integer.parseInt(yearStr);
+				} catch (Exception e) {
+					yearStr = yearStr.split(" ")[0];					
+					year = Integer.parseInt(yearStr);
+				}
 				selectYear(year);
 			}
 		});
@@ -229,8 +235,12 @@ class Application implements ValueChangeHandler<String> {
 				if ( revisedSumType != null ) {
 					if ( ( firstResult.get(revisedSumType) != null ) && 
 						   firstResult.get(revisedSumType).isNumber() != null ) {
-						revisedSum = (int) firstResult.get(revisedSumType).isNumber().doubleValue();				
-						mSummary2.setText( NumberFormat.getDecimalFormat().format(revisedSum)+",000" );
+						revisedSum = (int) firstResult.get(revisedSumType).isNumber().doubleValue();
+						if ( revisedSum != 0 ) {
+							mSummary2.setText( NumberFormat.getDecimalFormat().format(revisedSum)+",000" );
+						} else {
+							mSummary2.setText( "0" );
+						}
 						mSummary2_1.setText( (revisedSumType.startsWith("net") ? " (נטו)" : "") );
 					} else {
 						revisedSum = null;
@@ -242,6 +252,7 @@ class Application implements ValueChangeHandler<String> {
 				}
 				
 				mSummary3.setHTML("");							
+				mSummary3_1.setHTML("");							
 				if ( firstResult.get("parent") != null ) {
 					JSONArray parents = firstResult.get("parent").isArray();	
 					if ( parents.size() > 0 ) {
@@ -258,8 +269,8 @@ class Application implements ValueChangeHandler<String> {
 								if ( (data.get(0).isObject().get(revisedSumType) != null) && 
 									 (data.get(0).isObject().get(revisedSumType).isNumber() != null) ) {
 									double percent = revisedSum / data.get(0).isObject().get(revisedSumType).isNumber().doubleValue();
-									mSummary3.setHTML( NumberFormat.getPercentFormat().format(percent) );
-									mSummary3_1.setHTML( "<a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
+									mSummary3.setHTML( "שהם " + NumberFormat.getPercentFormat().format(percent) );
+									mSummary3_1.setHTML( "מתקציב <a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
 								}
 							}
 						});
@@ -302,16 +313,34 @@ class Application implements ValueChangeHandler<String> {
 			public void onSuccess(JSONArray data) {
 				mHistoricBudgetLines.parseJson(data);
 
+				String lastLine = null;
+				boolean allEqual = true;
+				for ( BudgetLine bl : mHistoricBudgetLines ) {
+					if ( lastLine != null ) {
+						allEqual = allEqual && lastLine.equals(bl.getTitle());
+					}
+					lastLine = bl.getTitle();
+				}
+
 				mYearSelection.clear();
 				Integer selectedIndex = 0;
 				for ( BudgetLine bl : mHistoricBudgetLines ) {
 					String year = bl.getYear().toString();
-					mYearSelection.addItem( year );
 					if (year.equals( mYear.toString() )) {
+						mYearSelection.addItem( year );
 						selectedIndex = mYearSelection.getItemCount() - 1;
+					} else {
+						if ( allEqual ) {
+							mYearSelection.addItem( year );
+						} else {
+							mYearSelection.addItem( year + " - " + bl.getTitle() );							
+						}
 					}
 				}
 				mYearSelection.setSelectedIndex( selectedIndex );
+				if ( !allEqual ) {
+					mYearSelection.setWidth("55px");
+				}
 
 				mTimeLineCharter.handleData(mHistoricBudgetLines);				
 			}
