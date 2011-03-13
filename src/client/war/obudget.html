@@ -4,13 +4,13 @@
 <!-- "Standards Mode". Replacing this declaration  -->
 <!-- with a "Quirks Mode" doctype may lead to some -->
 <!-- differences in layout.                        -->
-
+</a>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>תקציב המדינה</title>
+    <title>התקציב הפתוח</title>
     <link href="media/favicon.ico" rel="icon" type="image/x-icon" />
-    <link type="text/css" rel="stylesheet" href="budget.css">
+    <link type="text/css" rel="stylesheet" href="obudget.css">
   	<script type="text/javascript">
   		  var _gaq = _gaq || [];
   		  _gaq.push(['_setAccount', 'UA-10203855-4']);
@@ -28,21 +28,27 @@
     <div id="main">
       <div id="header">
         <h1 id="logo" class="rep">פורטל השירותים והמידע הממשלתי - www.gov.il</h1>
-        <h2 id="budget_heading">תקציב המדינה</h2>
+        <div id="budget_heading">
+          <div id="dev_state"><img src="media/beta-stamp.png" alt="in beta"></div>
+          <h2 id="budget_logo"><a href="/">התקציב הפתוח</a></h2>
+        </div>
         <div id="search">
           <div id="obudget-searchbox"><strong>חפש בסעיפי תקציב</strong></div>
           <div id="obudget-cheatsheet"></div>
         </div>
       </div>
-      <div id="content">
         <div id="breadcrumbs">
           <div id="obudget-breadcrumbs"></div>
         </div>
+      <div id="content">
         <div id="summary">
           <div id="summary-lines">
             <div>
-              <div id="obudget-summary-1"></div>
+              <span>בשנת </span>
               <div id="obudget-year-selection"></div>
+              <div>תקציב</div>
+              <div id="obudget-summary-1"></div>
+              <div>היה</div>
               <div id="obudget-summary-2"></div>
               <div>&#x20aa;</div>
               <div id="obudget-summary-2-1"></div>
@@ -77,14 +83,14 @@
       </div>   
       <div id="footer">
         <p class="col right">
-          פותח על ידי אדם קריב ו<a href="https://github.com/hasadna/obudget/blob/master/AUTHORS.rst">אחרים</a> מ <a href="http://yeda.us" title="הסדנא לידע ציבורי" target="_blank">הסדנא לידע ציבורי</a>.<br />
+          פותח על ידי אדם קריב ו<a href="https://github.com/hasadna/obudget/blob/master/AUTHORS.rst">אחרים</a> מ <a href="http://yeda.us" title="הסדנא לידע ציבורי" target="_blank">הסדנא לידע ציבורי</a><br />
           בתמיכת השר המופקד על <a href="http://msh.gov.il" title="ממשלה שלום">שיפור השירות הממשלתי לציבור</a><br />
           הנתונים באדיבות <a href="http://www.ag.mof.gov.il/">אתר החשב הכללי</a>
         </p>
         <p class="col left">
-          פותח על ידי אדם קריב ונתונים גולמיים, API וקוד מקור ניתן למצוא <a href="https://github.com/hasadna/obudget">כאן</a><br />
-          בתמיכת השר המופקד עלהמידע משותף תחת <a href="http://creativecommons.org/licenses/by/2.5/il/">רשיון ייחוס</a><br />
-          הנתונים באדיבותמצאתם תקלה? יש הצעה לשיפור? <a href="https://track.nsa.co.il/projects/obudget/issues">דווחו</a> לנו!
+          נתונים גולמיים, API וקוד מקור ניתן למצוא <a href="https://github.com/hasadna/obudget">כאן</a><br />
+          משותף תחת <a href="http://creativecommons.org/licenses/by/2.5/il/">רשיון ייחוס</a><br />
+          מצאתם תקלה? יש הצעה לשיפור? <a href="https://track.nsa.co.il/projects/obudget/issues">דווחו</a> לנו!
         </p>
         <span class="clr">&nbsp;</span>
       </div>
