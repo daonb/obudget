@@ -12,6 +12,7 @@ Designers
 * `Everaldo Coelho`_ - old logo
 * `memoryboy`_ - logo
 * Mushon Zer Aviv
+* Yael Golan
 
 .. _`memoryboy`: http://memoryboy.deviantart.com/
 .. _`Everaldo Coelho`: http://www.everaldo.com/
