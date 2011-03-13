@@ -5,6 +5,10 @@ body{
   background:#fff;
 }
 
+body > div { 
+	direction: rtl;
+}
+
 /** HTML elements **/
 h1,h2,h3,h4,h5,h6{
   margin:0;
@@ -99,6 +103,15 @@ a:hover{
   padding-right:15px;
 }
 
+#obudget-cheatsheet, .embed-link{
+  text-decoration:none;
+  cursor:pointer;
+}
+
+#obudget-detailed-results{
+  overflow:clip;
+}
+
 #content{
   min-height:460px;
 }
@@ -121,6 +134,11 @@ a:hover{
   color: #333;
   font: normal 19px/36px Arial;
   padding-bottom: 5px;
+}
+
+#obudget-summary-1 .gwt-Label, 
+#obudget-summary-2 {
+  font-weight: bold;
 }
 
 #charts{
@@ -200,3 +218,44 @@ a:hover{
   float:left;
 }
 
+.gwt-TabLayoutPanel,
+.gwt-TabLayoutPanelContent {
+  border-style:none;
+}
+
+.resultgrid-header-row td {
+  border-bottom:3px double black;
+  border-collapse:collapse;
+  text-align:center;
+}
+
+.resultgrid-totals-row td {
+  border-bottom:1px solid black;
+  border-collapse:collapse;
+}
+
+.resultgrid-data {
+  text-align:center;
+  white-space:nowrap;
+  direction:ltr;
+  border-right:solid 1px;
+  padding-right:2px;
+  padding-left:2px;
+}
+
+.resultgrid-data-row .resultgrid-title {
+  padding-right:2px;
+}
+
+.resultgrid-header {
+  font-weight:bold;
+}
+-
+.gwt-TabLayoutPanelTab {
+   float:right;
+}
+
+.gsc-branding {
+  direction:ltr;
+  float:left;
+}
