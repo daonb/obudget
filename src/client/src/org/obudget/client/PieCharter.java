@@ -82,9 +82,12 @@ class PieCharter extends Composite {
 //			}
 //		});
 		mAllocatedButton = new ToggleButton("הקצאה");
+		mAllocatedButton.setWidth("50px");
 		mAllocatedButton.setDown(true);
 		mRevisedButton = new ToggleButton("הקצאה מעודכנת");
+		mRevisedButton.setWidth("100px");
 		mUsedButton = new ToggleButton("שימוש");
+		mUsedButton.setWidth("50px");
 		mAllocatedButton.addClickHandler( new ClickHandler() {	
 			@Override
 			public void onClick(ClickEvent event) {

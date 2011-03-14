@@ -140,7 +140,7 @@ class Application implements ValueChangeHandler<String> {
 		
 		mCheatSheet = new HTML("(הסברים)");
 		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
-		simplePopup.setWidth("400px");
+		simplePopup.setWidth("450px");
 		HTML simplePopupContents = new HTML( "<h4>מונחון מקוצר</h4>"+
 											 "<lu>"+
 											 "<li><b>נטו</b>: <u>תקציב הוצאה נטו</u> – הסכום המותר להוצאה בשנה כלשהי כפי שמפורט בחוק התקציב. תקציב זה מכונה גם \"תקציב המזומנים\".</li>"+
@@ -154,7 +154,11 @@ class Application implements ValueChangeHandler<String> {
 											 "<br/>"+
 											 "<i>לחץ מחוץ לחלונית זו לסגירתה</i>"+
 											 "<br/>"+
-											 "מקור: <a href='http://www.knesset.gov.il/mmm/data/docs/m02217.doc' target='_blank'>מסמך Word ממחלקת המחקר של הכנסת</a>");
+											 "מקור: <a href='http://www.knesset.gov.il/mmm/data/docs/m02217.doc' target='_blank'>מסמך Word ממחלקת המחקר של הכנסת</a>" +
+											 "<p><b>התקציב הפתוח הוא פרויקט התנדבותי של עמותת 'הסדנא לידע ציבורי'. הנתונים המופיעים"+
+											 " בתקציב הפתוח נסמכים על פרסומי המדינה ואינם באים לשקף כל דעה שהיא. אין לסדנא לידע ציבורי"+
+											 " כל אחריות על השימוש בפרויקט וראוי לבדוק את הנתונים לגופם במקורותיהם לפני הסתמכות עליהם.</b></p>"
+		);
 		simplePopupContents.setStyleName("obudget-cheatsheet-popup");
 		simplePopup.setWidget( simplePopupContents );
 		mCheatSheet.addClickHandler( new ClickHandler() {			
