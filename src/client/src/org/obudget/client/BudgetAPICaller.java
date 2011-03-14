@@ -7,10 +7,31 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootPanel;
 
 class BudgetAPICaller extends JsonpRequestBuilder {
 	private UrlBuilder url;
+	static Integer mNumPending = 0;
 
+	private void setLoading(boolean loading) {
+		RootPanel.get("loading-indicator").setVisible(loading);
+	}
+	
+	private void increasePending() {
+		if ( mNumPending == 0 ) {
+			setLoading(true);
+		}
+		mNumPending++;
+	}
+	
+	private void decreasePending() {
+		mNumPending--;
+		if ( mNumPending == 0 ) {
+			setLoading(false);
+		}		
+	}
+
+	
 	public BudgetAPICaller() {
 		url = new UrlBuilder();
 		url.setHost(Window.Location.getHost());
@@ -32,9 +53,11 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 	
 	public void go( final BudgetAPICallback callback ) {
 		final String urlStr = url.buildString();
+		increasePending();
 		requestObject(urlStr, new AsyncCallback<JavaScriptObject>() {
 			@Override
 			public void onSuccess(JavaScriptObject result) {
+				decreasePending();
 				Log.info("BudgerAPICaller::onSuccess url="+urlStr+" -result="+result);
 				JSONArray array = new JSONArray(result);
 				if ( array != null ) {
@@ -46,6 +69,7 @@ class BudgetAPICaller extends JsonpRequestBuilder {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				decreasePending();
 				//Window.alert("Failed to access API: "+caught.getMessage());
 			}
 			

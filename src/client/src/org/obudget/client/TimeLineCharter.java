@@ -50,7 +50,7 @@ class TimeLineCharter extends Composite {
 		mHeight = height;
 		
 		mInfButton = new ToggleButton("ריאלי");
-		mInfButton.setWidth("30px");
+		mInfButton.setWidth("50px");
 		mInfButton.setDown(true);
 		mInfButton.addClickHandler( new ClickHandler() {
 			@Override
@@ -66,7 +66,7 @@ class TimeLineCharter extends Composite {
 		});
 
 		mOrigButton = new ToggleButton("נומינלי");
-		mOrigButton.setWidth("30px");
+		mOrigButton.setWidth("50px");
 		mOrigButton.addClickHandler( new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -81,7 +81,7 @@ class TimeLineCharter extends Composite {
 		});
 
 		mPercentButton = new ToggleButton("יחסי");
-		mPercentButton.setWidth("30px");
+		mPercentButton.setWidth("50px");
 		mPercentButton.setTitle("אחוז מכלל התקציב באותה שנה");
 		mPercentButton.addClickHandler( new ClickHandler() {
 			@Override
@@ -98,7 +98,7 @@ class TimeLineCharter extends Composite {
 		
 		mDataTypePanel = new HorizontalPanel();
 		mChartTitle = new Label("");
-		mChartTitle.setWidth((mWidth-130)+"px");
+		mChartTitle.setWidth((mWidth-160)+"px");
 		mDataTypePanel.add(mChartTitle);
 		mDataTypePanel.add(mInfButton);
 		mDataTypePanel.add(mOrigButton);
