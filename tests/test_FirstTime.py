@@ -19,7 +19,6 @@ class FirstTime(FunkLoadTestCase):
         """Setting up test."""
         self.logd("setUp")
         self.server_url = self.conf_get('main', 'url')
-        self.setBasicAuth('guest', 'powertothepeople')
         # XXX here you can setup the credential access like this
         # credential_host = self.conf_get('credential', 'host')
         # credential_port = self.conf_getInt('credential', 'port')
@@ -34,6 +33,7 @@ class FirstTime(FunkLoadTestCase):
         # begin of test ---------------------------------------------
 
         # /var/folders/Dl/DllYbarwFamPLNFQgI6D0U+++TI/-Tmp-/tmpMAvg2J_funkload/watch0001.request
+        self.setBasicAuth('guest', 'powertothepeople')
         self.get(server_url + "/",
             description="Get /")
         # /var/folders/Dl/DllYbarwFamPLNFQgI6D0U+++TI/-Tmp-/tmpMAvg2J_funkload/watch0010.request
