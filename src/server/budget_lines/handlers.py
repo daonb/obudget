@@ -1,7 +1,13 @@
+import re
+import json
+
+from django.http import HttpResponse
+from django.core.cache import cache
+
 from piston.resource import Resource
 from piston.handler import BaseHandler
+
 from budget_lines.models import BudgetLine
-from django.db.models.aggregates import Min
 
 DEFAULT_PAGE_LEN = 20
 def limit_by_request(qs, request):
@@ -97,5 +103,43 @@ class BudgetLineHandler(BaseHandler):
             l = l.containing_line
         return parent
 
-budget_line_handler= Resource(BudgetLineHandler)
+_budget_line_handler= Resource(BudgetLineHandler)
 
+jsonp_re = re.compile('callback=([^&]+)')
+
+def budget_line_handler(request,**kwargs):
+    fp = request.get_full_path()
+    
+    # normalize path so that jsonp callback is omitted
+    callback = jsonp_re.findall(fp)
+    if len(callback) == 0:
+        callback = None
+    else:
+        callback = callback[0]    
+    fp = jsonp_re.sub("callback=",fp)
+    
+    # hit cache
+    value = cache.get(fp)
+    if value == None:
+        # no luck, call the original handler
+        response =  _budget_line_handler(request,**kwargs)
+        
+        # store the results in the cache
+        status = response.status_code
+        content = response.content
+        content_type = response.get("Content-Type","text/html")
+        value = json.dumps([status,content_type,content,callback])
+        cache.set(fp,value)
+        
+        return response
+    else:
+        # load the response from the cache
+        status,content_type,content,orig_callback = json.loads(value)
+        
+        # modify the response to match the correct jsonp callback
+        if orig_callback != None:
+            if content.startswith(orig_callback):
+                content = content.replace(orig_callback,callback,1)
+        
+        # return new http response
+        return HttpResponse(status=status,content=content,content_type=content_type)
