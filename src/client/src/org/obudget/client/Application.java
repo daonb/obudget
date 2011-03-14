@@ -267,7 +267,8 @@ class Application implements ValueChangeHandler<String> {
 							@Override
 							public void onSuccess(JSONArray data) {
 								if ( (data.get(0).isObject().get(revisedSumType) != null) && 
-									 (data.get(0).isObject().get(revisedSumType).isNumber() != null) ) {
+									 (data.get(0).isObject().get(revisedSumType).isNumber() != null) &&
+									 (data.get(0).isObject().get(revisedSumType).isNumber().doubleValue() > 0) ) {
 									double percent = revisedSum / data.get(0).isObject().get(revisedSumType).isNumber().doubleValue();
 									mSummary3.setHTML( "שהם " + NumberFormat.getPercentFormat().format(percent) );
 									mSummary3_1.setHTML( "מתקציב <a href='#"+hashForCode(parentCode)+"'>"+parentTitle+"</a>");
