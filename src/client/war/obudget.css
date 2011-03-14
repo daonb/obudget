@@ -77,6 +77,11 @@ a:hover{
   margin-bottom:10px;
 }
 
+#loading-indicator {
+	float:left;
+	padding-top:5px;
+}
+
 #logo{
   height:72px;
   background-image:url('media/gov-il-logo.jpg');
